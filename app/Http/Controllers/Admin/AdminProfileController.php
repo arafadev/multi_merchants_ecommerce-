@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 use App\Traits\UploadPhotoTrait;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\Admin\Profile\AdminProfileRequest;
+use App\Http\Requests\Admin\Profile\ChangePasswordRequest;
 
 class AdminProfileController extends Controller
 {
@@ -36,4 +38,27 @@ class AdminProfileController extends Controller
 
         return redirect()->back()->with($notification);
     }
+
+    public function changePassword()
+    {
+        return view('admin.profile.change_password');
+    }
+
+    public function adminUpdatePassword(ChangePasswordRequest $request)
+    {
+        if (!Hash::check($request->old_password, auth::user()->password)) {
+            return back()->with("error", "Old Password Doesn't Match!!");
+        }
+        Admin::findOrFail(auth()->user()->id)->update([
+            'password' => Hash::make($request->new_password)
+        ]);
+        $notification = array(
+            'message' => 'Admin Password Updated Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
+    }
+
+    
 }
