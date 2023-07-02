@@ -22,13 +22,14 @@ class UserFactory extends Factory
     {
             return [
                 'name' => 'User' . ' ' . Str::random(10),
+                'username' => 'admin' . rand(1,10),
                 'email' => Str::random(10) . '@gmail.com',
                 'email_verified_at' => now(),
                 'password' => Hash::make('user'),
                 'phone' => fake()->phoneNumber,
                 'address' => fake()->address(),
                 'status' =>fake()->randomElement(User::$status),
-                'photo' => 'no_image.jpg',
+                'photo' => 'upload/no_image.jpg',
                 'remember_token' => Str::random(10),
             ];
 

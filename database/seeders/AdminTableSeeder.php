@@ -19,12 +19,13 @@ class AdminTableSeeder extends Seeder
     {
         Admin::create([
             'name' => 'Master Admin',
+            'username' => 'admin' . 1,
             'email' => 'admin@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('admin'),
             'phone' => fake()->phoneNumber,
             'address' => fake()->address,
-            'photo' => 'no_image.jpg',
+            'photo' => 'upload/no_image.jpg',
             'remember_token' => Str::random(10),
         ]);
         Admin::factory()->count(10)->create();

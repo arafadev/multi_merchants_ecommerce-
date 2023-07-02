@@ -19,13 +19,14 @@ class UserTableSeeder extends Seeder
 
         User::create([
             'name' => 'Master User',
+            'username' => 'user' . 1,
             'email' => 'user@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('user'),
             'phone' => fake()->phoneNumber,
             'address' => fake()->address,
             'status' => fake()->randomElement(User::$status),
-            'photo' => 'no_image.jpg',
+            'photo' => 'upload/no_image.jpg',
             'remember_token' => Str::random(10),
         ]);
 

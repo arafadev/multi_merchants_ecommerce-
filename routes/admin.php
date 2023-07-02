@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\Auth\AdminLoginController;
+use App\Http\Controllers\Admin\AdminProfileController;
+use App\Http\Controllers\Admin\AdminDashboardController;
 
 Route::group(['prefix' => 'admin', 'middleware' => 'guest:admin'], function () {
     Route::get('login', [AdminLoginController::class, 'getLogin'])->name('admin.login.form');
@@ -11,6 +12,17 @@ Route::group(['prefix' => 'admin', 'middleware' => 'guest:admin'], function () {
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
     Route::get('dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
-    Route::get('logout', [AdminLoginController::class, 'logout'])->name('admin.logout');
-});
+    Route::get('profile', [AdminProfileController::class, 'adminProfile'])->name('admin.profile');
+    Route::get('profile', [AdminProfileController::class, 'adminProfile'])->name('admin.profile');
+    Route::post('profile/update', [AdminProfileController::class, 'adminProfileUpdate'])->name('admin.profile.update');
 
+
+
+
+
+
+
+
+
+    Route::get('logout', [AdminProfileController::class, 'logout'])->name('admin.logout');
+});

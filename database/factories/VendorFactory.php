@@ -21,14 +21,16 @@ class VendorFactory extends Factory
     {
         return [
             'name' => 'Vendor' . ' ' . Str::random(10),
+            'username' => 'vendor' . rand(1, 10),
             'email' => Str::random(10) . '@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('vendor'),
             'phone' => fake()->phoneNumber(),
             'address' => fake()->address(),
             'vendor_short_info' => fake()->paragraphs(1, true),
-            'vendor_join' => fake()->dateTimeBetween('-5 years', 'now')->format('Y-m-d'),            'status' => fake()->randomElement(Vendor::$status),
-            'photo' => 'no_image.jpg',
+            'vendor_join' => fake()->dateTimeBetween('-5 years', 'now')->format('Y-m-d'),
+            'status' => fake()->randomElement(Vendor::$status),
+            'photo' => 'upload/no_image.jpg',
             'remember_token' => Str::random(10),
         ];
     }

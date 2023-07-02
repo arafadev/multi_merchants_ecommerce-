@@ -20,12 +20,13 @@ class AdminFactory extends Factory
     {
         return [
             'name' => 'Admin' . ' ' . Str::random(10),
+            'username' => 'admin' . rand(1, 10),
             'email' => Str::random(10) . '@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('admin'),
             'phone' => fake()->phoneNumber,
             'address' => fake()->address,
-            'photo' => 'no_image.jpg',
+            'photo' => 'upload/no_image.jpg',
             'remember_token' => Str::random(10),
         ];
     }

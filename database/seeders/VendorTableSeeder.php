@@ -19,6 +19,7 @@ class VendorTableSeeder extends Seeder
     {
         Vendor::create([
             'name' => 'Master Vendor',
+            'username' => 'vendor' . 1,
             'email' => 'vendor@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('vendor'),
@@ -27,7 +28,7 @@ class VendorTableSeeder extends Seeder
             'vendor_join' => '2022-07-1',
             'vendor_short_info' => fake()->paragraphs(1, true),
             'status' => fake()->randomElement(Vendor::$status),
-            'photo' => 'no_image.jpg',
+            'photo' => 'upload/no_image.jpg',
             'remember_token' => Str::random(10),
         ]);
         Vendor::factory()->count(10)->create();
