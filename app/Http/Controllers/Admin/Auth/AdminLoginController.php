@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Auth\AdminLoginRequest;
+use Illuminate\Support\Facades\Auth;
 
 class AdminLoginController extends Controller
 {
@@ -18,7 +19,15 @@ class AdminLoginController extends Controller
         if (auth()->guard('admin')->attempt(['email' => $request->input('email'), 'password' => $request->input('password')])) {
             return redirect()->route('admin.dashboard');
         } else {
-            return 'email or password is incorrect';
+            return redirect()->back()->withErrors(['login' => 'Invalid email or password.']);
         }
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::guard('admin')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('admin/login');
     }
 }

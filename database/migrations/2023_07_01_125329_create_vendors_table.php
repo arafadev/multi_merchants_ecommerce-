@@ -22,6 +22,8 @@ return new class extends Migration
             $table->string('password');
             $table->string('photo')->nullable();
             $table->string('phone', 20)->nullable();
+            $table->string('vendor_join')->nullable();
+            $table->text('vendor_short_info')->nullable();
             $table->text('address')->nullable();
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->rememberToken();

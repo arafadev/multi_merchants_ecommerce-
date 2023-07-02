@@ -24,6 +24,8 @@ class VendorTableSeeder extends Seeder
             'password' => Hash::make('vendor'),
             'phone' => fake()->phoneNumber,
             'address' => fake()->address,
+            'vendor_join' => '2022-07-1',
+            'vendor_short_info' => fake()->paragraphs(1, true),
             'status' => fake()->randomElement(Vendor::$status),
             'photo' => 'no_image.jpg',
             'remember_token' => Str::random(10),
