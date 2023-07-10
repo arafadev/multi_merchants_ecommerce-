@@ -1,11 +1,11 @@
-@extends('admin.master')
+@extends('vendor.master')
 @section('title', 'Change Password')
 @section('content')
 
     <div class="page-content">
         <!--breadcrumb-->
         <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-            <div class="breadcrumb-title pe-3">Admin Change Password</div>
+            <div class="breadcrumb-title pe-3">Vendor Change Password</div>
             <div class="ps-3">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb mb-0 p-0">
@@ -28,7 +28,7 @@
                         <div class="card">
                             <div class="card-body">
 
-                                <form method="post" action="{{ route('admin.update.password') }}">
+                                <form method="post" action="{{ route('vendor.update.password') }}">
                                     @csrf
                                     <div class="row mb-3">
                                         <div class="col-sm-3">

@@ -17,7 +17,11 @@ class AdminLoginController extends Controller
     public function login(AdminLoginRequest $request)
     {
         if (auth()->guard('admin')->attempt(['email' => $request->input('email'), 'password' => $request->input('password')])) {
-            return redirect()->route('admin.dashboard');
+            $notification = array(
+                'message' => 'Admin Login Successfully',
+                'alert-type' => 'success'
+            );
+            return redirect()->route('admin.dashboard')->with($notification);
         } else {
             return redirect()->back()->withErrors(['login' => 'Invalid email or password.']);
         }

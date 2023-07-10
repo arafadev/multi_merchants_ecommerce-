@@ -18,13 +18,5 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
     Route::get('change/password', [AdminProfileController::class, 'changePassword'])->name('admin.change.password');
     Route::post('update/password', [AdminProfileController::class, 'adminUpdatePassword'])->name('admin.update.password');
 
-
-
-
-
-
-
-
-
     Route::get('logout', [AdminLoginController::class, 'logout'])->name('admin.logout');
 });

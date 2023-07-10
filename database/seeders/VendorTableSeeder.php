@@ -23,7 +23,7 @@ class VendorTableSeeder extends Seeder
             'email' => 'vendor@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('vendor'),
-            'phone' => fake()->phoneNumber,
+            'phone' => '123456789',
             'address' => fake()->address,
             'vendor_join' => '2022-07-1',
             'vendor_short_info' => fake()->paragraphs(1, true),

@@ -23,7 +23,7 @@ class AdminTableSeeder extends Seeder
             'email' => 'admin@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('admin'),
-            'phone' => fake()->phoneNumber,
+            'phone' => '123456789',
             'address' => fake()->address,
             'photo' => 'upload/no_image.jpg',
             'remember_token' => Str::random(10),
