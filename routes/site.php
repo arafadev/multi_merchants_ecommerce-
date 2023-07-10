@@ -5,7 +5,7 @@ use App\Http\Controllers\Site\User\UserProfileController;
 use App\Http\Controllers\Site\User\Auth\UserLoginController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('site.index');
 });
 
 
