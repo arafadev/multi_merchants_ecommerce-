@@ -25,4 +25,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
     Route::get('brands', [BrandController::class, 'brands'])->name('brands');
     Route::get('brand/add', [BrandController::class, 'addBrand'])->name('brand.add');
     Route::post('brand/store', [BrandController::class, 'storeBrand'])->name('brand.store');
+    Route::get('brand/edit/{id}', [BrandController::class, 'editBrand'])->name('brand.edit');
+    Route::post('brand/update/{id}', [BrandController::class, 'updateBrand'])->name('brand.update');
+    Route::get('brand/delete/{id}', [BrandController::class, 'deleteBrand'])->name('brand.delete');
+    Route::post('brand/store', [BrandController::class, 'storeBrand'])->name('brand.store');
 });
