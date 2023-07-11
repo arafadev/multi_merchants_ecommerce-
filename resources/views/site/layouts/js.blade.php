@@ -44,6 +44,5 @@
          }
      @endif
  </script>
- @yield('js')
 
  @yield('js')

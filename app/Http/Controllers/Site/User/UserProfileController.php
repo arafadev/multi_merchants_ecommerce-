@@ -31,11 +31,11 @@ class UserProfileController extends Controller
         $data = $request->validated();
         $data['photo'] = $filename;
         User::findOrFail(Auth::id())->update($data);
-        $notification = array(
-            'message' => 'User Profile Updated Successfully',
-            'alert-type' => 'success'
-        );
+        $response = [
+            'success' => true,
+            'message' => 'User Profile Updated Successfully'
+        ];
 
-        return redirect()->back()->with($notification);
+        return response()->json($response);
     }
 }

@@ -198,9 +198,12 @@
                                     </div>
                                     <div class="card-body">
 
-                                        <form method="POST" name="enq" action="{{ route('profile.update') }}"
+                                        <form id="profile-form" method="POST" action="{{ route('profile.update') }}"
                                             enctype="multipart/form-data">
                                             @csrf
+
+
+
                                             <div class="row">
                                                 <div class="form-group col-md-6">
                                                     <label>User Name <span class="required">*</span></label>
@@ -263,6 +266,35 @@
 
 @section('js')
 <script type="text/javascript">
+    $(document).ready(function() {
+        $('#profile-form').on('submit', function(e) {
+            e.preventDefault();
+
+            // Get the form data
+            var formData = new FormData(this);
+
+            // Send the AJAX request
+            $.ajax({
+                type: 'POST',
+                url: $(this).attr('action'),
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(data) {
+                    // console.log(data);
+                    toastr.success(data.message, 'Success');
+                },
+                error: function(xhr, status, error) {
+                    console.log(xhr.responseText);
+                    toastr.error('An error occurred while updating user profile.',
+                    'Error'); 
+                }
+            });
+        });
+    });
+
+
     $(document).ready(function() {
         $('#image').change(function(e) {
             var reader = new FileReader();
