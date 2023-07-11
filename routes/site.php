@@ -21,6 +21,7 @@ Route::group(['prefix' => '/', 'middleware' => 'guest:web'], function () {
 Route::group(['prefix' => 'user', 'middleware' => 'auth:web'], function () {
     Route::get('profile', [UserProfileController::class, 'index'])->name('user.profile');
     Route::post('profile/update', [UserProfileController::class, 'profileUpdate'])->name('profile.update');
+    Route::post('password/update', [UserProfileController::class, 'passwordUpdate'])->name('password.update');
     Route::get('logout', [UserLoginController::class, 'logout'])->name('user.logout');
 
 });

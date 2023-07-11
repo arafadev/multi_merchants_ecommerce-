@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Site\User;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Traits\UploadPhotoTrait;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\Site\User\Profile\ProfileUpdateRequest;
-use App\Traits\UploadPhotoTrait;
+use App\Http\Requests\Site\User\Profile\ChangePasswordRequest;
 
 class UserProfileController extends Controller
 {
@@ -35,6 +37,26 @@ class UserProfileController extends Controller
             'success' => true,
             'message' => 'User Profile Updated Successfully'
         ];
+
+        return response()->json($response);
+    }
+
+    public function passwordUpdate(ChangePasswordRequest $request)
+    {
+        if (!Hash::check($request->old_password, auth()->user()->password)) {
+            $response = [
+                'alert-type' => 'error',
+                'message' => 'Password is incorrect!'
+            ];
+        } else {
+            User::findOrFail(auth()->user()->id)->update([
+                'password' => Hash::make($request->new_password)
+            ]);
+            $response = [
+                'alert-type' => 'success',
+                'message' => 'User Password Updated Successfully'
+            ];
+        }
 
         return response()->json($response);
     }
