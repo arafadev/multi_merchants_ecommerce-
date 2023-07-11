@@ -1,8 +1,6 @@
 @extends('site.master')
 @section('title', 'Home')
-@section('css')
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
-@endsection
+
 @section('main')
     @include('site.parts.slider')
 
@@ -17,8 +15,6 @@
     @include('site.parts.new_product')
 
     <!--Products Tabs-->
-
-
 
     @include('site.parts.features_product')
 
@@ -1131,8 +1127,8 @@
                                         </a>
                                     </div>
                                     <div class="product-action-1">
-                                        <a aria-label="Add To Wishlist" class="action-btn"
-                                            href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
+                                        <a aria-label="Add To Wishlist" class="action-btn" href="shop-wishlist.html"><i
+                                                class="fi-rs-heart"></i></a>
                                         <a aria-label="Compare" class="action-btn" href="shop-compare.html"><i
                                                 class="fi-rs-shuffle"></i></a>
                                         <a aria-label="Quick view" class="action-btn" data-bs-toggle="modal"
@@ -8226,27 +8222,4 @@
     @include('site.parts.vendor_list')
 
     <!--End Vendor List -->
-@endsection
-@section('js')
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-
-    <script>
-        @if (Session::has('message'))
-            var type = "{{ Session::get('alert-type', 'info') }}"
-            switch (type) {
-                case 'info':
-                    toastr.info(" {{ Session::get('message') }} ");
-                    break;
-                case 'success':
-                    toastr.success(" {{ Session::get('message') }} ");
-                    break;
-                case 'warning':
-                    toastr.warning(" {{ Session::get('message') }} ");
-                    break;
-                case 'error':
-                    toastr.error(" {{ Session::get('message') }} ");
-                    break;
-            }
-        @endif
-    </script>
 @endsection
