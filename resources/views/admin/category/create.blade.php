@@ -3,13 +3,13 @@
     <div class="page-content">
         <!--breadcrumb-->
         <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-            <div class="breadcrumb-title pe-3">Edit Brand </div>
+            <div class="breadcrumb-title pe-3">Add Category </div>
             <div class="ps-3">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb mb-0 p-0">
                         <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">Edit Brand </li>
+                        <li class="breadcrumb-item active" aria-current="page">Add Category </li>
                     </ol>
                 </nav>
             </div>
@@ -26,17 +26,16 @@
                         <div class="card">
                             <div class="card-body">
                                 <div id="validationErrors"></div>
-                                <form id="myForm" method="POST" action="{{ route('brand.update', $brand->id) }}"
+                                <form id="myForm" method="POST" action="{{ route('category.store') }}"
                                     enctype="multipart/form-data">
                                     @csrf
 
                                     <div class="row mb-3">
                                         <div class="col-sm-3">
-                                            <h6 class="mb-0">Brand Name</h6>
+                                            <h6 class="mb-0">Category Name</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
-                                            <input type="text" name="name" value="{{ $brand->name }}"
-                                                class="form-control" />
+                                            <input type="text" name="name" class="form-control" />
                                         </div>
 
 
@@ -45,7 +44,7 @@
 
                                     <div class="row mb-3">
                                         <div class="col-sm-3">
-                                            <h6 class="mb-0">Brand Image </h6>
+                                            <h6 class="mb-0">Category Image </h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
                                             <input type="file" name="image" class="form-control" id="image" />
@@ -59,8 +58,8 @@
                                             <h6 class="mb-0"> </h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
-                                            <img id="showImage" src="{{ asset('upload/brand_images/' . $brand->image) }}"
-                                                alt="Admin" style="width:100px; height: 100px;">
+                                            <img id="showImage" src="{{ url('upload/no_image.jpg') }}" alt="Admin"
+                                                style="width:100px; height: 100px;">
                                         </div>
                                     </div>
 
@@ -99,7 +98,7 @@
             });
         });
 
-        // store brand
+        // store category
         $(document).ready(function() {
             $('#myForm').on('submit', function(e) {
                 e.preventDefault();
@@ -142,12 +141,11 @@
                                 });
                             });
                         } else {
-                            toastr.error('An error occurred while updaded brand');
+                            toastr.error('An error occurred while store category');
                         }
                     }
                 });
             });
         });
-
     </script>
 @endsection

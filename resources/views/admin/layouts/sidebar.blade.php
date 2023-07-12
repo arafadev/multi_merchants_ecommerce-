@@ -24,18 +24,38 @@
             <ul>
                 <li> <a href="{{ route('brands') }}"><i class="bx bx-right-arrow-alt"></i>Brands</a>
                 </li>
-                <li> <a href="dashboard-eCommerce.html"><i class="bx bx-right-arrow-alt"></i>Add Brand </a>
+                <li> <a href="{{ route('brand.add') }}"><i class="bx bx-right-arrow-alt"></i>Add Brand </a>
                 </li>
 
             </ul>
         </li>
-        <li class="menu-label">UI Elements</li>
         <li>
-            <a href="widgets.html">
-                <div class="parent-icon"><i class='bx bx-cookie'></i>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i class="bx bx-category"></i>
                 </div>
-                <div class="menu-title">Widgets</div>
+                <div class="menu-title">Categories</div>
             </a>
+            <ul>
+                <li> <a href="{{ route('categories') }}"><i class="bx bx-right-arrow-alt"></i>Categories</a>
+                </li>
+                <li> <a href="{{ route('category.add') }}"><i class="bx bx-right-arrow-alt"></i>Add Category </a>
+                </li>
+
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i class="bx bx-category"></i>
+                </div>
+                <div class="menu-title">SubCategories</div>
+            </a>
+            <ul>
+                <li> <a href="{{ route('subcategories') }}"><i class="bx bx-right-arrow-alt"></i>SubCategories</a>
+                </li>
+                <li> <a href="{{ route('subcategory.add') }}"><i class="bx bx-right-arrow-alt"></i>Add SubCategory </a>
+                </li>
+
+            </ul>
         </li>
         <li>
             <a href="javascript:;" class="has-arrow">
