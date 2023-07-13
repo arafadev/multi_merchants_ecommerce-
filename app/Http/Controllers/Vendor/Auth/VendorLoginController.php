@@ -18,7 +18,7 @@ class VendorLoginController extends Controller
     {
         if (auth()->guard('vendor')->attempt(['email' => $request->input('email'), 'password' => $request->input('password')])) {
             $notification = array(
-                'message' => 'Admin Login Successfully',
+                'message' => 'Vendor Login Successfully',
                 'alert-type' => 'success'
             );
             return redirect()->route('vendor.dashboard')->with($notification);

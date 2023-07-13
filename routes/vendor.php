@@ -19,6 +19,5 @@ Route::group(['prefix' => 'vendor', 'middleware' => 'auth:vendor'], function () 
     Route::post('profile/update', [VendorProfileController::class, 'vendorProfileUpdate'])->name('vendor.profile.update');
     Route::get('change/password', [VendorProfileController::class, 'changePassword'])->name('vendor.change.password');
     Route::post('update/password', [VendorProfileController::class, 'vendorUpdatePassword'])->name('vendor.update.password');
-
     Route::get('logout', [VendorLoginController::class, 'logout'])->name('vendor.logout');
 });

@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\Auth\AdminLoginController;
+use App\Http\Controllers\Admin\VendorManageController;
 
 Route::group(['prefix' => 'admin', 'middleware' => 'guest:admin'], function () {
     Route::get('login', [AdminLoginController::class, 'getLogin'])->name('admin.login.form');
@@ -41,10 +42,25 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
     Route::get('category/edit/{id}', [CategoryController::class, 'editCategory'])->name('category.edit');
     Route::get('category/delete/{id}', [CategoryController::class, 'deleteCategory'])->name('category.delete');
     //  ======================================================= End Category Routes =============================================
+
+    //  ======================================================= SubCategory Routes =============================================
     Route::get('subcategories', [SubCategoryController::class, 'subcategories'])->name('subcategories');
     Route::get('subcategory/add', [SubCategoryController::class, 'addSubCategory'])->name('subcategory.add');
     Route::post('subcategory/store', [SubCategoryController::class, 'storeSubCategory'])->name('subcategory.store');
     Route::post('subcategory/update/{id}', [SubCategoryController::class, 'updateSubCategory'])->name('subcategory.update');
     Route::get('subcategory/edit/{id}', [SubCategoryController::class, 'editSubCategory'])->name('subcategory.edit');
     Route::get('subcategory/delete/{id}', [SubCategoryController::class, 'deleteSubCategory'])->name('subcategory.delete');
+    //  ======================================================= End SubCategory Routes =============================================
+
+    Route::get('inactive/vendors', [VendorManageController::class, 'inactiveVendor'])->name('vendor.inactive');
+    // Route::get('/inactive/vendor/details/{id}', [VendorManageController::class, 'InactiveVendorDetails'])->name('inactive.vendor.details');
+    Route::get('/active/vendor/{id}', [VendorManageController::class, 'adminActiveVendor'])->name('admin.active.vendor');
+
+
+
+    Route::get('active/vendors/', [VendorManageController::class, 'activeVendors'])->name('active.vendors');
+
+    Route::get('/active/vendor/details/{id}', [VendorManageController::class, 'activeVendorDetails'])->name('active.vendor.details');
+
+    Route::get('/inactive/vendor/{id}', [VendorManageController::class, 'adminInactiveVendor'])->name('admin.inactive.vendor');
 });
