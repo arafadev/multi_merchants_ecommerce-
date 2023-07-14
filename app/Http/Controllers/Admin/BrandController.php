@@ -14,12 +14,12 @@ class BrandController extends Controller
     use UploadPhotoTrait;
     public function brands()
     {
-        return view('admin.brand.index', ['brands' => Brand::latest()->get()]);
+        return view('admin.brands.index', ['brands' => Brand::latest()->get()]);
     }
 
     public function addBrand()
     {
-        return view('admin.brand.create');
+        return view('admin.brands.create');
     }
 
     public function storeBrand(StoreBrandRequest $request)

@@ -14,11 +14,11 @@ class CategoryController extends Controller
     use UploadPhotoTrait;
     public function categories()
     {
-        return view('admin.category.index', ['categories' => Category::latest()->get()]);
+        return view('admin.categories.index', ['categories' => Category::latest()->get()]);
     }
     public function addCategory()
     {
-        return view('admin.category.create');
+        return view('admin.categories.create');
     }
 
     public function storeCategory(StoreCategoryRequest $request)

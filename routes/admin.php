@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\Auth\AdminLoginController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\VendorManageController;
 
 Route::group(['prefix' => 'admin', 'middleware' => 'guest:admin'], function () {
@@ -52,15 +53,29 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
     Route::get('subcategory/delete/{id}', [SubCategoryController::class, 'deleteSubCategory'])->name('subcategory.delete');
     //  ======================================================= End SubCategory Routes =============================================
 
+    //  ======================================================= Vendor Manage Routes =============================================
     Route::get('inactive/vendors', [VendorManageController::class, 'inactiveVendor'])->name('vendor.inactive');
-    // Route::get('/inactive/vendor/details/{id}', [VendorManageController::class, 'InactiveVendorDetails'])->name('inactive.vendor.details');
     Route::get('/active/vendor/{id}', [VendorManageController::class, 'adminActiveVendor'])->name('admin.active.vendor');
-
-
-
     Route::get('active/vendors/', [VendorManageController::class, 'activeVendors'])->name('active.vendors');
-
     Route::get('/active/vendor/details/{id}', [VendorManageController::class, 'activeVendorDetails'])->name('active.vendor.details');
-
     Route::get('/inactive/vendor/{id}', [VendorManageController::class, 'adminInactiveVendor'])->name('admin.inactive.vendor');
+    //  ======================================================= End Vendor Manage Routes =============================================
+
+    //  ======================================================= SubCategory Routes ===================================================
+    Route::get('products', [ProductController::class, 'products'])->name('products');
+    Route::get('product/add', [ProductController::class, 'addProduct'])->name('product.add');
+    Route::post('product/store', [ProductController::class, 'storeProduct'])->name('product.store');
+    Route::get('subcategory/ajax/{category_id}', [ProductController::class, 'getSubcategory']);
+    Route::get('product/edit/{id}', [ProductController::class, 'editProduct'])->name('product.edit');
+    Route::post('product/update/{id}', [ProductController::class, 'updateProduct'])->name('product.update');
+    Route::post('/product/thumbnail/update', [ProductController::class, 'updateProductThumbnail'])->name('update.product.thumbnail');
+    Route::post('/update/product/multiImag',  [ProductController::class, 'UpdateProductMultiImage'])->name('update.product.multiimage');
+    Route::get('/product/multiImage/delete/{id}',  [ProductController::class, 'deleteProductMultiImage'])->name('delete.product.multiimage');
+    Route::get('/product/delete/{id}',  [ProductController::class, 'deleteProduct'])->name('delete.product');
+
+
+
+    // Route::get('subcategory/delete/{id}', [SubCategoryController::class, 'deleteSubCategory'])->name('subcategory.delete');
+    //  ======================================================= End SubCategory Routes =============================================
+
 });

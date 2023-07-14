@@ -17,7 +17,7 @@ class AdminProfileController extends Controller
 
     public function adminProfile()
     {
-        return view('admin.profile.index', ['admin' => Admin::find(Auth::user()->id)]);
+        return view('admin.profiles.index', ['admin' => Admin::find(Auth::user()->id)]);
     }
 
     public function adminProfileUpdate(AdminProfileRequest $request)

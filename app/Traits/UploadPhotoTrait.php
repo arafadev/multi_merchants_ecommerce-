@@ -18,4 +18,25 @@ trait UploadPhotoTrait
         $file->move(public_path($directory), $filename);
         return $filename;
     }
+
+    public function uploadMultiImages($request, $imgs, $folder, $height, $weight)
+    {
+        $images = $request->file($imgs);
+        $image_paths = [];
+
+        if (is_array($images)) {
+            foreach ($images as $image) {
+                $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
+                Image::make($image)->resize($height, $weight)->save('upload/' . $folder . '/' . $name_gen);
+                $image_paths[] = 'upload/' . $folder . '/'  . $name_gen;
+            }
+        } else {
+            $image = $images;
+            $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
+            Image::make($image)->resize($height, $weight)->save('upload/' . $folder  . '/' . $name_gen);
+            $image_paths = 'upload/' . $folder . '/' . $name_gen;
+        }
+
+        return $image_paths;
+    }
 }

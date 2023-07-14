@@ -52,11 +52,26 @@
             <ul>
                 <li> <a href="{{ route('subcategories') }}"><i class="bx bx-right-arrow-alt"></i>SubCategories</a>
                 </li>
-                <li> <a href="{{ route('subcategory.add') }}"><i class="bx bx-right-arrow-alt"></i>Add SubCategory </a>
+                {{-- <li> <a href="{{ route('subcategory.add') }}"><i class="bx bx-right-arrow-alt"></i>Add SubCategory </a> --}}
                 </li>
 
             </ul>
         </li>
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i class="bx bx-category"></i>
+                </div>
+                <div class="menu-title">Product Manage</div>
+            </a>
+            <ul>
+                <li> <a href="{{ route('products') }}"><i class="bx bx-right-arrow-alt"></i>All Product</a>
+                </li>
+                <li> <a href="{{ route('product.add') }}"><i class="bx bx-right-arrow-alt"></i>Add Product</a>
+                </li>
+
+            </ul>
+        </li>
+
         <li>
             <a href="javascript:;" class="has-arrow">
                 <div class="parent-icon"><i class='bx bx-cart'></i>
