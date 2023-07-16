@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\Auth\AdminLoginController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\VendorManageController;
 
 Route::group(['prefix' => 'admin', 'middleware' => 'guest:admin'], function () {
@@ -72,7 +73,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
     Route::post('/update/product/multiImag',  [ProductController::class, 'UpdateProductMultiImage'])->name('update.product.multiimage');
     Route::get('/product/multiImage/delete/{id}',  [ProductController::class, 'deleteProductMultiImage'])->name('delete.product.multiimage');
     Route::get('/product/delete/{id}',  [ProductController::class, 'deleteProduct'])->name('delete.product');
-
     //  ======================================================= End Product Routes =============================================
+    //  ======================================================= Sliders Routes =============================================
+    Route::get('sliders', [SliderController::class, 'sliders'])->name('sliders');
+    Route::get('slider/add', [SliderController::class, 'addSlider'])->name('slider.add');
+    Route::post('slider/store', [SliderController::class, 'storeSlider'])->name('slider.store');
+    Route::get('slider/edit/{id}', [SliderController::class, 'editSlider'])->name('slider.edit');
+    Route::post('slider/update/{id}', [SliderController::class, 'updateSlider'])->name('slider.update');
+    Route::get('slider/delete/{id}', [SliderController::class, 'deleteSlider'])->name('slider.delete');
+    //  ======================================================= End Slider Routes =============================================
 
 });
