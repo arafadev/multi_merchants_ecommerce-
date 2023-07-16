@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Vendor;
 
 use Carbon\Carbon;
 use App\Models\Brand;
-use App\Models\Vendor;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\MultiImg;
@@ -12,23 +11,32 @@ use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use App\Traits\UploadPhotoTrait;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\Product\StoreProductRequest;
-use App\Http\Requests\Admin\Product\UpdateProductRequest;
-use App\Http\Requests\Admin\Product\UpdateMultiImageRequest;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\Vendor\Products\StoreProductRequest;
+use App\Http\Requests\Vendor\Products\UpdateProductRequest;
+use App\Http\Requests\Vendor\Products\UpdateMultiImageRequest;
 
 class ProductController extends Controller
 {
     use UploadPhotoTrait;
     public function products()
     {
-        return view('admin.products.index', ['products' =>  Product::latest()->get()]);
+        return view('vendor.products.index', ['products' => Product::where('vendor_id', Auth::id())->latest()->get()]);
     }
+
     public function addProduct()
     {
-        $activeVendors = Vendor::where('status', 'active')->latest()->get();
+
         $brands = Brand::latest()->get();
-        $categories = Category::select('name', 'id')->get();
-        return view('admin.products.create', compact('brands', 'categories', 'activeVendors'));
+        $categories = Category::latest()->get();
+        return view('vendor.products.create', compact('brands', 'categories'));
+    }
+
+
+    public function getSubCategory($category_id)
+    {
+        $subcat = SubCategory::where('category_id', $category_id)->orderBy('name', 'ASC')->get();
+        return json_encode($subcat);
     }
 
     public function storeProduct(StoreProductRequest $request)
@@ -38,7 +46,7 @@ class ProductController extends Controller
         $data['product_thumbnail'] = $save_url;
         $data['product_slug'] = strtolower(str_replace(' ', '-', $request->product_name));
         $data['status'] = 1;
-        $product_id = Product::insertGetId($data);
+        $product_id = Product::insertGetId($data + ['vendor_id' => Auth::id()]);
 
         $save_urls = $this->uploadMultiImages($request, 'multi_img', 'product_multi_imgs', 800, 800);
 
@@ -59,24 +67,18 @@ class ProductController extends Controller
             'alert-type' => 'success'
         );
 
-        return redirect()->route('products')->with($notification);
-    }
-
-    public function getSubcategory($category_id)
-    {
-        $subcategories = SubCategory::where('category_id', $category_id)->get();
-        return json_decode($subcategories);
+        return redirect()->route('vendor.products')->with($notification);
     }
 
     public function editProduct($id)
     {
+
         $multiImgs = MultiImg::where('product_id', $id)->get();
-        $activeVendor = Vendor::where('status', 'active')->latest()->get();
         $brands = Brand::latest()->get();
         $categories = Category::latest()->get();
         $subcategory = SubCategory::latest()->get();
         $product = Product::findOrFail($id);
-        return view('admin.products.edit', compact('brands', 'categories', 'activeVendor', 'product', 'subcategory', 'multiImgs'));
+        return view('vendor.products.edit', compact('brands', 'categories', 'product', 'subcategory', 'multiImgs'));
     }
 
     public function updateProduct(UpdateProductRequest $request)
@@ -93,8 +95,9 @@ class ProductController extends Controller
             'alert-type' => 'success'
         );
 
-        return redirect()->route('products')->with($notification);
+        return redirect()->back()->with($notification);
     }
+
 
     public function updateProductThumbnail(Request $request)
     {
@@ -117,7 +120,6 @@ class ProductController extends Controller
 
         return redirect()->back()->with($notification);
     }
-
     public function UpdateProductMultiImage(UpdateMultiImageRequest $request)
     {
         $multiImgs = MultiImg::where('product_id', $request->product_id)->get();
@@ -160,38 +162,5 @@ class ProductController extends Controller
         );
 
         return redirect()->back()->with($notification);
-    }
-
-    public function deleteProductMultiImage($id)
-    {
-        $img = MultiImg::findOrFail($id);
-        @unlink($img->photo_name);
-        $img->delete();
-
-        $notification = array(
-            'message' => 'Product  Image Deleted Successfully',
-            'alert-type' => 'success'
-        );
-
-        return redirect()->back()->with($notification);
-    }
-
-
-    public function deleteProduct($id)
-    {
-        $product = Product::findOrFail($id);
-        if ($product) {
-            @unlink('upload/product_thumbnail/' . $product->product_thumbnail);
-
-            $multi_images = $product->multiImages;
-            foreach ($multi_images as $image) {
-                @unlink(public_path($image->photo_name));
-                $image->delete();
-            }
-            $product->delete();
-            return response()->json(['success' => true]);
-        } else {
-            return response()->json(['success' => false]);
-        }
     }
 }

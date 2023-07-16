@@ -1,9 +1,9 @@
-@extends('admin.master')
+@extends('vendor.master')
 @section('title', 'Products')
 @section('css')
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
-    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css"> --}}
-    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 @endsection
 @section('content')
@@ -23,7 +23,7 @@
             </div>
             <div class="ms-auto">
                 <div class="btn-group">
-                    <a href="{{ route('product.add') }}" class="btn btn-primary">Add Product</a>
+                    <a href="{{ route('vendor.product.add') }}" class="btn btn-primary">Add Product</a>
                 </div>
             </div>
         </div>
@@ -69,35 +69,30 @@
                                     </td>
                                     <td>
                                         @if ($item->status == 1)
-                                            <a href="{{ route('category.delete', $item->id) }}" class="btn btn-primary"
-                                                title="Inactive"> <i class='bx bx-like'></i>
+                                            <a class="btn btn-primary" title="Inactive"> <i class='bx bx-like'></i>
                                             </a>
                                         @else
-                                            <a href="{{ route('category.delete', $item->id) }}" class="btn btn-primary"
-                                                title="Active"> <i class='bx bx-dislike'></i> </a>
+                                            <a class="btn btn-primary" title="Active"> <i class='bx bx-dislike'></i> </a>
                                         @endif
                                     </td>
 
                                     <td>
-                                        <a href="{{ route('product.edit', $item->id) }}" class="btn btn-info"
+                                        <a href="{{ route('vendor.product.edit', $item->id) }}" class="btn btn-info"
                                             title="Edit Data">
                                             <i class='bx bx-pencil'></i>
                                         </a>
-                                        <a href="{{ route('category.delete', $item->id) }}"
-                                            class="btn btn-danger delete-product" id="delete" title="Delete Data"
+                                        <a class="btn btn-danger delete-product" id="delete" title="Delete Data"
                                             data-url="{{ route('delete.product', $item->id) }}"
                                             data-id="{{ $item->id }}">
                                             <i class='bx bx-trash'></i>
                                         </a>
 
                                         @if ($item->status == 1)
-                                            <a href="{{ route('category.delete', $item->id) }}" class="btn btn-primary"
-                                                title="Inactive">
+                                            <a class="btn btn-primary" title="Inactive">
                                                 <i class='bx bx-dislike'></i>
                                             </a>
                                         @else
-                                            <a href="{{ route('category.delete', $item->id) }}" class="btn btn-primary"
-                                                title="Active">
+                                            <a class="btn btn-primary" title="Active">
                                                 <i class='bx bx-like'></i>
                                             </a>
                                         @endif
@@ -122,8 +117,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.min.js"></script>
     <script src="{{ asset('backend/assets/plugins/input-tags/js/tagsinput.js') }}"></script>
 
-    {{-- <script src='https://cdn.tiny.cloud/1/vdqx2klew412up5bcbpwivg1th6nrh3murc6maz8bukgos4v/tinymce/5/tinymce.min.js'
-        referrerpolicy="origin"></script> --}}
+    <script src='https://cdn.tiny.cloud/1/vdqx2klew412up5bcbpwivg1th6nrh3murc6maz8bukgos4v/tinymce/5/tinymce.min.js'
+        referrerpolicy="origin"></script>
     <script>
         $(document).on('click', '.delete-product', function(e) {
             e.preventDefault();

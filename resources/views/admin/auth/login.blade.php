@@ -29,7 +29,7 @@
                 <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3">
                     <div class="col mx-auto">
                         <div class="mb-4 text-center">
-                            <h3>Ecommerce - Login</h3>
+                            <h3>Ecommerce - Admin Login</h3>
                         </div>
                         <div class="card">
                             <div class="card-body">

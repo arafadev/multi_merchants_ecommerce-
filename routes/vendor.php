@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Vendor\ProductController;
 use App\Http\Controllers\Vendor\VendorProfileController;
 use App\Http\Controllers\Vendor\VendorDashboardController;
 use App\Http\Controllers\Vendor\Auth\VendorLoginController;
@@ -20,4 +21,18 @@ Route::group(['prefix' => 'vendor', 'middleware' => 'auth:vendor'], function () 
     Route::get('change/password', [VendorProfileController::class, 'changePassword'])->name('vendor.change.password');
     Route::post('update/password', [VendorProfileController::class, 'vendorUpdatePassword'])->name('vendor.update.password');
     Route::get('logout', [VendorLoginController::class, 'logout'])->name('vendor.logout');
+    //  ======================================================= Products Routes ===================================================
+    Route::get('products', [ProductController::class, 'products'])->name('vendor.products');
+    Route::get('product/add', [ProductController::class, 'addProduct'])->name('vendor.product.add');
+    Route::get('subcategory/ajax/{category_id}', [ProductController::class, 'getSubcategory']);
+    Route::post('product/store', [ProductController::class, 'storeProduct'])->name('vendor.product.store');
+    Route::get('subcategory/ajax/{category_id}', [ProductController::class, 'getSubcategory']);
+    Route::get('product/edit/{id}', [ProductController::class, 'editProduct'])->name('vendor.product.edit');
+    Route::post('product/update/{id}', [ProductController::class, 'updateProduct'])->name('vendor.product.update');
+    Route::post('/product/thumbnail/update', [ProductController::class, 'updateProductThumbnail'])->name('vendor.update.product.thumbnail');
+    Route::post('/update/product/multiImag',  [ProductController::class, 'UpdateProductMultiImage'])->name('vendor.update.product.multiimage');
+    Route::get('/product/multiImage/delete/{id}',  [ProductController::class, 'deleteProductMultiImage'])->name('vendor.delete.product.multiimage');
+    Route::get('/product/delete/{id}',  [ProductController::class, 'deleteProduct'])->name('vendor.delete.product');
+    //  ======================================================= End Product Routes =============================================
+
 });

@@ -1,4 +1,4 @@
-@extends('admin.master')
+@extends('vendor.master')
 @section('title', 'Edit Product')
 @section('css')
     <link href="{{ asset('backend/assets/plugins/input-tags/css/tagsinput.css') }}" rel="stylesheet" />
@@ -37,7 +37,7 @@
                         </ul>
                     </div>
                 @endif
-                <form id="myForm" method="post" action="{{ route('product.update', $product->id) }}">
+                <form id="myForm" method="post" action="{{ route('vendor.product.update', $product->id) }}">
                     @csrf
                     <input type="hidden" name="product_id" value="{{ $product->id }}">
 
@@ -157,20 +157,6 @@
                                             </select>
                                         </div>
 
-
-                                        <div class="col-12">
-                                            <label for="inputCollection" class="form-label">Select Vendor</label>
-                                            <select name="vendor_id" class="form-select" id="inputCollection">
-                                                <option></option>
-                                                @foreach ($activeVendor as $vendor)
-                                                    <option value="{{ $vendor->id }}"
-                                                        {{ $product->vendor_id == $vendor->id ? 'selected' : '' }}>
-                                                        {{ $vendor->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-
-
                                         <div class="col-12">
 
                                             <div class="row g-3">
@@ -256,11 +242,12 @@
         <h6 class="mb-0 text-uppercase">Update Main Image Thambnail </h6>
         <hr>
         <div class="card">
-            <form method="post" action="{{ route('update.product.thumbnail') }}" enctype="multipart/form-data">
+            <form method="post" action="{{ route('vendor.update.product.thumbnail') }}" enctype="multipart/form-data">
                 @csrf
 
                 <input type="hidden" name="product_id" value="{{ $product->id }}">
-                <input type="hidden" name="old_img" value="{{ asset($product->product_thumbnail) }}">
+                <input type="hidden" name="old_img"
+                    value="{{ asset('upload/product_thumbnail/' . $product->product_thumbnail) }}">
 
                 <div class="card-body">
                     <div class="mb-3">
@@ -273,10 +260,10 @@
                     </div>
 
                     <div class="mb-3" id="existing-image"
-                        style="display: {{ asset($product->product_thumbnail) ? 'block' : 'none' }};">
+                        style="display: {{ $product->product_thumbnail ? 'block' : 'none' }};">
                         <label for="formFile" class="form-label"></label>
                         <div style="display: flex; align-items: flex-start;">
-                            <img src="{{ asset($product->product_thumbnail) }}"
+                            <img src="{{ asset( $product->product_thumbnail) }}"
                                 style="width:100px; height:100px; margin-right: 10px;">
                         </div>
                     </div>
@@ -295,21 +282,16 @@
     <!-- /// Update Multi Image  ////// -->
     @if (count($product->multiImages))
         <div class="page-content">
+
             <h6 class="mb-0 text-uppercase">Update Multi Image </h6>
             <hr>
             <div class="card">
                 <div class="card-body">
+
+
                     <table class="table mb-0 table-striped">
-                        <thead>
-                            <tr>
-                                <th scope="col">#Sl</th>
-                                <th scope="col">Image</th>
-                                <th scope="col">Change Image </th>
-                                <th scope="col">Delete </th>
-                            </tr>
-                        </thead>
                         <tbody>
-                            <form method="POST" action="{{ route('update.product.multiimage') }}"
+                            <form method="POST" action="{{ route('vendor.update.product.multiimage') }}"
                                 enctype="multipart/form-data">
                                 <input type="hidden" name="product_id" value="{{ $product->id }}">
                                 @csrf
@@ -317,10 +299,10 @@
                                 <table class="table mb-0 table-striped">
                                     <thead>
                                         <tr>
-                                            <th scope="col">#Sl</th>
-                                            <th scope="col">Image</th>
-                                            <th scope="col">Change Image </th>
-                                            <th scope="col">Delete </th>
+                                                <th scope="col">#Sl</th>
+                                                <th scope="col">Image</th>
+                                                <th scope="col">Change Image </th>
+                                                <th scope="col">Delete </th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -331,12 +313,10 @@
                                                         style="width:70; height: 40px;">
                                                 </td>
                                                 <td><input type="file" class="form-group"
-                                                        name="multi_img[{{ $img->id }}]">
-                                                </td>
+                                                        name="multi_img[{{ $img->id }}]"></td>
                                                 <td>
-                                                    <a href="{{ route('delete.product.multiimage', $img->id) }}"
-                                                        class="btn btn-danger delete-multi-img"
-                                                        data-url="{{ route('delete.product.multiimage', $img->id) }}"
+                                                    <a class="btn btn-danger delete-multi-img"
+                                                        data-url="{{ route('vendor.delete.product.multiimage', $img->id) }}"
                                                         data-id="{{ $img->id }}">Delete</a>
                                                 </td>
                                             </tr>
@@ -353,7 +333,6 @@
         </div>
     @endif
     <!-- /// End Update Multi Image  ////// -->
-
 
 
 
@@ -412,7 +391,7 @@
             });
         });
     </script>
-    {{-- <script>
+    <script>
         $(document).on('click', '.delete-multi-img', function(e) {
             e.preventDefault();
 
@@ -421,8 +400,8 @@
 
             // Show a confirmation dialog to confirm the delete action
             bootbox.confirm({
-                title: "Delete img",
-                message: "Are you sure you want to delete this img?",
+                title: "Delete Image",
+                message: "Are you sure you want to delete this Image?",
                 buttons: {
                     cancel: {
                         label: '<i class="fa fa-times"></i> Cancel'
@@ -452,6 +431,6 @@
                 }
             });
         });
-    </script> --}}
+    </script>
 
 @endsection

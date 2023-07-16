@@ -61,7 +61,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
     Route::get('/inactive/vendor/{id}', [VendorManageController::class, 'adminInactiveVendor'])->name('admin.inactive.vendor');
     //  ======================================================= End Vendor Manage Routes =============================================
 
-    //  ======================================================= SubCategory Routes ===================================================
+    //  ======================================================= Products Routes ===================================================
     Route::get('products', [ProductController::class, 'products'])->name('products');
     Route::get('product/add', [ProductController::class, 'addProduct'])->name('product.add');
     Route::post('product/store', [ProductController::class, 'storeProduct'])->name('product.store');
@@ -73,9 +73,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
     Route::get('/product/multiImage/delete/{id}',  [ProductController::class, 'deleteProductMultiImage'])->name('delete.product.multiimage');
     Route::get('/product/delete/{id}',  [ProductController::class, 'deleteProduct'])->name('delete.product');
 
-
-
-    // Route::get('subcategory/delete/{id}', [SubCategoryController::class, 'deleteSubCategory'])->name('subcategory.delete');
-    //  ======================================================= End SubCategory Routes =============================================
+    //  ======================================================= End Product Routes =============================================
 
 });

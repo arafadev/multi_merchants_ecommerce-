@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Vendor\Profile;
+namespace App\Http\Requests\Vendor\Products;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ChangePasswordRequest extends FormRequest
+class UpdateMultiImageRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,8 @@ class ChangePasswordRequest extends FormRequest
     public function rules()
     {
         return [
-            'old_password' => 'required',
-            'new_password' => 'required|confirmed',
+            'multi_img' => 'required|array',
+            'multi_img.*' => 'image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ];
     }
-
-
 }

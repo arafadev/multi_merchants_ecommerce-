@@ -28,5 +28,4 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth:web'], function () {
     Route::post('profile/update', [UserProfileController::class, 'profileUpdate'])->name('profile.update');
     Route::post('password/update', [UserProfileController::class, 'passwordUpdate'])->name('password.update');
     Route::get('logout', [UserLoginController::class, 'logout'])->name('user.logout');
-
 });

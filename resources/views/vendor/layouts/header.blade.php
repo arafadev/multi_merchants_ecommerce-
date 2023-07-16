@@ -3,7 +3,6 @@
         <nav class="navbar navbar-expand">
             <div class="mobile-toggle-menu"><i class='bx bx-menu'></i>
             </div>
-            @if ($status === 'active')
                 <div class="search-bar flex-grow-1">
                     <div class="position-relative search-bar-box">
                         <input type="text" class="form-control search-control" placeholder="Type to search..."> <span
@@ -13,7 +12,6 @@
                                 class='bx bx-x'></i></span>
                     </div>
                 </div>
-            @endif
 
             <div class="top-menu ms-auto">
                 <ul class="navbar-nav align-items-center">

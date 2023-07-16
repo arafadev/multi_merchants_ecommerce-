@@ -13,10 +13,10 @@ trait UploadPhotoTrait
         if ($image) {
             Image::make($file)->resize($height, $width)->save($directory . '/' . $filename);
             $file->move(public_path($directory), $filename);
-            return $filename;
+            return $directory . '/' . $filename;
         }
         $file->move(public_path($directory), $filename);
-        return $filename;
+        return $directory . '/' . $filename;
     }
 
     public function uploadMultiImages($request, $imgs, $folder, $height, $weight)
