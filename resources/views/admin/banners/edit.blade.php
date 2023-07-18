@@ -1,16 +1,16 @@
 @extends('admin.master')
-@section('title', 'Add Category')
+@section('title', 'Edit Banner')
 @section('content')
     <div class="page-content">
         <!--breadcrumb-->
         <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-            <div class="breadcrumb-title pe-3">Add Category </div>
+            <div class="breadcrumb-title pe-3">Edit Banner </div>
             <div class="ps-3">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb mb-0 p-0">
                         <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">Add Category </li>
+                        <li class="breadcrumb-item active" aria-current="page">Edit Banner </li>
                     </ol>
                 </nav>
             </div>
@@ -27,28 +27,34 @@
                         <div class="card">
                             <div class="card-body">
                                 <div id="validationErrors"></div>
-                                <form id="myForm" method="POST" action="{{ route('category.store') }}"
+                                <form id="myForm" method="post" action="{{ route('banner.update', $banner->id) }}"
                                     enctype="multipart/form-data">
                                     @csrf
+                                    <div class="row mb-3">
+                                        <div class="col-sm-3">
+                                            <h6 class="mb-0">Banner Title</h6>
+                                        </div>
+                                        <div class="form-group col-sm-9 text-secondary">
+                                            <input type="text" name="banner_title" value="{{ $banner->banner_title }}" class="form-control" />
+                                        </div>
+                                    </div>
 
                                     <div class="row mb-3">
                                         <div class="col-sm-3">
-                                            <h6 class="mb-0">Category Name</h6>
+                                            <h6 class="mb-0">Banner Url</h6>
                                         </div>
-                                        <div class="col-sm-9 text-secondary">
-                                            <input type="text" name="name" class="form-control" />
+                                        <div class="form-group col-sm-9 text-secondary">
+                                            <input type="text" name="banner_url"value="{{ $banner->banner_url }}" class="form-control" />
                                         </div>
-
-
                                     </div>
 
 
                                     <div class="row mb-3">
                                         <div class="col-sm-3">
-                                            <h6 class="mb-0">Category Image </h6>
+                                            <h6 class="mb-0">Banner Image </h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
-                                            <input type="file" name="image" class="form-control" id="image" />
+                                            <input type="file" name="banner_image" value="{{ $banner->banner_url }}" class="form-control" id="image" />
                                         </div>
                                     </div>
 
@@ -63,7 +69,6 @@
                                                 style="width:100px; height: 100px;">
                                         </div>
                                     </div>
-
                                     <div class="row">
                                         <div class="col-sm-3"></div>
                                         <div class="col-sm-9 text-secondary">
@@ -71,20 +76,13 @@
                                         </div>
                                     </div>
                             </div>
-
                             </form>
-
-
-
                         </div>
-
-
-
-
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 @endsection
 @section('js')
@@ -98,8 +96,10 @@
                 reader.readAsDataURL(e.target.files['0']);
             });
         });
+    </script>
 
-        // store category
+    <script type="text/javascript">
+        // store subcategory
         $(document).ready(function() {
             $('#myForm').on('submit', function(e) {
                 e.preventDefault();
@@ -142,7 +142,7 @@
                                 });
                             });
                         } else {
-                            toastr.error('An error occurred while store category');
+                            toastr.error('An error occurred while store Banner');
                         }
                     }
                 });

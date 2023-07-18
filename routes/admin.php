@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\Auth\AdminLoginController;
+use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\VendorManageController;
@@ -82,5 +83,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
     Route::post('slider/update/{id}', [SliderController::class, 'updateSlider'])->name('slider.update');
     Route::get('slider/delete/{id}', [SliderController::class, 'deleteSlider'])->name('slider.delete');
     //  ======================================================= End Slider Routes =============================================
+    //  ======================================================= Banners Routes =============================================
+    Route::get('banners', [BannerController::class, 'banners'])->name('banners');
+    Route::get('banner/add', [BannerController::class, 'addBanner'])->name('banner.add');
+    Route::post('banner/store', [BannerController::class, 'storeBanner'])->name('banner.store');
+    Route::get('banner/edit/{id}', [BannerController::class, 'editBanner'])->name('banner.edit');
+    Route::post('banner/update/{id}', [BannerController::class, 'updateBanner'])->name('banner.update');
+    Route::get('banner/delete/{id}', [BannerController::class, 'deleteBanner'])->name('banner.delete');
+    //  ======================================================= End banner Routes =============================================
 
 });

@@ -1,23 +1,23 @@
 @extends('admin.master')
-@section('title', 'Sliders')
+@section('title', 'Banner')
 @section('content')
 
     <div class="page-content">
         <!--breadcrumb-->
         <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-            <div class="breadcrumb-title pe-3"> Sliders</div>
+            <div class="breadcrumb-title pe-3"> Bannes</div>
             <div class="ps-3">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb mb-0 p-0">
                         <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">Sliders</li>
+                        <li class="breadcrumb-item active" aria-current="page">Banners</li>
                     </ol>
                 </nav>
             </div>
             <div class="ms-auto">
                 <div class="btn-group">
-                    <a href="{{ route('slider.add') }}" class="btn btn-primary">Add Slider</a>
+                    <a href="{{ route('banner.add') }}" class="btn btn-primary">Add Banner</a>
 
 
                 </div>
@@ -33,26 +33,26 @@
                         <thead>
                             <tr>
                                 <th>Sl</th>
-                                <th>Slider Title </th>
-                                <th>Short Title </th>
-                                <th>Slider Image </th>
+                                <th>Banner Title </th>
+                                <th>Banner Url </th>
+                                <th>Banner Image </th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($sliders as $key => $item)
+                            @foreach ($banners as $key => $item)
                                 <tr>
                                     <td> {{ $key + 1 }} </td>
-                                    <td>{{ $item->slider_title }}</td>
-                                    <td>{{ $item->short_title }}</td>
-                                    <td> <img src="{{ asset($item->slider_image) }}" style="width: 70px; height:40px;">
+                                    <td>{{ $item->banner_title }}</td>
+                                    <td>{{ $item->banner_url }}</td>
+                                    <td> <img src="{{ asset($item->banner_image) }}" style="width: 70px; height:40px;">
                                     </td>
 
                                     <td>
-                                        <a href="{{ route('slider.edit', $item->id) }}" class="btn btn-info">Edit</a>
+                                        <a href="{{ route('banner.edit', $item->id) }}" class="btn btn-info">Edit</a>
 
-                                        <a class="btn btn-danger delete-slider"
-                                            data-url="{{ route('slider.delete', $item->id) }}"
+                                        <a class="btn btn-danger delete-banner"
+                                            data-url="{{ route('banner.delete', $item->id) }}"
                                             data-id="{{ $item->id }}">Delete</a>
                                     </td>
                                 </tr>
@@ -63,8 +63,8 @@
                         <tfoot>
                             <tr>
                                 <th>Sl</th>
-                                <th>Slider Name </th>
-                                <th>Slider Image </th>
+                                <th>Banner Name </th>
+                                <th>Banner Image </th>
                                 <th>Action</th>
                             </tr>
                         </tfoot>
@@ -101,16 +101,16 @@
             $('#example').DataTable();
         });
 
-        $(document).on('click', '.delete-slider', function(e) {
+        $(document).on('click', '.delete-banner', function(e) {
             e.preventDefault();
 
-            var slider_id = $(this).data('id');
+            var banner_id = $(this).data('id');
             var url = $(this).data('url');
 
             // Show a confirmation dialog to confirm the delete action
             bootbox.confirm({
-                title: "Delete Slider",
-                message: "Are you sure you want to delete this Slider?",
+                title: "Delete Banner",
+                message: "Are you sure you want to delete this Banner?",
                 buttons: {
                     cancel: {
                         label: '<i class="fa fa-times"></i> Cancel'
@@ -128,7 +128,7 @@
                             success: function(response) {
                                 toastr.success(response.message);
                                 // Remove the deleted row from the DataTable
-                                $('a.delete-slider[data-id="' + slider_id + '"]').parents(
+                                $('a.delete-banner[data-id="' + banner_id + '"]').parents(
                                         'tr')
                                     .remove();
                             },
