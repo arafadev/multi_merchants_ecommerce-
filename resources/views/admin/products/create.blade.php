@@ -194,8 +194,7 @@
                                         </div>
                                         <div class="col-12">
                                             <label for="inputCollection" class="form-label">Product SubCategory</label>
-                                            <select name="subcategory_id" class="form-select" id="inputCollection"
-                                                required>
+                                            <select name="subcategory_id" class="form-select" id="inputCollection">
                                                 <option></option>
                                             </select>
                                             @error('subcategory_id')
@@ -335,7 +334,7 @@
             });
         </script>
 
-       <script type="text/javascript">
+        <script type="text/javascript">
             $(document).ready(function() {
                 $('select[name="category_id"]').on('change', function() {
                     var category_id = $(this).val();

@@ -292,7 +292,7 @@
 
                                 @php
                                     $categories = App\Models\Category::orderBy('name', 'ASC')
-                                        ->limit(6)
+                                        ->limit(5)
                                         ->get();
                                 @endphp
                                 @foreach ($categories as $category)
@@ -316,9 +316,6 @@
 
                                 <li class="position-static">
 
-                                <li>
-                                    <a href="page-contact.html">Contact</a>
-                                </li>
                             </ul>
                         </nav>
                     </div>

@@ -26,7 +26,7 @@ class StoreProductRequest extends FormRequest
         return [
             'brand_id' => 'required|exists:brands,id',
             'category_id' => 'required|exists:categories,id',
-            'subcategory_id' => 'required|exists:sub_categories,id',
+            'subcategory_id' => 'nullable|exists:sub_categories,id',
             'vendor_id' => 'nullable|exists:vendors,id',
             'product_name' => 'required|string|max:255',
             'product_qty' => 'required|integer|min:1',

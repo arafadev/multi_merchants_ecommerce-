@@ -27,7 +27,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div id="validationErrors"></div>
-                                <form id="myForm" method="post" action="{{ route('slider.store') }}"
+                                <form id="myForm" method="POST" action="{{ route('slider.store') }}"
                                     enctype="multipart/form-data">
                                     @csrf
                                     <div class="row mb-3">
@@ -98,9 +98,8 @@
             });
         });
     </script>
-
     <script type="text/javascript">
-        // store subcategory
+        // store slider
         $(document).ready(function() {
             $('#myForm').on('submit', function(e) {
                 e.preventDefault();
@@ -117,34 +116,11 @@
                     contentType: false,
                     processData: false,
                     success: function(data) {
-                        // console.log(data);
                         toastr.success(data.message, 'Success');
                     },
                     error: function(xhr, status, error) {
-                        if (xhr.responseJSON.hasOwnProperty('errors')) {
-                            var errors = xhr.responseJSON.errors;
-                            $.each(errors, function(field, messages) {
-                                var input = $('input[name=' + field + ']');
-                                input.addClass('is-invalid');
-                                var errorDiv = input.next('.invalid-feedback');
-                                if (!errorDiv.length) {
-                                    input.after('<div class="invalid-feedback">' +
-                                        messages.join('<br>') + '</div>');
-                                } else {
-                                    errorDiv.html(messages.join('<br>'));
-                                }
-
-                                input.on('input', function() {
-                                    if ($(this).is(':valid')) {
-                                        $(this).removeClass('is-invalid');
-                                        $(this).next('.invalid-feedback')
-                                            .remove();
-                                    }
-                                });
-                            });
-                        } else {
-                            toastr.error('An error occurred while store category');
-                        }
+                        var response = JSON.parse(xhr.responseText);
+                        toastr.error(response.message);
                     }
                 });
             });
