@@ -1,16 +1,18 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Site\IndexController;
 use App\Http\Controllers\Site\User\UserProfileController;
+use App\Http\Controllers\Site\Vendor\Auth\VendorController;
 use App\Http\Controllers\Site\User\Auth\UserLoginController;
 use App\Http\Controllers\Site\User\Auth\UserRegisterController;
-use App\Http\Controllers\Site\Vendor\Auth\VendorController;
 
-Route::get('/', function () {
-    return view('site.index');
-});
+Route::get('/', [IndexController::class, 'home']);
 
 
+// Frontend Product Details All Routes
+
+Route::get('/product/details/{id}/{slug}', [IndexController::class, 'productDetails']);
 
 Route::group(['prefix' => '/', 'middleware' => 'guest:web'], function () {
     Route::get('login', [UserLoginController::class, 'getLogin'])->name('user.login.form');
