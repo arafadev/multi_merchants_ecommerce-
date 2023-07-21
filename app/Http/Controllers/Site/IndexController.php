@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Site;
 
+use App\Models\Vendor;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\MultiImg;
+use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -44,5 +46,50 @@ class IndexController extends Controller
         $multiImage = MultiImg::where('product_id', $id)->get();;
         $relatedProduct = Product::where('category_id', $product->category_id)->where('id', '!=', $id)->orderBy('id', 'DESC')->limit(4)->get();
         return view('site.products.details', compact('product', 'product_color', 'product_size', 'multiImage', 'relatedProduct', 'product_tags'));
+    }
+
+    public function vendorDetails($id)
+    {
+
+        $vendor = Vendor::findOrFail($id);
+        $vproduct = Product::where('vendor_id', $id)->get();
+        return view('site.vendor.vendor_details', compact('vendor', 'vproduct'));
+    }
+
+    public function allVendor()
+    {
+
+        $vendors = Vendor::where('status', 'active')->get();
+        return view('site.vendor.all_vendor', ['vendors' => $vendors]);
+    } // End Method
+
+    public function CatWiseProduct(Request $request, $id, $slug)
+    {
+        $products = Product::where('status', 1)->where('category_id', $id)->orderBy('id', 'DESC')->get();
+        $categories = Category::orderBy('category_name', 'ASC')->get();
+
+        return view('frontend.product.category_view', compact('products', 'categories'));
+    } // End Method
+
+
+    public function catWithProducts(Request $request, $id, $slug)
+    {
+        $products = Product::where('status', 1)->where('category_id', $id)->orderBy('id', 'DESC')->get();
+        $categories = Category::orderBy('name', 'asc')->limit(5)->get();
+        $category = Category::findOrFail($id);
+        $newProduct = Product::orderBy('id', 'DESC')->limit(3)->get();
+        $breadcat = Category::where('id', $id)->first();
+
+        return view('site.products.category_view', compact('products', 'categories', 'category', 'newProduct', 'breadcat'));
+    }
+
+    public function subCatWiseProduct(Request $request, $id, $slug)
+    {
+        $products = Product::where('status', 1)->where('subcategory_id', $id)->orderBy('id', 'DESC')->get();
+        $categories = Category::orderBy('name', 'ASC')->limit(5)->get();
+        $breadsubcat = SubCategory::where('id', $id)->first();
+        $newProduct = Product::orderBy('id', 'DESC')->limit(3)->get();
+
+        return view('site.products.subcategory_view', compact('products', 'categories', 'breadsubcat', 'newProduct'));
     }
 }
