@@ -9,38 +9,29 @@
                         <div class="detail-gallery">
 
                             <!-- MAIN SLIDES -->
-                            <img src="{{ asset('frontend/assets/imgs/shop/product-16-2.jpg') }}" alt="product image" />
+                            <img src=" " alt="product image" id="pimage" />
 
                         </div>
                         <!-- End Gallery -->
                     </div>
                     <div class="col-md-6 col-sm-12 col-xs-12">
                         <div class="detail-info pr-30 pl-30">
-                            <h5 class="title-detail"><a href="shop-product-right.html" class="text-heading">Seeds of
-                                    Change Organic Quinoa, Brown</a></h5>
+                            <h5 class="title-detail"><a href=" " class="text-heading" id="pname"> </a></h5>
                             <br>
 
-                            <div class="attr-detail attr-size mb-30">
+                            <div class="attr-detail attr-size mb-30" id="sizeArea">
                                 <strong class="mr-10" style="width:60px;">Size : </strong>
-                                <select class="form-control unicase-form-control" id="size">
-                                    <option selected="" disabled="">--Choose Size--</option>
+                                <select class="form-control unicase-form-control" id="size" name="size">
 
-                                    <option value="Small">Small </option>
-                                    <option value="Media">Media </option>
-                                    <option value="L">L </option>
 
                                 </select>
                             </div>
 
 
-                            <div class="attr-detail attr-size mb-30">
+                            <div class="attr-detail attr-size mb-30" id="colorArea">
                                 <strong class="mr-10" style="width:60px;">Color : </strong>
-                                <select class="form-control unicase-form-control" id="size">
-                                    <option selected="" disabled="">--Choose Color--</option>
+                                <select class="form-control unicase-form-control" id="color" name="color">
 
-                                    <option value="Small">RED </option>
-                                    <option value="Media">Black </option>
-                                    <option value="L">Blue </option>
 
                                 </select>
                             </div>
@@ -50,21 +41,24 @@
 
                             <div class="clearfix product-price-cover">
                                 <div class="product-price primary-color float-left">
-                                    <span class="current-price text-brand">$38</span>
+                                    <span class="current-price text-brand" id="pprice"></span>
                                     <span>
-                                        <span class="save-price font-md color3 ml-15">26% Off</span>
-                                        <span class="old-price font-md ml-15">$52</span>
+                                        <span class="old-price font-md ml-15" id="oldprice"> </span>
                                     </span>
                                 </div>
                             </div>
                             <div class="detail-extralink mb-30">
                                 <div class="detail-qty border radius">
                                     <a href="#" class="qty-down"><i class="fi-rs-angle-small-down"></i></a>
-                                    <input type="text" name="quantity" class="qty-val" value="1" min="1">
+                                    <input type="text" name="qty" id="qty" class="qty-val" value="1"
+                                        min="1">
+
                                     <a href="#" class="qty-up"><i class="fi-rs-angle-small-up"></i></a>
                                 </div>
                                 <div class="product-extra-link2">
-                                    <button type="submit" class="button button-add-to-cart"><i
+                                    <input type="hidden" id="product_id">
+
+                                    <button type="submit" class="button button-add-to-cart" onclick="addToCart()"><i
                                             class="fi-rs-shopping-cart"></i>Add to cart</button>
                                 </div>
                             </div>
@@ -74,8 +68,10 @@
 
                                     <div class="font-xs">
                                         <ul>
-                                            <li class="mb-5">Brand: <span class="text-brand">Nest</span></li>
-                                            <li class="mb-5">Category:<span class="text-brand"> Jun 4.2022</span></li>
+                                            <li class="mb-5">Brand: <span class="text-brand" id="pbrand"> </span>
+                                            </li>
+                                            <li class="mb-5">Category:<span class="text-brand" id="pcategory"> </span>
+                                            </li>
                                         </ul>
                                     </div>
 
@@ -86,11 +82,12 @@
 
                                     <div class="font-xs">
                                         <ul>
-                                            <li class="mb-5">Product Code : <span class="text-brand">Nest</span></li>
+                                            <li class="mb-5">Product Code : <span class="text-brand" id="pcode">
+                                                </span></li>
                                             <li class="mb-5">Stock:<span class="badge badge-pill badge-success"
                                                     id="aviable" style="background:green; color: white;"> </span>
                                                 <span class="badge badge-pill badge-danger" id="stockout"
-                                                    style="backgound:red; color: white;"> </span>
+                                                    style="background:red; color: white;"> </span>
                                             </li>
                                         </ul>
                                     </div>
@@ -111,3 +108,78 @@
         </div>
     </div>
 </div>
+@section('js')
+    <script type="text/javascript">
+        // $.ajaxSetup({
+        //     headers: {
+        //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //     }
+        // })
+        /// Start product view with Modal
+        function productView(id) {
+            // alert(id)
+            $.ajax({
+                type: 'GET',
+                url: 'product/view/modal/' + id,
+                dataType: 'json',
+                success: function(data) {
+                    // console.log(data)
+                    var categoryName = data.product.category.name;
+                    $('#pname').text(data.product.product_name);
+                    $('#pprice').text(data.product.selling_price + '$');
+                    $('#pcode').text(data.product.product_code);
+                    if (categoryName.length > 6) {
+                        categoryName = categoryName.substring(0, 6) + '...';
+                    }
+                    $('#pcategory').text(categoryName);
+                    $('#pbrand').text(data.product.brand.name);
+                    $('#pimage').attr('src', '/' + data.product.product_thumbnail);
+                    $('#product_id').val(id);
+                    $('#qty').val(1);
+                    // $('#pvendor_id').text(data.product.vendor_id);
+
+                    if (data.product.discount_price == null) {
+                        $('#pprice').text('');
+                        $('#oldprice').text('');
+                        $('#pprice').text(data.product.selling_price + '$');
+                    } else {
+                        $('#pprice').text(data.product.discount_price + '$');
+                        $('#oldprice').text(data.product.selling_price + '$');
+                    }
+                    if (data.product.product_qty > 0) {
+                        $('#aviable').text('');
+                        $('#stockout').text('');
+                        $('#aviable').text('aviable');
+                    } else {
+                        $('#aviable').text('');
+                        $('#stockout').text('');
+                        $('#stockout').text('stockout');
+                    }
+
+                    $('select[name="size"]').empty();
+                    $.each(data.size, function(key, value) {
+                        $('select[name="size"]').append('<option value="' + value + ' ">' + value +
+                            '  </option')
+                        if (data.size == "") {
+                            $('#sizeArea').hide();
+                        } else {
+                            $('#sizeArea').show();
+                        }
+                    })
+                    // ///Color
+                    $('select[name="color"]').empty();
+                    $.each(data.color, function(key, value) {
+                        $('select[name="color"]').append('<option value="' + value + ' ">' + value +
+                            '  </option')
+                        if (data.color == "") {
+                            $('#colorArea').hide();
+                        } else {
+                            $('#colorArea').show();
+                        }
+                    })
+                }
+            })
+        }
+        // End Product View With Modal
+    </script>
+@endsection

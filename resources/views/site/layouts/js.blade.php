@@ -44,5 +44,13 @@
          }
      @endif
  </script>
-
+ <script type="text/javascript">
+     //  this header js for all ajaxS codeS
+     $.ajaxSetup({
+         headers: {
+             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('centent')
+         }
+     })
+     /// Start product view with Modal
+ </script>
  @yield('js')

@@ -39,14 +39,14 @@
                                                 <a
                                                     href="{{ url('product/details/' . $product->id . '/' . $product->product_slug) }}">
                                                     <img class="default-img"
-                                                        src="{{ asset($product->product_thumbnail) }}"
-                                                        alt="" />
+                                                        src="{{ asset($product->product_thumbnail) }}" alt="" />
 
                                                 </a>
                                             </div>
                                             <div class="product-action-1">
                                                 <a aria-label="Quick view" class="action-btn small hover-up"
-                                                    data-bs-toggle="modal" data-bs-target="#quickViewModal"> <i
+                                                    data-bs-toggle="modal" data-bs-target="#quickViewModal"
+                                                    id="{{ $product->id }}" onclick="productView(this.id)"> <i
                                                         class="fi-rs-eye"></i></a>
                                                 <a aria-label="Add To Wishlist" class="action-btn small hover-up"
                                                     href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
@@ -71,8 +71,7 @@
                                         </div>
                                         <div class="product-content-wrap">
                                             <div class="product-category">
-                                                <a
-                                                    href="shop-grid-right.html">{{ $product['category']['name'] }}</a>
+                                                <a href="shop-grid-right.html">{{ $product['category']['name'] }}</a>
                                             </div>
                                             <h2><a
                                                     href="{{ url('product/details/' . $product->id . '/' . $product->product_slug) }}">{{ $product->product_name }}</a>

@@ -30,6 +30,10 @@ Route::group(['prefix' => '/', 'middleware' => 'guest:web'], function () {
     Route::get('/product/category/{id}/{slug}', [IndexController::class, 'catWithProducts']);
     Route::get('/product/details/{id}/{slug}', [IndexController::class, 'productDetails']);
     Route::get('/product/subcategory/{id}/{slug}', [IndexController::class, 'SubCatWiseProduct']);
+
+    // // Product View Modal With Ajax
+
+    Route::get('/product/view/modal/{id}', [IndexController::class, 'productViewAjax']);
 });
 
 Route::group(['prefix' => 'user', 'middleware' => 'auth:web'], function () {
