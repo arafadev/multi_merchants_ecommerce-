@@ -2,14 +2,14 @@
     aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="closeModal"></button>
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-6 col-sm-12 col-xs-12 mb-md-0 mb-sm-5">
                         <div class="detail-gallery">
 
                             <!-- MAIN SLIDES -->
-                            <img src=" " alt="product image" id="pimage" />
+                            <img src=" " width="100%" height="400px" alt="product image" id="pimage" />
 
                         </div>
                         <!-- End Gallery -->
@@ -57,7 +57,6 @@
                                 </div>
                                 <div class="product-extra-link2">
                                     <input type="hidden" id="product_id">
-
                                     <button type="submit" class="button button-add-to-cart" onclick="addToCart()"><i
                                             class="fi-rs-shopping-cart"></i>Add to cart</button>
                                 </div>
@@ -110,11 +109,6 @@
 </div>
 @section('js')
     <script type="text/javascript">
-        // $.ajaxSetup({
-        //     headers: {
-        //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        //     }
-        // })
         /// Start product view with Modal
         function productView(id) {
             // alert(id)

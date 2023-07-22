@@ -42,8 +42,9 @@
                                             @csrf
                                             <div class="col-12">
                                                 <label for="inputEmailAddress" class="form-label">Email Address</label>
-                                                <input type="email" name="email" value="{{ old('email') }}" class="form-control"
-                                                    id="inputEmailAddress" placeholder="Email Address">
+                                                <input type="email" name="email" value="{{ old('email') }}"
+                                                    class="form-control" id="inputEmailAddress"
+                                                    placeholder="Email Address">
 
                                             </div>
                                             <div class="col-12">

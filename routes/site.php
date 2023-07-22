@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Site\CartController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Site\IndexController;
 use App\Http\Controllers\Site\User\UserProfileController;
@@ -34,6 +35,9 @@ Route::group(['prefix' => '/', 'middleware' => 'guest:web'], function () {
     // // Product View Modal With Ajax
 
     Route::get('/product/view/modal/{id}', [IndexController::class, 'productViewAjax']);
+    Route::get('/cart/data/store/{id}', [CartController::class, 'addToCart'])->name('cart.add');
+    Route::get('/product/mini/cart', [CartController::class, 'addMinCart']);
+    Route::get('/minicart/product/remove/{rowId}', [CartController::class, 'removeMiniCart']);
 });
 
 Route::group(['prefix' => 'user', 'middleware' => 'auth:web'], function () {

@@ -158,12 +158,6 @@
                                     </div>
                                 </div>
                             </div>
-
-
-
-
-
-
                             <div class="header-action-icon-2">
                                 <a href="page-account.html">
                                     <img class="svgInject" alt="Nest"
@@ -207,7 +201,8 @@
                                     <span class="lable" style="margin-left: 2px; margin-right: 2px;"> | </span>
 
 
-                                    <a href="{{ route('user.register.form') }}"><span class="lable ml-0">Register</span></a>
+                                    <a href="{{ route('user.register.form') }}"><span
+                                            class="lable ml-0">Register</span></a>
 
                                 @endauth
                             </div>
