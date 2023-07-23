@@ -126,12 +126,12 @@
                                 <a href="{"><span class="lable ml-0">Compare</span></a>
                             </div>
                             <div class="header-action-icon-2">
-                                <a href="">
+                                <a href="{{ route('wishlists') }}">
                                     <img class="svgInject" alt="Nest"
                                         src="{{ asset('frontend/assets/imgs/theme/icons/icon-heart.svg') }}" />
                                     <span class="pro-count blue" id="wishQty"></span>
                                 </a>
-                                <a href=""><span class="lable">Wishlist</span></a>
+                                <a href="{{ route('wishlists') }}"><span class="lable">Wishlist</span></a>
                             </div>
                             <div class="header-action-icon-2">
                                 <a class="mini-cart-icon" href="">
@@ -170,23 +170,23 @@
                                     <div class="cart-dropdown-wrap cart-dropdown-hm2 account-dropdown">
                                         <ul>
                                             <li>
-                                                <a href="{{ route('dashboard') }}"><i class="fi fi-rs-user mr-10"></i>My
+                                                <a href="{{ route('user.profile') }}"><i class="fi fi-rs-user mr-10"></i>My
                                                     Account</a>
                                             </li>
                                             <li>
-                                                <a href="{{ route('dashboard') }}"><i
+                                                <a href="#"><i
                                                         class="fi fi-rs-location-alt mr-10"></i>Order Tracking</a>
                                             </li>
                                             <li>
-                                                <a href="{{ route('dashboard') }}"><i class="fi fi-rs-label mr-10"></i>My
+                                                <a href="{{ route('user.profile') }}"><i class="fi fi-rs-label mr-10"></i>My
                                                     Voucher</a>
                                             </li>
                                             <li>
-                                                <a href="{{ route('dashboard') }}"><i class="fi fi-rs-heart mr-10"></i>My
+                                                <a href="{{ route('wishlists') }}"><i class="fi fi-rs-heart mr-10"></i>My
                                                     Wishlist</a>
                                             </li>
                                             <li>
-                                                <a href="{{ route('dashboard') }}"><i
+                                                <a href="{{ route('user.profile') }}"><i
                                                         class="fi fi-rs-settings-sliders mr-10"></i>Setting</a>
                                             </li>
                                             <li>

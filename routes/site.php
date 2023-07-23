@@ -33,11 +33,15 @@ Route::group(['prefix' => '/', 'middleware' => 'guest:web'], function () {
     Route::get('/product/subcategory/{id}/{slug}', [IndexController::class, 'SubCatWiseProduct']);
 
     // // Product View Modal With Ajax
-
     Route::get('/product/view/modal/{id}', [IndexController::class, 'productViewAjax']);
     Route::get('/cart/data/store/{id}', [CartController::class, 'addToCart'])->name('cart.add');
     Route::get('/product/mini/cart', [CartController::class, 'addMinCart']);
     Route::get('/minicart/product/remove/{rowId}', [CartController::class, 'removeMiniCart']);
+    Route::post('/dcart/data/store/{id}', [CartController::class, 'addToCartDetails']);
+
+    // /// Add to Wishlist
+// Route::post('/add-to-wishlist/{product_id}', [WishlistController::class, 'AddToWishList']);
+
 });
 
 Route::group(['prefix' => 'user', 'middleware' => 'auth:web'], function () {
