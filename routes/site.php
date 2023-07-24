@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\Site\CartController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Site\CartController;
 use App\Http\Controllers\Site\IndexController;
+use App\Http\Controllers\Site\WishlistController;
 use App\Http\Controllers\Site\User\UserProfileController;
 use App\Http\Controllers\Site\Vendor\Auth\VendorController;
 use App\Http\Controllers\Site\User\Auth\UserLoginController;
@@ -39,9 +40,8 @@ Route::group(['prefix' => '/', 'middleware' => 'guest:web'], function () {
     Route::get('/minicart/product/remove/{rowId}', [CartController::class, 'removeMiniCart']);
     Route::post('/dcart/data/store/{id}', [CartController::class, 'addToCartDetails']);
 
-    // /// Add to Wishlist
-// Route::post('/add-to-wishlist/{product_id}', [WishlistController::class, 'AddToWishList']);
-
+    /// Add to Wishlist
+    Route::post('/add-to-wishlist/{product_id}', [WishlistController::class, 'addToWishList']);
 });
 
 Route::group(['prefix' => 'user', 'middleware' => 'auth:web'], function () {
@@ -49,4 +49,11 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth:web'], function () {
     Route::post('profile/update', [UserProfileController::class, 'profileUpdate'])->name('profile.update');
     Route::post('password/update', [UserProfileController::class, 'passwordUpdate'])->name('password.update');
     Route::get('logout', [UserLoginController::class, 'logout'])->name('user.logout');
+
+
+    // Wishlists routes
+    Route::get('/wishlist', [WishlistController::class, 'wishlists'])->name('wishlists');
+    Route::get('/get-wishlist-product', [WishlistController::class, 'getWishlistProduct']);
+        Route::get('/wishlist-remove/{id}' ,[WishlistController::class, 'wishlistRemove']);
+
 });

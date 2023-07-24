@@ -33,7 +33,6 @@ class WishlistController extends Controller
     } // End Method
     public function wishlists()
     {
-
         return view('site.wishlists.index');
     } // End Method
     public function getWishlistProduct()
