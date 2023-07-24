@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Site\CartController;
 use App\Http\Controllers\Site\IndexController;
+use App\Http\Controllers\Site\CompareController;
 use App\Http\Controllers\Site\WishlistController;
 use App\Http\Controllers\Site\User\UserProfileController;
 use App\Http\Controllers\Site\Vendor\Auth\VendorController;
@@ -42,6 +43,8 @@ Route::group(['prefix' => '/', 'middleware' => 'guest:web'], function () {
 
     /// Add to Wishlist
     Route::post('/add-to-wishlist/{product_id}', [WishlistController::class, 'addToWishList']);
+    /// Add to Compare
+    Route::post('/add-to-compare/{product_id}', [CompareController::class, 'addToCompare']);
 });
 
 Route::group(['prefix' => 'user', 'middleware' => 'auth:web'], function () {
@@ -54,6 +57,11 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth:web'], function () {
     // Wishlists routes
     Route::get('/wishlist', [WishlistController::class, 'wishlists'])->name('wishlists');
     Route::get('/get-wishlist-product', [WishlistController::class, 'getWishlistProduct']);
-        Route::get('/wishlist-remove/{id}' ,[WishlistController::class, 'wishlistRemove']);
+    Route::get('/wishlist-remove/{id}', [WishlistController::class, 'wishlistRemove']);
 
+    // Compare Routes
+    Route::get('/compares', [CompareController::class, 'compares'])->name('compares');
+
+    Route::get('/get-compare-product', [CompareController::class, 'getCompareProduct']);
+    Route::get('/compare-remove/{id}',  [CompareController::class, 'compareRemove']);
 });
