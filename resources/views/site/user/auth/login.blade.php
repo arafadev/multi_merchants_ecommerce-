@@ -1,8 +1,5 @@
 @include('site.layouts.head')
-@section('title')
-    User Login
-@endsection
-
+@section('title', 'User Login')
 <body>
 
     @include('site.layouts.header')

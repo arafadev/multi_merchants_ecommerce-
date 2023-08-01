@@ -16,7 +16,7 @@ use App\Http\Controllers\Site\User\Auth\UserRegisterController;
 
 
 
-Route::group(['prefix' => '/', 'middleware' => 'guest:web'], function () {
+Route::group(['prefix' => '/'], function () {
     Route::get('/', [IndexController::class, 'home']);
     Route::get('vendor/details/{id}', [IndexController::class, 'vendorDetails'])->name('vendor.details');
     Route::get('login', [UserLoginController::class, 'getLogin'])->name('user.login.form');

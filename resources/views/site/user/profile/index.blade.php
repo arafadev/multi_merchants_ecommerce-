@@ -53,7 +53,7 @@
                                         aria-selected="true"><i class="fi-rs-user mr-10"></i>Change Password</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="page-login.html"><i
+                                    <a class="nav-link" href="{{ route('user.logout') }}"><i
                                             class="fi-rs-sign-out mr-10"></i>Logout</a>
                                 </li>
                             </ul>
