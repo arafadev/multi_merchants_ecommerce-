@@ -11,11 +11,6 @@ use App\Http\Controllers\Site\User\Auth\UserLoginController;
 use App\Http\Controllers\Site\User\Auth\UserRegisterController;
 
 
-
-// Frontend Product Details All Routes
-
-
-
 Route::group(['prefix' => '/'], function () {
     Route::get('/', [IndexController::class, 'home']);
     Route::get('vendor/details/{id}', [IndexController::class, 'vendorDetails'])->name('vendor.details');
@@ -42,9 +37,9 @@ Route::group(['prefix' => '/'], function () {
     Route::post('/dcart/data/store/{id}', [CartController::class, 'addToCartDetails']);
 
     /// Add to Wishlist
-    Route::post('/add-to-wishlist/{product_id}', [WishlistController::class, 'addToWishList']);
+    Route::get('/add-to-wishlist/{product_id}', [WishlistController::class, 'addToWishList']);
     /// Add to Compare
-    Route::post('/add-to-compare/{product_id}', [CompareController::class, 'addToCompare']);
+    Route::post('add-to-compare/{product_id}', [CompareController::class, 'addToCompare']);
 });
 
 Route::group(['prefix' => 'user', 'middleware' => 'auth:web'], function () {
@@ -56,12 +51,12 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth:web'], function () {
 
     // Wishlists routes
     Route::get('/wishlist', [WishlistController::class, 'wishlists'])->name('wishlists');
-    Route::get('/get-wishlist-product', [WishlistController::class, 'getWishlistProduct']);
-    Route::get('/wishlist-remove/{id}', [WishlistController::class, 'wishlistRemove']);
+    Route::get('get-wishlist-product', [WishlistController::class, 'getWishlistProduct']);
+    Route::get('wishlist-remove/{id}', [WishlistController::class, 'wishlistRemove']);
 
     // Compare Routes
     Route::get('/compares', [CompareController::class, 'compares'])->name('compares');
 
-    Route::get('/get-compare-product', [CompareController::class, 'getCompareProduct']);
-    Route::get('/compare-remove/{id}',  [CompareController::class, 'compareRemove']);
+    Route::get('get-compare-product', [CompareController::class, 'getCompareProduct']);
+    Route::get('compare-remove/{id}',  [CompareController::class, 'compareRemove']);
 });

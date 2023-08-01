@@ -119,11 +119,11 @@
                             </div>
 
                             <div class="header-action-icon-2">
-                                <a href=>
+                                <a href="{{ route('compares') }}">
                                     <img class="svgInject" alt="Nest"
                                         src="{{ asset('frontend/assets/imgs/theme/icons/icon-compare.svg') }}" />
                                 </a>
-                                <a href="{"><span class="lable ml-0">Compare</span></a>
+                                <a href="{{ route('compares') }}"><span class="lable ml-0">Compare</span></a>
                             </div>
                             <div class="header-action-icon-2">
                                 <a href="{{ route('wishlists') }}">
@@ -174,11 +174,12 @@
                                                     Account</a>
                                             </li>
                                             <li>
-                                                <a href="#"><i
-                                                        class="fi fi-rs-location-alt mr-10"></i>Order Tracking</a>
+                                                <a href="#"><i class="fi fi-rs-location-alt mr-10"></i>Order
+                                                    Tracking</a>
                                             </li>
                                             <li>
-                                                <a href="{{ route('user.profile') }}"><i class="fi fi-rs-label mr-10"></i>My
+                                                <a href="{{ route('user.profile') }}"><i
+                                                        class="fi fi-rs-label mr-10"></i>My
                                                     Voucher</a>
                                             </li>
                                             <li>
@@ -445,7 +446,7 @@
                                 <li><a href="shop-wishlist.html">Shop – Wishlist</a></li>
                                 <li><a href="shop-cart.html">Shop – Cart</a></li>
                                 <li><a href="shop-checkout.html">Shop – Checkout</a></li>
-                                <li><a href="shop-compare.html">Shop – Compare</a></li>
+                                <li><a href="{{ route('compares') }}">Shop – Compare</a></li>
                                 <li class="menu-item-has-children">
                                     <a href="#">Shop Invoice</a>
                                     <ul class="dropdown">

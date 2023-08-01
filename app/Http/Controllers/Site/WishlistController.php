@@ -43,7 +43,7 @@ class WishlistController extends Controller
         $wishQty = wishlist::count();
 
         return response()->json(['wishlist' => $wishlist, 'wishQty' => $wishQty]);
-    } // End Method
+    }
 
     public function wishlistRemove($id)
     {
