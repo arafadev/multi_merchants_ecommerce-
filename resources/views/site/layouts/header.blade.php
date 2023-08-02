@@ -129,7 +129,7 @@
                                 <a href="{{ route('wishlists') }}">
                                     <img class="svgInject" alt="Nest"
                                         src="{{ asset('frontend/assets/imgs/theme/icons/icon-heart.svg') }}" />
-                                    <span class="pro-count blue" id="wishQty"></span>
+                                    <span class="pro-count blue" id="wishQty">0</span>
                                 </a>
                                 <a href="{{ route('wishlists') }}"><span class="lable">Wishlist</span></a>
                             </div>
@@ -139,7 +139,7 @@
                                         src="{{ asset('frontend/assets/imgs/theme/icons/icon-cart.svg') }}" />
                                     <span class="pro-count blue" id="cartQty">0</span>
                                 </a>
-                                <a href=""><span class="lable">Cart</span></a>
+                                <a href="{{ route('mycart') }}"><span class="lable">Cart</span></a>
                                 <div class="cart-dropdown-wrap cart-dropdown-hm2">
                                     <!--   // mini cart start with ajax -->
                                     <div id="miniCart">

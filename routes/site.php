@@ -56,7 +56,14 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth:web'], function () {
 
     // Compare Routes
     Route::get('/compares', [CompareController::class, 'compares'])->name('compares');
-
     Route::get('get-compare-product', [CompareController::class, 'getCompareProduct']);
     Route::get('compare-remove/{id}',  [CompareController::class, 'compareRemove']);
+
+    // Cart routes
+    Route::get('/mycart', [CartController::class, 'mycart'])->name('mycart');
+    Route::get('get-cart-product', [CartController::class, 'getCartProduct']);
+    Route::get('cart-remove/{rowId}', [CartController::class, 'cartRemove']);
+    Route::get('cart-decrement/{rowId}', [CartController::class, 'cartDecrement']);
+    Route::get('cart-increment/{rowId}', [CartController::class, 'cartIncrement']);
+
 });

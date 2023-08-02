@@ -76,4 +76,48 @@ class CartController extends Controller
         ]);
         return response()->json(['success' => 'Successfully Added on Your Cart']);
     }
+
+    public function myCart()
+    {
+
+        return view('site.cart.index');
+    }
+
+    public function getCartProduct()
+    {
+
+        $carts = Cart::content();
+        $cartQty = Cart::count();
+        $cartTotal = Cart::total();
+
+        return response()->json(array(
+            'carts' => $carts,
+            'cartQty' => $cartQty,
+            'cartTotal' => $cartTotal
+
+        ));
+    }
+    public function cartRemove($rowId)
+    {
+        Cart::remove($rowId);
+        return response()->json(['success' => 'Successfully Remove From Cart']);
+    }
+
+    public function CartDecrement($rowId)
+    {
+
+        $row = Cart::get($rowId);
+        Cart::update($rowId, $row->qty - 1);
+
+        return response()->json('Decrement');
+    }
+
+    public function cartIncrement($rowId)
+    {
+
+        $row = Cart::get($rowId);
+        Cart::update($rowId, $row->qty + 1);
+
+        return response()->json('Increment');
+    } // End Method
 }
