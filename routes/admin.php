@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\Auth\AdminLoginController;
 use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\VendorManageController;
@@ -91,5 +92,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
     Route::post('banner/update/{id}', [BannerController::class, 'updateBanner'])->name('banner.update');
     Route::get('banner/delete/{id}', [BannerController::class, 'deleteBanner'])->name('banner.delete');
     //  ======================================================= End banner Routes =============================================
-
+    //  ======================================================= Banners Routes =============================================
+    Route::get('coupons', [CouponController::class, 'coupons'])->name('coupons');
+    Route::get('coupon/add', [CouponController::class, 'addCoupon'])->name('coupon.add');
+    Route::post('coupon/store', [CouponController::class, 'storeCoupon'])->name('coupon.store');
+    Route::get('coupon/edit/{id}', [CouponController::class, 'editCoupon'])->name('coupon.edit');
+    Route::post('coupon/update', [CouponController::class, 'updateCoupon'])->name('coupon.update');
+    Route::get('coupon/delete/{id}', [CouponController::class, 'deleteCoupon'])->name('coupon.delete');
+    //  ======================================================= End banner Routes =============================================
 });
