@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Site;
 use Carbon\Carbon;
 use App\Models\Coupon;
 use App\Models\Product;
+use App\Models\ShipDivision;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
@@ -213,4 +214,6 @@ class CartController extends Controller
         Session::forget('coupon');
         return response()->json(['success' => 'Coupon Remove Successfully']);
     }
+
+
 }

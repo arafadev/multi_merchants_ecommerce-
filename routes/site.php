@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Site\CartController;
+use App\Http\Controllers\Site\CheckoutController;
 use App\Http\Controllers\Site\IndexController;
 use App\Http\Controllers\Site\CompareController;
 use App\Http\Controllers\Site\WishlistController;
@@ -35,6 +36,11 @@ Route::group(['prefix' => '/'], function () {
     Route::get('/product/mini/cart', [CartController::class, 'addMinCart']);
     Route::get('/minicart/product/remove/{rowId}', [CartController::class, 'removeMiniCart']);
     Route::post('/dcart/data/store/{id}', [CartController::class, 'addToCartDetails']);
+    Route::get('/checkout', [CheckoutController::class, 'checkoutCreate'])->name('checkout');
+    Route::get('district-get/ajax/{division_id}', [CheckoutController::class, 'districtGetAjax']);
+    Route::get('state-get/ajax/{district_id}', [CheckoutController::class, 'stateGetAjax']);
+    Route::post('checkout/store', [CheckoutController::class, 'checkoutStore'])->name('checkout.store');
+
 
     /// Add to Wishlist
     Route::get('/add-to-wishlist/{product_id}', [WishlistController::class, 'addToWishList']);
@@ -69,6 +75,4 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth:web'], function () {
     Route::post('coupon-apply', [CartController::class, 'couponApply']);
     Route::get('coupon-calculation', [CartController::class, 'couponCalculation']);
     Route::get('coupon-remove', [CartController::class, 'couponRemove']);
-
-
 });
