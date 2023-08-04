@@ -71,6 +71,9 @@
                                             </li>
                                             <li class="mb-5">Category:<span class="text-brand" id="pcategory"> </span>
                                             </li>
+                                            <li class="mb-5">Vendor:<span class="text-brand" id="pvendor_id"> </span>
+                                            </li>
+
                                         </ul>
                                     </div>
 
@@ -117,7 +120,7 @@
                 url: 'product/view/modal/' + id,
                 dataType: 'json',
                 success: function(data) {
-                    // console.log(data)
+                    console.log(data)
                     var categoryName = data.product.category.name;
                     $('#pname').text(data.product.product_name);
                     $('#pprice').text(data.product.selling_price + '$');
@@ -130,7 +133,7 @@
                     $('#pimage').attr('src', '/' + data.product.product_thumbnail);
                     $('#product_id').val(id);
                     $('#qty').val(1);
-                    // $('#pvendor_id').text(data.product.vendor_id);
+                    $('#pvendor_id').text(data.product.vendor_id);
 
                     if (data.product.discount_price == null) {
                         $('#pprice').text('');

@@ -1,7 +1,40 @@
 @extends('site.master')
 @section('title', 'Stripe payment')
-@section('main')
+@section('css')
+    <script src="https://js.stripe.com/v3/"></script>
     <style>
+        /**
+                 * The CSS shown here will not be introduced in the Quickstart guide, but shows
+                 * how you can use CSS to style your Element's container.
+                 */
+        .StripeElement {
+            box-sizing: border-box;
+            height: 40px;
+            padding: 10px 12px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            background-color: white;
+            box-shadow: 0 1px 3px 0 #e6ebf1;
+            -webkit-transition: box-shadow 150ms ease;
+            transition: box-shadow 150ms ease;
+        }
+
+        .StripeElement--focus {
+            box-shadow: 0 1px 3px 0 #cfd7df;
+        }
+
+        .StripeElement--invalid {
+            border-color: #fa755a;
+        }
+
+        .StripeElement--webkit-autofill {
+            background-color: #fefde5 !important;
+        }
+    </style>
+
+@endsection
+@section('main')
+    {{-- <style>
         /**
                          * The CSS shown here will not be introduced in the Quickstart guide, but shows
                          * how you can use CSS to style your Element's container.
@@ -29,7 +62,7 @@
         .StripeElement--webkit-autofill {
             background-color: #fefde5 !important;
         }
-    </style>
+    </style> --}}
 
 
     <div class="page-header breadcrumb-wrap">
@@ -116,17 +149,9 @@
 
                             </tbody>
                         </table>
-
-
-
-
-
                     </div>
                 </div>
-
-
             </div> <!-- // end lg md 6 -->
-
 
             <div class="col-lg-6">
                 <div class="border p-40 cart-totals ml-30 mb-50">
@@ -137,7 +162,7 @@
                     <div class="divider-2 mb-30"></div>
                     <div class="table-responsive order_table checkout">
 
-                        <form action="" method="post" id="payment-form">
+                        <form action="{{ route('stripe.order') }}" method="post" id="payment-form">
                             @csrf
                             <div class="form-row">
                                 <label for="card-element">
@@ -180,8 +205,8 @@
     <script type="text/javascript">
         // Create a Stripe client.
         var stripe = Stripe(
-            'pk_test_51N5lI5FoTOdR1KcUEcXwI11GZ4bSYqYUmRpSVE9NJxlIsacJzOTmltHIXMSabli6K8BpEv6MHbygW2evg9wW3SOG00Q0ioGeIq'
-        );
+            'pk_test_51LKUjUFtjzmL2N4f4rOXuPfXtjcfGXzxmNlpb2aSdMCyReLXc2jNmHBoFfUBRTyU1rfQw37o7epex97WPLWDuSeI008jMjFzQH'
+            );
         // Create an instance of Elements.
         var elements = stripe.elements();
         // Custom styling can be passed to options when creating an Element.

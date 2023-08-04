@@ -107,6 +107,7 @@ class IndexController extends Controller
             'product' => $product,
             'color' => $product_color,
             'size' => $product_size,
+            'vendor_name'=> $product->vendor->name,
         ));
     }
 }

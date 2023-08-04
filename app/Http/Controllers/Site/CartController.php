@@ -15,7 +15,9 @@ class CartController extends Controller
 {
     public function addToCart(Request $request, $id)
     {
-
+        if (Session::has('coupon')) {
+            Session::forget('coupon');
+        }
         $product = Product::findOrFail($id);
 
         // Determine the price based on whether or not the product is on sale
@@ -32,7 +34,7 @@ class CartController extends Controller
                 'image' => $product->product_thumbnail,
                 'color' => $request->color,
                 'size' => $request->size,
-                'vendor' => $request->vendor,
+                'vendor' => $request->vendor_id,
             ],
         ]);
         return response()->json(['success' => 'Product successfully added to cart.']);
@@ -58,7 +60,9 @@ class CartController extends Controller
     }
     public function addToCartDetails(Request $request, $id)
     {
-
+        if (Session::has('coupon')) {
+            Session::forget('coupon');
+        }
         $product = Product::findOrFail($id);
 
         // Determine the price based on whether or not the product is on sale
@@ -101,11 +105,6 @@ class CartController extends Controller
 
         ));
     }
-    // public function cartRemove($rowId)
-    // {
-    //     Cart::remove($rowId);
-    //     return response()->json(['success' => 'Successfully Remove From Cart']);
-    // }
     public function CartRemove($rowId)
     {
         Cart::remove($rowId);
@@ -214,6 +213,4 @@ class CartController extends Controller
         Session::forget('coupon');
         return response()->json(['success' => 'Coupon Remove Successfully']);
     }
-
-
 }

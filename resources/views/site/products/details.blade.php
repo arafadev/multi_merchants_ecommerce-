@@ -564,7 +564,7 @@
                                                 @php
                                                     $amount = $product->selling_price - $product->discount_price;
                                                     $discount = ($amount / $product->selling_price) * 100;
-
+                                                    
                                                 @endphp
                                                 <div class="product-badges product-badges-position product-badges-mrg">
 
@@ -629,9 +629,6 @@
                 type: "POST",
                 dataType: 'json',
                 data: {
-                    color: color,
-                    size: size,
-                    quantity: quantity,
                     color: color,
                     size: size,
                     quantity: quantity,

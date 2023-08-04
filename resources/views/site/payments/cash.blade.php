@@ -12,7 +12,7 @@
     <div class="container mb-80 mt-50">
         <div class="row">
             <div class="col-lg-8 mb-40">
-                <h3 class="heading-2 mb-10">Cash On Delivery Payment</h3>
+                <h3 class="heading-2 mb-10">Cash On Delivery Online</h3>
                 <div class="d-flex justify-content-between">
 
                 </div>

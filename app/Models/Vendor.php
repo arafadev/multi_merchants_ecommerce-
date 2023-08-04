@@ -14,4 +14,9 @@ class Vendor extends Authenticatable
     protected $guarded = [];
     public static array $status = ['active', 'inactive'];
 
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
+
 }

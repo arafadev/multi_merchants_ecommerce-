@@ -2,9 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Site\CartController;
+use App\Http\Controllers\Site\CashController;
 use App\Http\Controllers\Site\CheckoutController;
 use App\Http\Controllers\Site\IndexController;
 use App\Http\Controllers\Site\CompareController;
+use App\Http\Controllers\Site\StripeController;
 use App\Http\Controllers\Site\WishlistController;
 use App\Http\Controllers\Site\User\UserProfileController;
 use App\Http\Controllers\Site\Vendor\Auth\VendorController;
@@ -71,8 +73,11 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth:web'], function () {
     Route::get('cart-remove/{rowId}', [CartController::class, 'cartRemove']);
     Route::get('cart-decrement/{rowId}', [CartController::class, 'cartDecrement']);
     Route::get('cart-increment/{rowId}', [CartController::class, 'cartIncrement']);
-
     Route::post('coupon-apply', [CartController::class, 'couponApply']);
     Route::get('coupon-calculation', [CartController::class, 'couponCalculation']);
     Route::get('coupon-remove', [CartController::class, 'couponRemove']);
+
+    // Payments routes
+    Route::post('stripe/order', [StripeController::class, 'stripeOrder'])->name('stripe.order');
+    Route::post('cash/order', [CashController::class, 'cashOrder'])->name('cash.order');
 });
