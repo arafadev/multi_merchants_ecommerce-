@@ -64,6 +64,8 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth:web'], function () {
         Route::get('change/password', 'userChangePassword')->name('user.change.password');
         Route::get('order_details/{order_id}', 'userOrderDetails');
         Route::get('invoice_download/{order_id}', 'userOrderInvoice');
+        Route::post('return/order/{order_id}', 'returnOrder')->name('return.order');
+        Route::get('return/order/page', 'ReturnOrderPage')->name('return.order.page');
     });
 
 

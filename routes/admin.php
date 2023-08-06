@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\ShippingAreaController;
 use App\Http\Controllers\Admin\VendorManageController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\Auth\AdminLoginController;
+use App\Http\Controllers\Admin\ReturnRequestController;
 
 Route::group(['prefix' => 'admin', 'middleware' => 'guest:admin'], function () {
     Route::get('login', [AdminLoginController::class, 'getLogin'])->name('admin.login.form');
@@ -144,5 +145,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
         Route::get('confirm/processing/{order_id}', 'confirmToProcess')->name('confirm-processing');
         Route::get('processing/delivered/{order_id}', 'processToDelivered')->name('processing-delivered');
         Route::get('invoice/download/{order_id}', 'invoiceDownload')->name('admin.invoice.download');
+    });
+
+    // Return Order All Route
+    Route::controller(ReturnRequestController::class)->group(function () {
+        Route::get('return/request', 'returnRequest')->name('return.request');
+        Route::get('return/request/approved/{order_id}', 'returnRequestApproved')->name('return.request.approved');
+        Route::get('complete/return/request', 'completeReturnRequest')->name('complete.return.request');
     });
 });

@@ -253,18 +253,21 @@
 
             </div>
 
-
             <!--  // Start Return Order Option  -->
 
-            @if ($order->status == 'deliverd')
-                <div class="form-group" style=" font-weight: 600; font-size: initial; color: #000000;">
-                    <strong>
+            @if ($order->status == 'deliverd' && $order->return_reason == null)
+                <form action="{{ route('return.order', $order->id) }}" method="post">
+                    @csrf
 
+                    <div class="form-group" style=" font-weight: 600; font-size: initial; color: #000000; ">
                         <label>Order Return Reason</label>
-                    </strong>
-                    <textarea name="return_reason" class="form-control"></textarea>
-                </div>
-                <button type="submit" class="btn-sm btn-danger">Order Return</button>
+                        <textarea name="return_reason" class="form-control" style="width:40%;"></textarea>
+                    </div>
+                    <button type="submit" class="btn-sm btn-danger" style="width:40%;">Order Return</button>
+                </form>
+            @else
+                <h5><span class=" " style="color:red;">You have send return request for this product.</span></h5>
+                <br><br>
             @endif
             <!--  // End Return Order Option  -->
 
