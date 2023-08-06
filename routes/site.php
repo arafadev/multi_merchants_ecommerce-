@@ -12,7 +12,7 @@ use App\Http\Controllers\Site\User\UserProfileController;
 use App\Http\Controllers\Site\Vendor\Auth\VendorController;
 use App\Http\Controllers\Site\User\Auth\UserLoginController;
 use App\Http\Controllers\Site\User\Auth\UserRegisterController;
-
+use App\Http\Controllers\Site\User\UserDashboardController;
 
 Route::group(['prefix' => '/'], function () {
     Route::get('/', [IndexController::class, 'home']);
@@ -43,7 +43,6 @@ Route::group(['prefix' => '/'], function () {
     Route::get('state-get/ajax/{district_id}', [CheckoutController::class, 'stateGetAjax']);
     Route::post('checkout/store', [CheckoutController::class, 'checkoutStore'])->name('checkout.store');
 
-
     /// Add to Wishlist
     Route::get('/add-to-wishlist/{product_id}', [WishlistController::class, 'addToWishList']);
     /// Add to Compare
@@ -55,6 +54,18 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth:web'], function () {
     Route::post('profile/update', [UserProfileController::class, 'profileUpdate'])->name('profile.update');
     Route::post('password/update', [UserProfileController::class, 'passwordUpdate'])->name('password.update');
     Route::get('logout', [UserLoginController::class, 'logout'])->name('user.logout');
+
+
+
+    // User Dashboard All Route
+    Route::controller(UserDashboardController::class)->group(function () {
+        Route::get('account/page', 'userAccount')->name('user.account.page');
+        Route::get('order/page', 'orderPage')->name('user.order.page');
+        Route::get('change/password', 'userChangePassword')->name('user.change.password');
+        Route::get('order_details/{order_id}', 'userOrderDetails');
+        Route::get('invoice_download/{order_id}', 'userOrderInvoice');
+    });
+
 
 
     // Wishlists routes

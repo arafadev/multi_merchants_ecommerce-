@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\SliderController;
@@ -129,5 +130,19 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
         Route::post('/update/state/{id}', 'updateState')->name('state.update');
         Route::delete('/delete/state/{id}', 'deleteState')->name('state.delete');
         Route::get('/district/ajax/{division_id}', 'getDistrict');
+    });
+
+    // Admin Order All Route
+    Route::controller(OrderController::class)->group(function () {
+        Route::get('pending/order', 'pendingOrder')->name('order.pending');
+        Route::get('order/details/{order_id}', 'orderDetails')->name('admin.order.details');
+
+        Route::get('confirmed/order', 'confirmedOrder')->name('admin.confirmed.order');
+        Route::get('processing/order', 'processingOrder')->name('admin.processing.order');
+        Route::get('delivered/order', 'deliveredOrder')->name('admin.delivered.order');
+        Route::get('pending/confirm/{order_id}', 'pendingToConfirm')->name('pending-confirm');
+        Route::get('confirm/processing/{order_id}', 'confirmToProcess')->name('confirm-processing');
+        Route::get('processing/delivered/{order_id}', 'processToDelivered')->name('processing-delivered');
+        Route::get('invoice/download/{order_id}', 'invoiceDownload')->name('admin.invoice.download');
     });
 });

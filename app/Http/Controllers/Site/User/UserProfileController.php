@@ -16,8 +16,7 @@ class UserProfileController extends Controller
     use UploadPhotoTrait;
     public function index()
     {
-
-        return view('site.user.profile.index', ['user' => auth()->user()]);
+        return view('site.user.dashboard.profile.index', ['user' => auth()->user()]);
     }
 
     public function profileUpdate(ProfileUpdateRequest $request)
@@ -26,10 +25,11 @@ class UserProfileController extends Controller
 
         if ($request->file('photo')) {
             $filename = $this->uploadPhoto($request->file('photo'), 'upload/user_images');
-            @unlink(public_path('upload/user_images/' . auth()->user()->photo));
+            @unlink(public_path(auth()->user()->photo));
         } else {
             $filename = auth()->user()->photo;
         }
+
         $data = $request->validated();
         $data['photo'] = $filename;
         User::findOrFail(Auth::id())->update($data);

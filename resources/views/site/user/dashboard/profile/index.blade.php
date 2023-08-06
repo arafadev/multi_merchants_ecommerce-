@@ -13,44 +13,40 @@
         </div>
     </div>
 </div>
-<div class="page-content pt-150 pb-150">
+<div class="page-content pt-50 pb-50">
     <div class="container">
         <div class="row">
-            <div class="col-lg-10 m-auto">
+            <div class="col-lg-12 m-auto">
                 <div class="row">
-                    <div class="col-md-3">
+
+                    {{-- Start menu --}}
+                    {{-- <div class="col-md-3">
                         <div class="dashboard-menu">
                             <ul class="nav flex-column" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active" id="dashboard-tab" data-bs-toggle="tab" href="#dashboard"
-                                        role="tab" aria-controls="dashboard" aria-selected="false"><i
+                                    <a class="nav-link active" href="dashboard"><i
                                             class="fi-rs-settings-sliders mr-10"></i>Dashboard</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="orders-tab" data-bs-toggle="tab" href="#orders"
-                                        role="tab" aria-controls="orders" aria-selected="false"><i
+                                    <a class="nav-link" href="{{ route('user.order.page') }}"><i
                                             class="fi-rs-shopping-bag mr-10"></i>Orders</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="track-orders-tab" data-bs-toggle="tab" href="#track-orders"
-                                        role="tab" aria-controls="track-orders" aria-selected="false"><i
+                                    <a class="nav-link" href="#track-orders"><i
                                             class="fi-rs-shopping-cart-check mr-10"></i>Track Your Order</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="address-tab" data-bs-toggle="tab" href="#address"
-                                        role="tab" aria-controls="address" aria-selected="true"><i
-                                            class="fi-rs-marker mr-10"></i>My Address</a>
+                                    <a class="nav-link" href="#address"><i class="fi-rs-marker mr-10"></i>My Address</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="account-detail-tab" data-bs-toggle="tab"
-                                        href="#account-detail" role="tab" aria-controls="account-detail"
-                                        aria-selected="true"><i class="fi-rs-user mr-10"></i>Account details</a>
+                                    <a class="nav-link" href="{{ route('user.account.page') }}"><i
+                                            class="fi-rs-user mr-10"></i>Account details</a>
+
                                 </li>
 
                                 <li class="nav-item">
-                                    <a class="nav-link" id="change-password-tab" data-bs-toggle="tab"
-                                        href="#change-password" role="tab" aria-controls="change-password"
-                                        aria-selected="true"><i class="fi-rs-user mr-10"></i>Change Password</a>
+                                    <a class="nav-link" href="{{ route('user.change.password') }}"><i class="fi-rs-user mr-10"></i>Change
+                                        Password</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('user.logout') }}"><i
@@ -58,14 +54,23 @@
                                 </li>
                             </ul>
                         </div>
-                    </div>
+                    </div> --}}
+                    @include('site.user.dashboard.parts.sidebar')
+
+                    {{-- End menu --}}
+
+
                     <div class="col-md-9">
                         <div class="tab-content account dashboard-content pl-50">
                             <div class="tab-pane fade active show" id="dashboard" role="tabpanel"
                                 aria-labelledby="dashboard-tab">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h3 class="mb-0">Hello {{ Auth::user()->name }}</h3>
+                                        <h3 class="mb-0">Hello {{ Auth::user()->name }}</h3><br>
+                                        <img id="showImage"
+                                            src="{{ !empty($userData->photo) ? url('upload/user_images/' . $userData->photo) : url('upload/no_image.jpg') }}"
+                                            alt="User" class="rounded-circle p-1 bg-primary" width="110">
+
                                     </div>
                                     <div class="card-body">
                                         <p>
@@ -77,7 +82,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">
+                            {{-- <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">
                                 <div class="card">
                                     <div class="card-header">
                                         <h3 class="mb-0">Your Orders</h3>
@@ -190,14 +195,8 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-
-
-
-
-
-                            <div class="tab-pane fade" id="account-detail" role="tabpanel"
+                            </div> --}}
+                            {{-- <div class="tab-pane fade" id="account-detail" role="tabpanel"
                                 aria-labelledby="account-detail-tab">
                                 <div class="card">
                                     <div class="card-header">
@@ -257,13 +256,16 @@
                                                         name="submit" value="Submit">Save Change</button>
                                                 </div>
                                             </div>
+
+
+
                                         </form>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <!-- /// Change Password  -->
-
+                            {{--
                             <div class="tab-pane fade" id="change-password" role="tabpanel"
                                 aria-labelledby="change-password-tab">
                                 <div class="card">
@@ -332,7 +334,7 @@
                                         </form>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -376,10 +378,8 @@
     $(document).ready(function() {
         $('#myForm').on('submit', function(e) {
             e.preventDefault();
-
             // Get the form data
             var formData = new FormData(this);
-
             $.ajax({
                 type: 'POST',
                 url: $(this).attr('action'),
@@ -396,7 +396,8 @@
                 },
                 error: function(xhr, status, error) {
                     console.log(xhr.responseText);
-                    toastr.error('An error occurred while updating user password.', 'Error');
+                    toastr.error('An error occurred while updating user password.',
+                        'Error');
                 }
             });
         });

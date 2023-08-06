@@ -23,7 +23,11 @@ class UserLoginController extends Controller
             );
             return redirect()->route('user.profile')->with($notification);
         } else {
-            return 'email or password is incorrect';
+            $notification = array(
+                'message' => 'Email or password failed',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
         }
     }
 

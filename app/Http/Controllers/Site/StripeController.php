@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Site;
 
 use Carbon\Carbon;
 use App\Models\Order;
+use App\Mail\OrderMail;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
@@ -52,7 +54,6 @@ class StripeController extends Controller
         // Start Send Email
 
         $invoice = Order::findOrFail($order_id);
-
         $data = [
 
             'invoice_no' => $invoice->invoice_no,
@@ -61,7 +62,7 @@ class StripeController extends Controller
             'email' => $invoice->email,
 
         ];
-
+        Mail::to($request->email)->send(new OrderMail($data));
         // End Send Email
         $carts = Cart::content();
 
@@ -91,6 +92,6 @@ class StripeController extends Controller
             'alert-type' => 'success'
         );
 
-        return redirect()->to('/')->with($notification);
+        return redirect()->route('user.profile')->with($notification);
     }
 }

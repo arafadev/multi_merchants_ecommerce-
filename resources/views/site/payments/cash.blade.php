@@ -112,7 +112,6 @@
                                 </label>
                                 <!-- Used to display form errors. -->
                             </div>
-                            <br>
                             <button class="btn btn-primary">Submit Payment</button>
                         </form>
                     </div>

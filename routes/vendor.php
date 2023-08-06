@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Vendor\ProductController;
+use App\Http\Controllers\Vendor\VendorOrderController;
 use App\Http\Controllers\Vendor\VendorProfileController;
 use App\Http\Controllers\Vendor\VendorDashboardController;
 use App\Http\Controllers\Vendor\Auth\VendorLoginController;
@@ -35,4 +36,9 @@ Route::group(['prefix' => 'vendor', 'middleware' => 'auth:vendor'], function () 
     Route::get('/product/delete/{id}',  [ProductController::class, 'deleteProduct'])->name('vendor.delete.product');
     //  ======================================================= End Product Routes =============================================
 
+
+    // Vendor Order All Route
+    Route::controller(VendorOrderController::class)->group(function () {
+        Route::get('vendor/order', 'vendorOrder')->name('vendor.order');
+    });
 });

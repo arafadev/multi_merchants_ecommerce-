@@ -120,7 +120,7 @@
                 url: 'product/view/modal/' + id,
                 dataType: 'json',
                 success: function(data) {
-                    console.log(data)
+                    // console.log(data)
                     var categoryName = data.product.category.name;
                     $('#pname').text(data.product.product_name);
                     $('#pprice').text(data.product.selling_price + '$');
