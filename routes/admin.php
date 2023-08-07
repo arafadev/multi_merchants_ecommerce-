@@ -169,12 +169,4 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
         Route::post('/search/by/user', 'SearchByUser')->name('search-by-user');
     });
 
-    // Active user and vendor All Route
-    Route::controller(ActiveUserController::class)->group(function () {
-        Route::get('all/user', 'users')->name('users.index');
-    });
-
-    Route::controller(ActiveVendorController::class)->group(function () {
-        Route::get('all/vendor', 'vendors')->name('vendors.index');
-    });
 });
