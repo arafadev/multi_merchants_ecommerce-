@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -19,4 +20,8 @@ class Vendor extends Authenticatable
         return $this->hasMany(Product::class);
     }
 
+    public function UserOnline()
+    {
+        return Cache::has('user-is-online' . $this->id);
+    }
 }

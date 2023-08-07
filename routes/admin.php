@@ -5,16 +5,19 @@ use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\CouponController;
+use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ActiveUserController;
+use App\Http\Controllers\Admin\ActiveVendorController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Admin\ShippingAreaController;
 use App\Http\Controllers\Admin\VendorManageController;
+use App\Http\Controllers\Admin\ReturnRequestController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\Auth\AdminLoginController;
-use App\Http\Controllers\Admin\ReturnRequestController;
 
 Route::group(['prefix' => 'admin', 'middleware' => 'guest:admin'], function () {
     Route::get('login', [AdminLoginController::class, 'getLogin'])->name('admin.login.form');
@@ -152,5 +155,26 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
         Route::get('return/request', 'returnRequest')->name('return.request');
         Route::get('return/request/approved/{order_id}', 'returnRequestApproved')->name('return.request.approved');
         Route::get('complete/return/request', 'completeReturnRequest')->name('complete.return.request');
+    });
+
+    // Report All Route
+    Route::controller(ReportController::class)->group(function () {
+
+        Route::get('reports', 'reports')->name('reports.index');
+        Route::post('search/by/date', 'searchByDate')->name('search-by-date');
+        Route::post('search/by/month', 'searchByMonth')->name('search-by-month');
+        Route::post('search/by/year', 'searchByYear')->name('search-by-year');
+        Route::post('/search/by/year', 'SearchByYear')->name('search-by-year');
+        Route::get('/order/by/user', 'OrderByUser')->name('order.by.user');
+        Route::post('/search/by/user', 'SearchByUser')->name('search-by-user');
+    });
+
+    // Active user and vendor All Route
+    Route::controller(ActiveUserController::class)->group(function () {
+        Route::get('all/user', 'users')->name('users.index');
+    });
+
+    Route::controller(ActiveVendorController::class)->group(function () {
+        Route::get('all/vendor', 'vendors')->name('vendors.index');
     });
 });

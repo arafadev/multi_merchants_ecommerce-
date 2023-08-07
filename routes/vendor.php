@@ -39,6 +39,9 @@ Route::group(['prefix' => 'vendor', 'middleware' => 'auth:vendor'], function () 
 
     // Vendor Order All Route
     Route::controller(VendorOrderController::class)->group(function () {
-        Route::get('vendor/order', 'vendorOrder')->name('vendor.order');
+        Route::get('orders', 'orders')->name('vendor.orders');
+        Route::get('return/order', 'returnOrders')->name('vendor.return.order');
+        Route::get('complete/return/order', 'completeReturnOrder')->name('vendor.complete.return.order');
+        Route::get('order/details/{order_id}', 'orderDetails')->name('vendor.order.details');
     });
 });

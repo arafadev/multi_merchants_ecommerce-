@@ -255,10 +255,9 @@
 
             <!--  // Start Return Order Option  -->
 
-            @if ($order->status == 'deliverd' && $order->return_reason == null)
+            @if ($order->status === 'deliverd' && !in_array($order->return_order, [1, 2]))
                 <form action="{{ route('return.order', $order->id) }}" method="post">
                     @csrf
-
                     <div class="form-group" style=" font-weight: 600; font-size: initial; color: #000000; ">
                         <label>Order Return Reason</label>
                         <textarea name="return_reason" class="form-control" style="width:40%;"></textarea>

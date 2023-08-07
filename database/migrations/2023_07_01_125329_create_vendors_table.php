@@ -26,6 +26,7 @@ return new class extends Migration
             $table->text('vendor_short_info')->nullable();
             $table->text('address')->nullable();
             $table->enum('status', ['active', 'inactive'])->default('active');
+            $table->string('last_seen')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
