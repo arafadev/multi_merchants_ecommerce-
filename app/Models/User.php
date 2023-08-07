@@ -22,8 +22,5 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
-    public function UserOnline()
-    {
-        return Cache::has('user-is-online' . $this->id);
-    }
+
 }
