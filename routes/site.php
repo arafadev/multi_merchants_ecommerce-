@@ -1,18 +1,19 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Site\BlogController;
 use App\Http\Controllers\Site\CartController;
 use App\Http\Controllers\Site\CashController;
-use App\Http\Controllers\Site\CheckoutController;
 use App\Http\Controllers\Site\IndexController;
-use App\Http\Controllers\Site\CompareController;
 use App\Http\Controllers\Site\StripeController;
+use App\Http\Controllers\Site\CompareController;
+use App\Http\Controllers\Site\CheckoutController;
 use App\Http\Controllers\Site\WishlistController;
 use App\Http\Controllers\Site\User\UserProfileController;
+use App\Http\Controllers\Site\User\UserDashboardController;
 use App\Http\Controllers\Site\Vendor\Auth\VendorController;
 use App\Http\Controllers\Site\User\Auth\UserLoginController;
 use App\Http\Controllers\Site\User\Auth\UserRegisterController;
-use App\Http\Controllers\Site\User\UserDashboardController;
 
 Route::group(['prefix' => '/'], function () {
     Route::get('/', [IndexController::class, 'home']);
@@ -47,6 +48,17 @@ Route::group(['prefix' => '/'], function () {
     Route::get('/add-to-wishlist/{product_id}', [WishlistController::class, 'addToWishList']);
     /// Add to Compare
     Route::post('add-to-compare/{product_id}', [CompareController::class, 'addToCompare']);
+
+
+
+    // Site Blog Post All Route
+    Route::controller(BlogController::class)->group(function () {
+
+        Route::get('blog', 'blogs')->name('home.blog');
+        Route::get('post/details/{id}/{slug}', 'blogDetails');
+        Route::get('/post/details/{id}/{slug}', 'BlogDetails');
+        Route::get('/post/category/{id}/{slug}', 'BlogPostCategory');
+    });
 });
 
 Route::group(['prefix' => 'user', 'middleware' => 'auth:web'], function () {
@@ -93,7 +105,4 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth:web'], function () {
     // Payments routes
     Route::post('stripe/order', [StripeController::class, 'stripeOrder'])->name('stripe.order');
     Route::post('cash/order', [CashController::class, 'cashOrder'])->name('cash.order');
-
-
-
 });

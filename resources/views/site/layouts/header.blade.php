@@ -286,7 +286,7 @@
 
                                 @php
                                     $categories = App\Models\Category::orderBy('name', 'ASC')
-                                        ->limit(5)
+                                        ->limit(4)
                                         ->get();
                                 @endphp
                                 @foreach ($categories as $category)
@@ -307,7 +307,9 @@
                                         @endif
                                     </li>
                                 @endforeach
-
+                                <li><a href="{{ route('home.blog') }}">Blog
+                                </li>
+                                </a>
                                 <li class="position-static">
 
                             </ul>
