@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\BannerController;
@@ -10,8 +11,8 @@ use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ActiveUserController;
-use App\Http\Controllers\Admin\ActiveVendorController;
 use App\Http\Controllers\Admin\SubCategoryController;
+use App\Http\Controllers\Admin\ActiveVendorController;
 use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Admin\ShippingAreaController;
 use App\Http\Controllers\Admin\VendorManageController;
@@ -169,4 +170,31 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
         Route::post('/search/by/user', 'SearchByUser')->name('search-by-user');
     });
 
+    // Active user and vendor All Route
+    Route::controller(BlogController::class)->group(function () {
+
+        Route::get('blog/category', 'allBlogCategory')->name('admin.blog.category');
+
+        Route::get('add/blog/category', 'addBlogCategory')->name('add.blog.category');
+
+        Route::post('store/blog/category', 'storeBlogCategory')->name('store.blog.category');
+        Route::get('/admin/edit/blog/category/{id}', 'editBlogCategory')->name('edit.blog.category');
+        Route::post('/admin/update/blog/category', 'updateBlogCategory')->name('update.blog.category');
+        Route::get('/admin/delete/blog/category/{id}', 'deleteBlogCategory')->name('delete.blog.category');
+    });
+
+    // Blog Post All Route
+    Route::controller(BlogController::class)->group(function () {
+
+        Route::get('blog/post', 'allBlogPost')->name('admin.blog.post');
+
+        Route::get('add/blog/post', 'addBlogPost')->name('add.blog.post');
+
+        Route::post('store/blog/post', 'storeBlogPost')->name('store.blog.post');
+        Route::get('edit/blog/post/{id}', 'editBlogPost')->name('edit.blog.post');
+
+        Route::post('update/blog/post', 'UpdateBlogPost')->name('update.blog.post');
+
+        Route::get('delete/blog/post/{id}', 'DeleteBlogPost')->name('delete.blog.post');
+    });
 });

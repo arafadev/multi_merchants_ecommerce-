@@ -20,8 +20,5 @@ class Vendor extends Authenticatable
         return $this->hasMany(Product::class);
     }
 
-    public function VendorOnline()
-    {
-        return Cache::has('vendor-is-online' . $this->id);
-    }
+ 
 }

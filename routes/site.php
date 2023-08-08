@@ -93,4 +93,7 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth:web'], function () {
     // Payments routes
     Route::post('stripe/order', [StripeController::class, 'stripeOrder'])->name('stripe.order');
     Route::post('cash/order', [CashController::class, 'cashOrder'])->name('cash.order');
+
+
+
 });

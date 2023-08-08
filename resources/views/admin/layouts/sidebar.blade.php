@@ -85,6 +85,25 @@
 
         </ul>
     </li>
+
+
+    <li>
+        <a href="javascript:;" class="has-arrow">
+            <div class="parent-icon"><i class="bx bx-category"></i>
+            </div>
+            <div class="menu-title">Blog Manage</div>
+        </a>
+        <ul>
+            <li> <a href="{{ route('admin.blog.category') }}"><i class="bx bx-right-arrow-alt"></i>All Blog
+                    Categroy</a>
+            </li>
+
+            <li> <a href="{{ route('admin.blog.post') }}"><i class="bx bx-right-arrow-alt"></i>All Blog Post</a>
+
+
+
+        </ul>
+    </li>
     <li>
         <a href="javascript:;" class="has-arrow">
             <div class="parent-icon"><i class="bx bx-category"></i>
@@ -201,6 +220,8 @@
 
         </ul>
     </li>
+
+
 
     <li>
         <a class="has-arrow" href="javascript:;">
