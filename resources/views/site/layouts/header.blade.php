@@ -81,21 +81,12 @@
                 </div>
                 <div class="header-right">
                     <div class="search-style-2">
-                        <form action="#">
-                            <select class="select-active">
-                                <option>All Categories</option>
-                                <option>Milks and Dairies</option>
-                                <option>Wines & Alcohol</option>
-                                <option>Clothing & Beauty</option>
-                                <option>Pet Foods & Toy</option>
-                                <option>Fast food</option>
-                                <option>Baking material</option>
-                                <option>Vegetables</option>
-                                <option>Fresh Seafood</option>
-                                <option>Noodles & Rice</option>
-                                <option>Ice cream</option>
-                            </select>
-                            <input type="text" placeholder="Search for items..." />
+                        <form action="{{ route('product.search') }}" method="post">
+                            @csrf
+                            <input onfocus="search_result_show()" onblur="search_result_hide()" name="search"
+                                id="search" placeholder="Search for items..." />
+                            <div id="searchProducts"></div>
+                            <button type="submit"><i class="fi-rs-search"></i></button>
                         </form>
                     </div>
                     <div class="header-action-right">
@@ -415,10 +406,13 @@
         </div>
         <div class="mobile-header-content-area">
             <div class="mobile-search search-style-3 mobile-header-border">
-                <form action="#">
-                    <input type="text" placeholder="Search for items…" />
+                {{-- <form action="{{ route('product.search') }}" method="post">
+                    @csrf
+                    <input onfocus="search_result_show()" onblur="search_result_hide()" name="search"
+                        id="search" placeholder="Search for items..." />
+                    <div id="searchProducts"></div>
                     <button type="submit"><i class="fi-rs-search"></i></button>
-                </form>
+                </form> --}}
             </div>
             <div class="mobile-menu-wrap mobile-header-border">
                 <!-- mobile menu start -->
@@ -571,3 +565,26 @@
     </div>
 </div>
 </header>
+
+<style>
+    #searchProducts {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: #ffffff;
+        z-index: 999;
+        border-radius: 8px;
+        margin-top: 5px;
+    }
+</style>
+
+<script>
+    function search_result_show() {
+        $("#searchProducts").slideDown();
+    }
+
+    function search_result_hide() {
+        $("#searchProducts").slideUp();
+    }
+</script>

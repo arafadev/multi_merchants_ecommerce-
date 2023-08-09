@@ -60,6 +60,18 @@ Route::group(['prefix' => '/'], function () {
     });
 });
 
+
+// Search All Route
+Route::controller(IndexController::class)->group(function () {
+
+    Route::post('/search', 'ProductSearch')->name('product.search');
+    Route::post('/search-product', 'searchProduct');
+});
+
+
+
+
+
 Route::group(['prefix' => 'user', 'middleware' => 'auth:web'], function () {
     Route::get('profile', [UserProfileController::class, 'index'])->name('user.profile');
     Route::post('profile/update', [UserProfileController::class, 'profileUpdate'])->name('profile.update');
@@ -77,6 +89,10 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth:web'], function () {
         Route::get('invoice_download/{order_id}', 'userOrderInvoice');
         Route::post('return/order/{order_id}', 'returnOrder')->name('return.order');
         Route::get('return/order/page', 'ReturnOrderPage')->name('return.order.page');
+
+        // Order Tracking
+        Route::get('track/order', 'userTrackOrder')->name('user_track.order');
+        Route::post('/order/tracking', 'OrderTracking')->name('order.tracking');
     });
 
 

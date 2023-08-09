@@ -46,6 +46,7 @@
          }
      @endif
  </script>
+ <script src="{{ asset('frontend/assets/js/script.js') }}"></script>
  <script type="text/javascript">
      //  this header js for all ajaxS codeS
      $.ajaxSetup({
@@ -775,5 +776,5 @@
      // Coupon Remove End
  </script>
  <!--  ////////////// End Apply Coupon ////////////// -->
-
+ 
  @yield('js')

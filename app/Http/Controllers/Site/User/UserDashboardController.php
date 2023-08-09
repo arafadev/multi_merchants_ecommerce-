@@ -77,4 +77,27 @@ class UserDashboardController extends Controller
         return view('site.user.dashboard.orders.return_order', compact('orders'));
     } // End Method
 
+    public function userTrackOrder()
+    {
+        return view('site.user.dashboard.orders.track_order');
+    } // End Method
+
+    public function orderTracking(Request $request)
+    {
+
+        $track = Order::where('invoice_no', $request->code)->first();
+
+        if ($track) {
+            return view('site.user.dashboard.orders.tracking.index', ['track' => $track]);
+        } else {
+            $notification = array(
+                'message' => 'Invoice Code Is Invalid',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+    } // End Method
+
+
+
 }
