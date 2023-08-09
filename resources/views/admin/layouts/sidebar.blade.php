@@ -71,6 +71,24 @@
 
         </ul>
     </li>
+
+
+    <li>
+        <a href="javascript:;" class="has-arrow">
+            <div class="parent-icon"><i class="bx bx-category"></i>
+            </div>
+            <div class="menu-title">Review Manage</div>
+        </a>
+        <ul>
+            <li> <a href="{{ route('reviews.pending') }}"><i class="bx bx-right-arrow-alt"></i>Pending Review</a>
+            </li>
+
+            <li> <a href="{{ route('reviews.publish') }}"><i class="bx bx-right-arrow-alt"></i>Publish Review</a>
+
+
+
+        </ul>
+    </li>
     <li>
         <a href="javascript:;" class="has-arrow">
             <div class="parent-icon"><i class="bx bx-category"></i>
@@ -132,6 +150,8 @@
             </li>
         </ul>
     </li>
+
+
 
     <li>
         <a href="javascript:;" class="has-arrow">
@@ -220,9 +240,37 @@
 
         </ul>
     </li>
+    <li>
+        <a href="javascript:;" class="has-arrow">
+            <div class="parent-icon"><i class="bx bx-category"></i>
+            </div>
+            <div class="menu-title">Setting Manage</div>
+        </a>
+        <ul>
+            <li> <a href="{{ route('site_settings.index') }}"><i class="bx bx-right-arrow-alt"></i>Site Setting</a>
+            </li>
+
+            <li> <a href="{{ route('seos.index') }}"><i class="bx bx-right-arrow-alt"></i>Seo Setting</a>
+            </li>
+
+
+        </ul>
+    </li>
+    <li>
+        <a href="javascript:;" class="has-arrow">
+            <div class="parent-icon"><i class="bx bx-category"></i>
+            </div>
+            <div class="menu-title">Stock Manage</div>
+        </a>
+        <ul>
+            <li> <a href="{{ route('product_stock.index') }}"><i class="bx bx-right-arrow-alt"></i>Product Stock</a>
+            </li>
 
 
 
+
+        </ul>
+    </li>
     <li>
         <a class="has-arrow" href="javascript:;">
             <div class="parent-icon"><i class='bx bx-bookmark-heart'></i>

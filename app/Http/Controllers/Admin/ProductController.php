@@ -194,4 +194,11 @@ class ProductController extends Controller
             return response()->json(['success' => false]);
         }
     }
+
+    public function productStock()
+    {
+
+        $products = Product::latest()->get();
+        return view('admin.products.product_stock', ['products' => $products]);
+    }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Vendor\ReviewController;
 use App\Http\Controllers\Vendor\ProductController;
 use App\Http\Controllers\Vendor\VendorOrderController;
 use App\Http\Controllers\Vendor\VendorProfileController;
@@ -44,4 +45,12 @@ Route::group(['prefix' => 'vendor', 'middleware' => 'auth:vendor'], function () 
         Route::get('complete/return/order', 'completeReturnOrder')->name('vendor.complete.return.order');
         Route::get('order/details/{order_id}', 'orderDetails')->name('vendor.order.details');
     });
+
+
+    Route::controller(ReviewController::class)->group(function () {
+
+        Route::get('/reviews', 'reviews')->name('reviews.index');
+    });
+
+    
 });

@@ -79,11 +79,31 @@
                                     <h2><a
                                             href="{{ url('product/details/' . $product->id . '/' . $product->product_slug) }}">
                                             {{ $product->product_name }} </a></h2>
+                                    @php
+                                        $reviewcount = App\Models\Review::where('product_id', $product->id)
+                                            ->where('status', 1)
+                                            ->latest()
+                                            ->get();
+                                        $avarage = App\Models\Review::where('product_id', $product->id)
+                                            ->where('status', 1)
+                                            ->avg('rating');
+                                    @endphp
                                     <div class="product-rate-cover">
                                         <div class="product-rate d-inline-block">
-                                            <div class="product-rating" style="width: 90%"></div>
+                                            @if ($avarage == 0)
+                                            @elseif($avarage == 1 || $avarage < 2)
+                                                <div class="product-rating" style="width: 20%"></div>
+                                            @elseif($avarage == 2 || $avarage < 3)
+                                                <div class="product-rating" style="width: 40%"></div>
+                                            @elseif($avarage == 3 || $avarage < 4)
+                                                <div class="product-rating" style="width: 60%"></div>
+                                            @elseif($avarage == 4 || $avarage < 5)
+                                                <div class="product-rating" style="width: 80%"></div>
+                                            @elseif($avarage == 5 || $avarage < 5)
+                                                <div class="product-rating" style="width: 100%"></div>
+                                            @endif
                                         </div>
-                                        <span class="font-small ml-5 text-muted"> (4.0)</span>
+                                        <span class="font-small ml-5 text-muted"> ({{ count($reviewcount) }})</span>
                                     </div>
                                     <div>
                                         @if ($product->vendor_id == null)
@@ -151,8 +171,8 @@
                                     <div class="product-img-action-wrap">
                                         <div class="product-img product-img-zoom">
                                             <a href="shop-product-right.html">
-                                                <img class="default-img" src="{{ asset($product->product_thumbnail) }}"
-                                                    alt="" />
+                                                <img class="default-img"
+                                                    src="{{ asset($product->product_thumbnail) }}" alt="" />
 
                                             </a>
                                         </div>

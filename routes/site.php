@@ -5,6 +5,7 @@ use App\Http\Controllers\Site\BlogController;
 use App\Http\Controllers\Site\CartController;
 use App\Http\Controllers\Site\CashController;
 use App\Http\Controllers\Site\IndexController;
+use App\Http\Controllers\Site\ReviewController;
 use App\Http\Controllers\Site\StripeController;
 use App\Http\Controllers\Site\CompareController;
 use App\Http\Controllers\Site\CheckoutController;
@@ -48,8 +49,6 @@ Route::group(['prefix' => '/'], function () {
     Route::get('/add-to-wishlist/{product_id}', [WishlistController::class, 'addToWishList']);
     /// Add to Compare
     Route::post('add-to-compare/{product_id}', [CompareController::class, 'addToCompare']);
-
-
 
     // Site Blog Post All Route
     Route::controller(BlogController::class)->group(function () {
@@ -105,4 +104,11 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth:web'], function () {
     // Payments routes
     Route::post('stripe/order', [StripeController::class, 'stripeOrder'])->name('stripe.order');
     Route::post('cash/order', [CashController::class, 'cashOrder'])->name('cash.order');
+
+
+    // Site Review products
+    Route::controller(ReviewController::class)->group(function () {
+
+        Route::post('store/review', 'storeReview')->name('store.review');
+    });
 });

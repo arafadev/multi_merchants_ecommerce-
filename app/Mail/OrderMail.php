@@ -13,15 +13,15 @@ class OrderMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    private $data;
+    // private $data;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($data)
+    public function __construct(private $data)
     {
-        $this->data = $data;
+        //
     }
 
     /**
@@ -32,7 +32,7 @@ class OrderMail extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Order Mail',
+            subject: 'Your Order Is confirmed',
         );
     }
 
@@ -43,7 +43,9 @@ class OrderMail extends Mailable
      */
     public function content()
     {
-        $schedule = $this->data;
+
+
+        $order = $this->data;
         return new Content(
             view: 'site.mail.order.index',
             with: ['order' => $this->data],

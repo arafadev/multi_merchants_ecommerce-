@@ -1,6 +1,7 @@
 @extends('site.master')
-@section('title', 'Blog Details')
+@section('title', $blogDetails->post_title)
 @section('main')
+
     <div class="page-header breadcrumb-wrap">
         <div class="container">
             <div class="breadcrumb">

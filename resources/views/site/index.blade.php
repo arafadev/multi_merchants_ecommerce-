@@ -46,14 +46,15 @@
                                                 <div class="product-img product-img-zoom">
                                                     <a
                                                         href="{{ url('product/details/' . $product->id . '/' . $product->product_slug) }}">
-                                                        <img class="default-img" src="{{ asset($product->product_thumbnail) }}"
-                                                            alt="" />
+                                                        <img class="default-img"
+                                                            src="{{ asset($product->product_thumbnail) }}" alt="" />
 
                                                     </a>
                                                 </div>
                                                 <div class="product-action-1">
-                                                    <a aria-label="Add To Wishlist" class="action-btn" id="{{ $product->id }}"
-                                                        onclick="addToWishList(this.id)"><i class="fi-rs-heart"></i></a>
+                                                    <a aria-label="Add To Wishlist" class="action-btn"
+                                                        id="{{ $product->id }}" onclick="addToWishList(this.id)"><i
+                                                            class="fi-rs-heart"></i></a>
 
                                                     <a aria-label="Compare" class="action-btn" id="{{ $product->id }}"
                                                         onclick="addToCompare(this.id)"><i class="fi-rs-shuffle"></i></a>
@@ -65,7 +66,7 @@
                                                 @php
                                                     $amount = $product->selling_price - $product->discount_price;
                                                     $discount = ($amount / $product->selling_price) * 100;
-
+                                                    
                                                 @endphp
 
 
@@ -87,11 +88,34 @@
                                                 <h2><a
                                                         href="{{ url('product/details/' . $product->id . '/' . $product->product_slug) }}">
                                                         {{ $product->product_name }} </a></h2>
+
+
+                                                @php
+                                                    $reviewcount = App\Models\Review::where('product_id', $product->id)
+                                                        ->where('status', 1)
+                                                        ->latest()
+                                                        ->get();
+                                                    $avarage = App\Models\Review::where('product_id', $product->id)
+                                                        ->where('status', 1)
+                                                        ->avg('rating');
+                                                @endphp
                                                 <div class="product-rate-cover">
                                                     <div class="product-rate d-inline-block">
-                                                        <div class="product-rating" style="width: 90%"></div>
+                                                        @if ($avarage == 0)
+                                                        @elseif($avarage == 1 || $avarage < 2)
+                                                            <div class="product-rating" style="width: 20%"></div>
+                                                        @elseif($avarage == 2 || $avarage < 3)
+                                                            <div class="product-rating" style="width: 40%"></div>
+                                                        @elseif($avarage == 3 || $avarage < 4)
+                                                            <div class="product-rating" style="width: 60%"></div>
+                                                        @elseif($avarage == 4 || $avarage < 5)
+                                                            <div class="product-rating" style="width: 80%"></div>
+                                                        @elseif($avarage == 5 || $avarage < 5)
+                                                            <div class="product-rating" style="width: 100%"></div>
+                                                        @endif
                                                     </div>
-                                                    <span class="font-small ml-5 text-muted"> (4.0)</span>
+                                                    <span class="font-small ml-5 text-muted">
+                                                        ({{ count($reviewcount) }})</span>
                                                 </div>
                                                 <div>
                                                     @if ($product->vendor_id == null)
@@ -174,14 +198,16 @@
                                                 <div class="product-img product-img-zoom">
                                                     <a
                                                         href="{{ url('product/details/' . $product->id . '/' . $product->product_slug) }}">
-                                                        <img class="default-img" src="{{ asset($product->product_thumbnail) }}"
+                                                        <img class="default-img"
+                                                            src="{{ asset($product->product_thumbnail) }}"
                                                             alt="" />
 
                                                     </a>
                                                 </div>
                                                 <div class="product-action-1">
-                                                    <a aria-label="Add To Wishlist" class="action-btn" id="{{ $product->id }}"
-                                                        onclick="addToWishList(this.id)"><i class="fi-rs-heart"></i></a>
+                                                    <a aria-label="Add To Wishlist" class="action-btn"
+                                                        id="{{ $product->id }}" onclick="addToWishList(this.id)"><i
+                                                            class="fi-rs-heart"></i></a>
                                                     <a aria-label="Compare" class="action-btn" id="{{ $product->id }}"
                                                         onclick="addToCompare(this.id)"><i class="fi-rs-shuffle"></i></a>
                                                     <a aria-label="Quick view" class="action-btn" data-bs-toggle="modal"
@@ -192,7 +218,7 @@
                                                 @php
                                                     $amount = $product->selling_price - $product->discount_price;
                                                     $discount = ($amount / $product->selling_price) * 100;
-
+                                                    
                                                 @endphp
 
 
@@ -301,7 +327,8 @@
                                                     <a
                                                         href="{{ url('product/details/' . $product->id . '/' . $product->product_slug) }}">
                                                         <img class="default-img"
-                                                            src="{{ asset($product->product_thumbnail) }}" alt="" />
+                                                            src="{{ asset($product->product_thumbnail) }}"
+                                                            alt="" />
 
                                                     </a>
                                                 </div>
@@ -321,7 +348,7 @@
                                                 @php
                                                     $amount = $product->selling_price - $product->discount_price;
                                                     $discount = ($amount / $product->selling_price) * 100;
-
+                                                    
                                                 @endphp
 
 
@@ -420,12 +447,13 @@
                                 <article class="row align-items-center hover-up">
                                     <figure class="col-md-4 mb-0">
                                         <a href="{{ url('product/details/' . $item->id . '/' . $item->product_slug) }}"><img
-                                                src="{{ asset($item->product_thumbnail) }}" height="100" width="200"
-                                                alt="" /></a>
+                                                src="{{ asset($item->product_thumbnail) }}" height="100"
+                                                width="200" alt="" /></a>
                                     </figure>
                                     <div class="col-md-8 mb-0">
                                         <h6>
-                                            <a href="{{ url('product/details/' . $item->id . '/' . $item->product_slug) }}">
+                                            <a
+                                                href="{{ url('product/details/' . $item->id . '/' . $item->product_slug) }}">
                                                 {{ $item->product_name }} </a>
                                         </h6>
                                         <div class="product-rate-cover">
@@ -467,12 +495,13 @@
                                 <article class="row align-items-center hover-up">
                                     <figure class="col-md-4 mb-0">
                                         <a href="{{ url('product/details/' . $item->id . '/' . $item->product_slug) }}"><img
-                                                src="{{ asset($item->product_thumbnail) }}" width="100" height="100"
-                                                alt="" /></a>
+                                                src="{{ asset($item->product_thumbnail) }}" width="100"
+                                                height="100" alt="" /></a>
                                     </figure>
                                     <div class="col-md-8 mb-0">
                                         <h6>
-                                            <a href="{{ url('product/details/' . $item->id . '/' . $item->product_slug) }}">
+                                            <a
+                                                href="{{ url('product/details/' . $item->id . '/' . $item->product_slug) }}">
                                                 {{ $item->product_name }} </a>
                                         </h6>
                                         <div class="product-rate-cover">
@@ -510,12 +539,13 @@
                                 <article class="row align-items-center hover-up">
                                     <figure class="col-md-4 mb-0">
                                         <a href="{{ url('product/details/' . $item->id . '/' . $item->product_slug) }}"><img
-                                                src="{{ asset($item->product_thumbnail) }}" width="100" height="100"
-                                                alt="" /></a>
+                                                src="{{ asset($item->product_thumbnail) }}" width="100"
+                                                height="100" alt="" /></a>
                                     </figure>
                                     <div class="col-md-8 mb-0">
                                         <h6>
-                                            <a href="{{ url('product/details/' . $item->id . '/' . $item->product_slug) }}">
+                                            <a
+                                                href="{{ url('product/details/' . $item->id . '/' . $item->product_slug) }}">
                                                 {{ $item->product_name }} </a>
                                         </h6>
                                         <div class="product-rate-cover">
@@ -553,12 +583,13 @@
                                 <article class="row align-items-center hover-up">
                                     <figure class="col-md-4 mb-0">
                                         <a href="{{ url('product/details/' . $item->id . '/' . $item->product_slug) }}"><img
-                                                src="{{ asset($item->product_thumbnail) }}" width="100" height="100"
-                                                alt="" /></a>
+                                                src="{{ asset($item->product_thumbnail) }}" width="100"
+                                                height="100" alt="" /></a>
                                     </figure>
                                     <div class="col-md-8 mb-0">
                                         <h6>
-                                            <a href="{{ url('product/details/' . $item->id . '/' . $item->product_slug) }}">
+                                            <a
+                                                href="{{ url('product/details/' . $item->id . '/' . $item->product_slug) }}">
                                                 {{ $item->product_name }} </a>
                                         </h6>
                                         <div class="product-rate-cover">

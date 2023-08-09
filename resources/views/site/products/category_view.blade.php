@@ -1,5 +1,5 @@
 @extends('site.master')
-@section('title', 'Category View')
+@section('title', $breadcat->category_name)
 @section('main')
     <div class="page-header mt-30 mb-50">
         <div class="container">
@@ -95,7 +95,7 @@
                                     @php
                                         $amount = $product->selling_price - $product->discount_price;
                                         $discount = ($amount / $product->selling_price) * 100;
-
+                                        
                                     @endphp
 
 
@@ -192,9 +192,9 @@
 
                         @foreach ($categories as $category)
                             @php
-
+                                
                                 $products = App\Models\Product::where('category_id', $category->id)->get();
-
+                                
                             @endphp
 
 

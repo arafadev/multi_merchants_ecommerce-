@@ -7,10 +7,12 @@ use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\ReportController;
+use App\Http\Controllers\Admin\ReviewController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ActiveUserController;
+use App\Http\Controllers\Admin\SiteSettingController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\ActiveVendorController;
 use App\Http\Controllers\Admin\AdminProfileController;
@@ -19,6 +21,7 @@ use App\Http\Controllers\Admin\VendorManageController;
 use App\Http\Controllers\Admin\ReturnRequestController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\Auth\AdminLoginController;
+use App\Http\Controllers\Admin\SeoController;
 
 Route::group(['prefix' => 'admin', 'middleware' => 'guest:admin'], function () {
     Route::get('login', [AdminLoginController::class, 'getLogin'])->name('admin.login.form');
@@ -82,6 +85,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
     Route::post('/update/product/multiImag',  [ProductController::class, 'UpdateProductMultiImage'])->name('update.product.multiimage');
     Route::get('/product/multiImage/delete/{id}',  [ProductController::class, 'deleteProductMultiImage'])->name('delete.product.multiimage');
     Route::get('/product/delete/{id}',  [ProductController::class, 'deleteProduct'])->name('delete.product');
+
+
+    // For Product Stock
+    Route::get('/product/stock', [ProductController::class, 'productStock'])->name('product_stock.index');
     //  ======================================================= End Product Routes =============================================
     //  ======================================================= Sliders Routes =============================================
     Route::get('sliders', [SliderController::class, 'sliders'])->name('sliders');
@@ -196,5 +203,25 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
         Route::post('update/blog/post', 'UpdateBlogPost')->name('update.blog.post');
 
         Route::get('delete/blog/post/{id}', 'DeleteBlogPost')->name('delete.blog.post');
+    });
+
+    //  Reviews All Routes
+    Route::controller(ReviewController::class)->group(function () {
+        Route::get('pending/review', 'pendingReview')->name('reviews.pending');
+        Route::get('review/approve/{id}', 'reviewApprove')->name('review.approve');
+        Route::get('publish/reviews', 'publishReview')->name('reviews.publish');
+        Route::get('review/delete/{id}', 'reviewDelete')->name('review.delete');
+    });
+
+    // Site Setting All Routes
+    Route::controller(SiteSettingController::class)->group(function () {
+        Route::get('/site/setting', 'siteSetting')->name('site_settings.index');
+        Route::post('/site/setting/update', 'siteSettingUpdate')->name('site_setting.update');
+    });
+
+    // Seos Setting All Routes
+    Route::controller(SeoController::class)->group(function () {
+        Route::get('seo/setting', 'seos')->name('seos.index');
+        Route::post('seo/setting/update', 'seoSettingUpdate')->name('seo.setting.update');
     });
 });

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use DB;
 use App\Models\Order;
+use App\Models\Product;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -70,6 +72,11 @@ class OrderController extends Controller
 
     public function processToDelivered($order_id)
     {
+        $products = OrderItem::where('order_id', $order_id)->get();
+        foreach ($products as $item) {
+            Product::where('id', $item->product_id)
+                ->update(['product_qty' => DB::raw('product_qty-' . $item->qty)]);
+        }
         Order::findOrFail($order_id)->update(['status' => 'deliverd']);
 
         $notification = array(
@@ -92,4 +99,7 @@ class OrderController extends Controller
         ]);
         return $pdf->download('invoice.pdf');
     } // End Method
+
+
+
 }
