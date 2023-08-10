@@ -257,13 +257,5 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
         Route::get('edit/role/{id}', 'adminRolesEdit')->name('admin.role.edit');
         Route::post('/admin/roles/update/{id}', 'adminRolesUpdate')->name('admin.roles.update');
         Route::get('/admin/delete/roles/{id}', 'adminRolesDelete')->name('admin.delete.roles');
-
-
-        // Route::post('store/role', 'storeRole')->name('role.store');
-        // Route::get('edit/role/{id}', 'editRole')->name('role.edit');
-        // Route::post('update/role', 'updateRole')->name('role.update');
-        // Route::get('delete/role/{id}', 'deleteRole')->name('role.delete');
-        // Route::get('delete/roles/{id}', 'deleteRoles')->name('delete.roles');
-        // Route::get('add/roles/permission', 'addRolesPermission')->name('add.roles.permission');
     });
 });
