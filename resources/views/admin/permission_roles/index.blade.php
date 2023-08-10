@@ -1,26 +1,21 @@
 @extends('admin.master')
-@section('title', 'Categories')
+@section('title', 'Roles & Permission')
 @section('content')
-
     <div class="page-content">
         <!--breadcrumb-->
         <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-            <div class="breadcrumb-title pe-3">All Categories</div>
+            <div class="breadcrumb-title pe-3">All Roles Premission</div>
             <div class="ps-3">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb mb-0 p-0">
                         <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">All Categories</li>
+                        <li class="breadcrumb-item active" aria-current="page">All Roles Premission</li>
                     </ol>
                 </nav>
             </div>
             <div class="ms-auto">
-                <div class="btn-group">
-                    <a href="{{ route('category.add') }}" class="btn btn-primary">Add Category</a>
 
-
-                </div>
             </div>
         </div>
         <!--end breadcrumb-->
@@ -33,35 +28,39 @@
                         <thead>
                             <tr>
                                 <th>Sl</th>
-                                <th>Category Name </th>
-                                <th>Category Image </th>
+                                <th>Roles Name </th>
+                                <th>Permission </th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($categories as $key => $item)
+                            @foreach ($roles as $key => $item)
                                 <tr>
                                     <td> {{ $key + 1 }} </td>
                                     <td>{{ $item->name }}</td>
-                                    <td> <img src="{{ asset($item->image) }}" style="width: 70px; height:40px;"> </td>
-
                                     <td>
-                                        <a href="{{ route('category.edit', $item->id) }}" class="btn btn-info">Edit</a>
+                                        @foreach ($item->permissions as $perm)
+                                            <span class="badge rounded-pill bg-danger"> {{ $perm->name }}</span>
+                                        @endforeach
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('admin.role.edit', $item->id) }}" class="btn btn-info">Edit</a>
+                                        {{-- <a href="{{ route('admin.delete.roles', $item->id) }}" class="btn btn-danger"
+                                            id="delete">Delete</a> --}}
 
-                                        <a class="btn btn-danger delete-category"
-                                            data-url="{{ route('category.delete', $item->id) }}"
+                                        <a class="btn btn-danger delete-permission_role"
+                                            data-url="{{ route('admin.delete.roles', $item->id) }}"
                                             data-id="{{ $item->id }}">Delete</a>
+
                                     </td>
                                 </tr>
                             @endforeach
-
-
                         </tbody>
                         <tfoot>
                             <tr>
                                 <th>Sl</th>
-                                <th>Brand Name </th>
-                                <th>Brand Image </th>
+                                <th>Roles Name </th>
+                                <th>Permission </th>
                                 <th>Action</th>
                             </tr>
                         </tfoot>
@@ -69,48 +68,25 @@
                 </div>
             </div>
         </div>
-
-
-
     </div>
 @endsection
 
 @section('js')
 
-    <script src="{{ asset('adminbackend/assets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
-
-    <script src="{{ asset('adminbackend/assets/plugins/datatable/js/dataTables.bootstrap5.min.js') }}"></script>
-    <script>
-        $(document).ready(function() {
-            var table = $('#example2').DataTable({
-                lengthChange: false,
-                buttons: ['copy', 'excel', 'pdf', 'print']
-            });
-
-            table.buttons().container()
-                .appendTo('#example2_wrapper .col-md-6:eq(0)');
-        });
-    </script>
     <!-- Bootbox library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.min.js"></script>
-    <!--Datatable-->
-    <script src="{{ asset('adminbackend/assets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
     <script>
-        // Datatable
-        $(document).ready(function() {
-            $('#example').DataTable();
-        });
 
-        $(document).on('click', '.delete-category', function(e) {
+        $(document).on('click', '.delete-permission_role', function(e) {
             e.preventDefault();
 
-            var category_id = $(this).data('id');
+            var permission_role = $(this).data('id');
             var url = $(this).data('url');
 
             // Show a confirmation dialog to confirm the delete action
             bootbox.confirm({
-                title: "Delete Category",
-                message: "Are you sure you want to delete this category?",
+                title: "Delete Role With Permission",
+                message: "Are you sure you want to delete this Permission?",
                 buttons: {
                     cancel: {
                         label: '<i class="fa fa-times"></i> Cancel'
@@ -121,14 +97,14 @@
                 },
                 callback: function(result) {
                     if (result) {
-                        // Send the delete request
+
                         $.ajax({
                             type: 'GET',
                             url: url,
                             success: function(response) {
                                 toastr.success(response.message);
-                                // Remove the deleted row from the DataTable
-                                $('a.delete-category[data-id="' + category_id + '"]').parents(
+
+                                $('a.delete-permission_role[data-id="' + permission_role + '"]').parents(
                                         'tr')
                                     .remove();
                             },

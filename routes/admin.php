@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\SeoController;
 use App\Http\Controllers\Admin\BlogController;
+use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\BannerController;
@@ -21,7 +23,8 @@ use App\Http\Controllers\Admin\VendorManageController;
 use App\Http\Controllers\Admin\ReturnRequestController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\Auth\AdminLoginController;
-use App\Http\Controllers\Admin\SeoController;
+use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\PermissionRoleController;
 
 Route::group(['prefix' => 'admin', 'middleware' => 'guest:admin'], function () {
     Route::get('login', [AdminLoginController::class, 'getLogin'])->name('admin.login.form');
@@ -223,5 +226,44 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
     Route::controller(SeoController::class)->group(function () {
         Route::get('seo/setting', 'seos')->name('seos.index');
         Route::post('seo/setting/update', 'seoSettingUpdate')->name('seo.setting.update');
+    });
+
+    // Site Setting All Route
+    Route::controller(PermissionController::class)->group(function () {
+        Route::get('permissions', 'permissions')->name('permissions.index');
+        Route::get('/add/permission', 'addPermission')->name('permission.create');
+        Route::post('store/permission', 'storePermission')->name('permission.store');
+        Route::get('edit/permission/{id}', 'editPermission')->name('permission.edit');
+        Route::post('update/permission', 'updatePermission')->name('permission.update');
+        Route::get('delete/permission/{id}', 'deletePermission')->name('permission.delete');
+    });
+
+    // Site Setting All Route
+    Route::controller(RoleController::class)->group(function () {
+        Route::get('roles', 'roles')->name('roles.index');
+        Route::get('/add/role', 'addRole')->name('role.create');
+        Route::post('store/role', 'storeRole')->name('role.store');
+        Route::get('edit/role/{id}', 'editRole')->name('role.edit');
+        Route::post('update/role', 'updateRole')->name('role.update');
+        Route::get('delete/role/{id}', 'deleteRole')->name('role.delete');
+        Route::get('delete/roles/{id}', 'deleteRoles')->name('delete.roles');
+        Route::get('add/roles/permission', 'addRolesPermission')->name('add.roles.permission');
+    });
+
+    Route::controller(PermissionRoleController::class)->group(function () {
+        Route::get('permission/roles', 'permissionRoles')->name('permission_roles.index');
+        Route::get('/add/roles/permission', 'addRolesPermission')->name('create.roles.permission');
+        Route::post('role/permission/store', 'rolePermissionStore')->name('permission.roles.store');
+        Route::get('edit/role/{id}', 'adminRolesEdit')->name('admin.role.edit');
+        Route::post('/admin/roles/update/{id}', 'adminRolesUpdate')->name('admin.roles.update');
+        Route::get('/admin/delete/roles/{id}', 'adminRolesDelete')->name('admin.delete.roles');
+
+
+        // Route::post('store/role', 'storeRole')->name('role.store');
+        // Route::get('edit/role/{id}', 'editRole')->name('role.edit');
+        // Route::post('update/role', 'updateRole')->name('role.update');
+        // Route::get('delete/role/{id}', 'deleteRole')->name('role.delete');
+        // Route::get('delete/roles/{id}', 'deleteRoles')->name('delete.roles');
+        // Route::get('add/roles/permission', 'addRolesPermission')->name('add.roles.permission');
     });
 });

@@ -265,12 +265,33 @@
         <ul>
             <li> <a href="{{ route('product_stock.index') }}"><i class="bx bx-right-arrow-alt"></i>Product Stock</a>
             </li>
-
-
-
-
         </ul>
     </li>
+
+
+    <li class="menu-label">Roles And Permission</li>
+    <li>
+        <a class="has-arrow" href="javascript:;">
+            <div class="parent-icon"><i class="bx bx-line-chart"></i>
+            </div>
+            <div class="menu-title">Role & Permission</div>
+        </a>
+        <ul>
+            <li> <a href="{{ route('permissions.index') }}"><i class="bx bx-right-arrow-alt"></i>Permissions</a>
+            </li>
+            <li> <a href="{{ route('roles.index') }}"><i class="bx bx-right-arrow-alt"></i>All Roles</a>
+
+            <li> <a href="{{ route('create.roles.permission') }}"><i class="bx bx-right-arrow-alt"></i>Roles in
+                    Permission</a>
+            </li>
+
+            <li> <a href="{{ route('permission_roles.index') }}"><i class="bx bx-right-arrow-alt"></i>All Roles in
+                    Permission</a>
+            </li>
+        </ul>
+    </li>
+
+
     <li>
         <a class="has-arrow" href="javascript:;">
             <div class="parent-icon"><i class='bx bx-bookmark-heart'></i>
