@@ -22,6 +22,7 @@ use App\Http\Controllers\Admin\ShippingAreaController;
 use App\Http\Controllers\Admin\VendorManageController;
 use App\Http\Controllers\Admin\ReturnRequestController;
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\AdminManageController;
 use App\Http\Controllers\Admin\Auth\AdminLoginController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\PermissionRoleController;
@@ -257,5 +258,16 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
         Route::get('edit/role/{id}', 'adminRolesEdit')->name('admin.role.edit');
         Route::post('/admin/roles/update/{id}', 'adminRolesUpdate')->name('admin.roles.update');
         Route::get('/admin/delete/roles/{id}', 'adminRolesDelete')->name('admin.delete.roles');
+    });
+
+    // Admin User All Route
+    Route::controller(AdminManageController::class)->group(function () {
+
+        Route::get('/all', 'admins')->name('admins.index');
+        Route::get('/add', 'addAdmin')->name('admin.create');
+        Route::post('store', 'adminStore')->name('admin.store');
+        Route::get('/edit/{id}', 'adminEdit')->name('admin.edit');
+        Route::post('update/{id}', 'adminUpdate')->name('admin.update');
+        Route::get('/delete/admin/role/{id}' , 'deleteAdminRole')->name('delete.admin.role');
     });
 });

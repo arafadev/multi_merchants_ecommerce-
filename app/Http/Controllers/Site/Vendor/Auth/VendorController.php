@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Site\Vendor\Auth;
 use App\Models\Vendor;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Site\Vendor\Auth\BecomeVendorRegisterRequest;
 use Illuminate\Support\Facades\Hash;
+use App\Notifications\VendorRegister;
+use Illuminate\Support\Facades\Notification;
+use App\Http\Requests\Site\Vendor\Auth\BecomeVendorRegisterRequest;
 
 class VendorController extends Controller
 {
@@ -17,7 +19,6 @@ class VendorController extends Controller
 
     public function becomeVendorRegister(BecomeVendorRegisterRequest $request)
     {
-
         $validatedData = $request->validated();
         $validatedData['password'] = Hash::make($validatedData['password']);
         Vendor::create($validatedData + [

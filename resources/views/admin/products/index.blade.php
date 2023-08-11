@@ -50,8 +50,7 @@
                             @foreach ($products as $key => $item)
                                 <tr data-id="{{ $item->id }}">
                                     <td> {{ $key + 1 }} </td>
-                                    <td> <img src="{{ asset($item->product_thumbnail) }}"
-                                            style="width: 70px; height:40px;">
+                                    <td> <img src="{{ asset($item->product_thumbnail) }}" style="width: 70px; height:40px;">
                                     </td>
                                     <td>{{ $item->product_name }}</td>
                                     <td>{{ $item->selling_price }}$</td>
@@ -79,17 +78,20 @@
                                     </td>
 
                                     <td>
-                                        <a href="{{ route('product.edit', $item->id) }}" class="btn btn-info"
-                                            title="Edit Data">
-                                            <i class='bx bx-pencil'></i>
-                                        </a>
-                                        <a href="{{ route('category.delete', $item->id) }}"
-                                            class="btn btn-danger delete-product" id="delete" title="Delete Data"
-                                            data-url="{{ route('delete.product', $item->id) }}"
-                                            data-id="{{ $item->id }}">
-                                            <i class='bx bx-trash'></i>
-                                        </a>
-
+                                        @if (Auth::user()->can('product.edit'))
+                                            <a href="{{ route('product.edit', $item->id) }}" class="btn btn-info"
+                                                title="Edit Data">
+                                                <i class='bx bx-pencil'></i>
+                                            </a>
+                                        @endif
+                                        @if (Auth::user()->can('product.delete'))
+                                            <a href="{{ route('category.delete', $item->id) }}"
+                                                class="btn btn-danger delete-product" id="delete" title="Delete Data"
+                                                data-url="{{ route('delete.product', $item->id) }}"
+                                                data-id="{{ $item->id }}">
+                                                <i class='bx bx-trash'></i>
+                                            </a>
+                                        @endif
                                         @if ($item->status == 1)
                                             <a href="{{ route('category.delete', $item->id) }}" class="btn btn-primary"
                                                 title="Inactive">

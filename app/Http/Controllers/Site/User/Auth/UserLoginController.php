@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Site\User\Auth;
 
-use Carbon\Carbon;
-use App\Models\User;
+use App\Models\Admin;
 use Illuminate\Http\Request;
+use App\Notifications\RegisterUser;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Notification;
 use App\Http\Requests\Site\User\Auth\UserLoginRequest;
 
 class UserLoginController extends Controller
@@ -31,6 +31,7 @@ class UserLoginController extends Controller
                 'message' => 'Email or password failed',
                 'alert-type' => 'error'
             );
+
             return redirect()->back()->with($notification);
         }
     }

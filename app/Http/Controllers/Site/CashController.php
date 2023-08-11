@@ -3,13 +3,17 @@
 namespace App\Http\Controllers\Site;
 
 use Carbon\Carbon;
+use App\Models\User;
+use App\Models\Admin;
 use App\Models\Order;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Notifications\OrderComplete;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Support\Facades\Notification;
 
 class CashController extends Controller
 {
@@ -72,7 +76,6 @@ class CashController extends Controller
             'message' => 'Your Order Place Successfully',
             'alert-type' => 'success'
         );
-
         return redirect()->route('user.profile')->with($notification);
     }
 }

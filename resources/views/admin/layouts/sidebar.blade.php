@@ -10,25 +10,28 @@
     <ul class="metismenu" id="menu">
         <li>
             <a href="{{ route('admin.dashboard') }}">
-                <div class="parent-icon"><i class='bx bx-cookie'></i>
+                <div class="parent-icon"><i class='bx bx-home-circle'></i>
                 </div>
                 <div class="menu-title">Dashboard</div>
             </a>
         </li>
-        <li>
-            <a href="javascript:;" class="has-arrow">
-                <div class="parent-icon"><i class="bx bx-category"></i>
-                </div>
-                <div class="menu-title">Brand</div>
-            </a>
-            <ul>
-                <li> <a href="{{ route('brands') }}"><i class="bx bx-right-arrow-alt"></i>Brands</a>
-                </li>
-                <li> <a href="{{ route('brand.add') }}"><i class="bx bx-right-arrow-alt"></i>Add Brand </a>
-                </li>
-
-            </ul>
-        </li>
+        @if (Auth::user()->can('brand.menu'))
+            <li>
+                <a href="javascript:;" class="has-arrow">
+                    <div class="parent-icon"><i class="bx bx-category"></i>
+                    </div>
+                    <div class="menu-title">Brand</div>
+                </a>
+                <ul>
+                    @if (Auth::user()->can('brand.list'))
+                        <li> <a href="{{ route('brands') }}"><i class="bx bx-right-arrow-alt"></i>Brands</a>
+                        </li>
+                    @endif
+                    <li> <a href="{{ route('brand.add') }}"><i class="bx bx-right-arrow-alt"></i>Add Brand </a>
+                    </li>
+                </ul>
+            </li>
+        @endif
         <li>
             <a href="javascript:;" class="has-arrow">
                 <div class="parent-icon"><i class="bx bx-category"></i>
@@ -43,36 +46,51 @@
 
     </ul>
     </li>
-    <li>
-        <a href="javascript:;" class="has-arrow">
-            <div class="parent-icon"><i class="bx bx-category"></i>
-            </div>
-            <div class="menu-title">SubCategories</div>
-        </a>
-        <ul>
-            <li> <a href="{{ route('subcategories') }}"><i class="bx bx-right-arrow-alt"></i>SubCategories</a>
-            </li>
-            <li> <a href="{{ route('subcategory.add') }}"><i class="bx bx-right-arrow-alt"></i>Add SubCategory </a>
-            </li>
+    @if (Auth::user()->can('cat.menu'))
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i class="bx bx-category"></i>
+                </div>
+                <div class="menu-title">SubCategories</div>
+            </a>
+            <ul>
+                @if (Auth::user()->can('category.list'))
+                    <li> <a href="{{ route('subcategories') }}"><i class="bx bx-right-arrow-alt"></i>SubCategories</a>
+                    </li>
+                @endif
 
-        </ul>
-    </li>
-    <li>
-        <a href="javascript:;" class="has-arrow">
-            <div class="parent-icon"><i class="bx bx-category"></i>
-            </div>
-            <div class="menu-title">Product Manage</div>
-        </a>
-        <ul>
-            <li> <a href="{{ route('products') }}"><i class="bx bx-right-arrow-alt"></i>All Product</a>
-            </li>
-            <li> <a href="{{ route('product.add') }}"><i class="bx bx-right-arrow-alt"></i>Add Product</a>
-            </li>
+                @if (Auth::user()->can('category.add'))
+                    <li> <a href="{{ route('subcategory.add') }}"><i class="bx bx-right-arrow-alt"></i>Add
+                            SubCategory
+                        </a>
+                    </li>
+                @endif
+            </ul>
+        </li>
+    @endif
 
-        </ul>
-    </li>
+    @if (Auth::user()->can('product.menu'))
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i class="bx bx-category"></i>
+                </div>
+                <div class="menu-title">Product Manage</div>
+            </a>
+            <ul>
+                @if (Auth::user()->can('product.list'))
+                    <li> <a href="{{ route('products') }}"><i class="bx bx-right-arrow-alt"></i>All Product</a>
+                    </li>
+                @endif
+                @if (Auth::user()->can('product.add'))
+                    <li> <a href="{{ route('product.add') }}"><i class="bx bx-right-arrow-alt"></i>Add Product</a>
+                    </li>
+                @endif
 
 
+            </ul>
+        </li>
+
+    @endif
     <li>
         <a href="javascript:;" class="has-arrow">
             <div class="parent-icon"><i class="bx bx-category"></i>
@@ -247,7 +265,8 @@
             <div class="menu-title">Setting Manage</div>
         </a>
         <ul>
-            <li> <a href="{{ route('site_settings.index') }}"><i class="bx bx-right-arrow-alt"></i>Site Setting</a>
+            <li> <a href="{{ route('site_settings.index') }}"><i class="bx bx-right-arrow-alt"></i>Site
+                    Setting</a>
             </li>
 
             <li> <a href="{{ route('seos.index') }}"><i class="bx bx-right-arrow-alt"></i>Seo Setting</a>
@@ -263,7 +282,8 @@
             <div class="menu-title">Stock Manage</div>
         </a>
         <ul>
-            <li> <a href="{{ route('product_stock.index') }}"><i class="bx bx-right-arrow-alt"></i>Product Stock</a>
+            <li> <a href="{{ route('product_stock.index') }}"><i class="bx bx-right-arrow-alt"></i>Product
+                    Stock</a>
             </li>
         </ul>
     </li>
@@ -285,12 +305,28 @@
                     Permission</a>
             </li>
 
-            <li> <a href="{{ route('permission_roles.index') }}"><i class="bx bx-right-arrow-alt"></i>All Roles in
+            <li> <a href="{{ route('permission_roles.index') }}"><i class="bx bx-right-arrow-alt"></i>All Roles
+                    in
                     Permission</a>
             </li>
         </ul>
     </li>
 
+    <li>
+        <a class="has-arrow" href="javascript:;">
+            <div class="parent-icon"><i class="bx bx-line-chart"></i>
+            </div>
+            <div class="menu-title">Admin Manage </div>
+        </a>
+        <ul>
+            <li> <a href="{{ route('admins.index') }}"><i class="bx bx-right-arrow-alt"></i>All Admin</a>
+            </li>
+            <li> <a href="{{ route('admin.create') }}"><i class="bx bx-right-arrow-alt"></i>Add Admin</a>
+            </li>
+
+
+        </ul>
+    </li>
 
     <li>
         <a class="has-arrow" href="javascript:;">
