@@ -15,8 +15,8 @@ class VendorManageController extends Controller
         return view('admin.vendor_manage.inactive', ['inActive' => Vendor::where('status', 'inactive')->latest()->get()]);
     }
 
-
-    public function InactiveVendorDetails($id)
+    
+    public function inactiveVendorDetails($id)
     {
         return view('admin.vendor_manage.inactive_details', [
             'inactiveVendorDetails' => Vendor::where('id', $id)->where('status', 'inactive')->first()

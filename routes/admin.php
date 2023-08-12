@@ -72,6 +72,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
 
     //  ======================================================= Vendor Manage Routes =============================================
     Route::get('inactive/vendors', [VendorManageController::class, 'inactiveVendor'])->name('vendor.inactive');
+    Route::get('inactive/vendor/details/{id}', [VendorManageController::class, 'inactiveVendorDetails'])->name('inactive.vendor.details');
     Route::get('/active/vendor/{id}', [VendorManageController::class, 'adminActiveVendor'])->name('admin.active.vendor');
     Route::get('active/vendors/', [VendorManageController::class, 'activeVendors'])->name('active.vendors');
     Route::get('/active/vendor/details/{id}', [VendorManageController::class, 'activeVendorDetails'])->name('active.vendor.details');
