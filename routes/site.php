@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Site\BlogController;
 use App\Http\Controllers\Site\CartController;
 use App\Http\Controllers\Site\CashController;
+use App\Http\Controllers\Site\ShopController;
 use App\Http\Controllers\Site\IndexController;
 use App\Http\Controllers\Site\ReviewController;
 use App\Http\Controllers\Site\StripeController;
@@ -23,6 +24,9 @@ Route::group(['prefix' => '/'], function () {
     Route::post('login', [UserLoginController::class, 'login'])->name('user.login');
     Route::get('register', [UserRegisterController::class, 'getRegister'])->name('user.register.form');
     Route::post('register', [UserRegisterController::class, 'register'])->name('user.register');
+
+    // Route::get('register', [UserRegisterController::class, 'shop'])->name('user.register');
+
 
     //  Become Vendor Routes
     Route::get('become/vendor', [VendorController::class, 'becomeVendor'])->name('become.vendor');
@@ -68,7 +72,12 @@ Route::controller(IndexController::class)->group(function () {
     Route::post('/search-product', 'searchProduct');
 });
 
+// Shop page
+Route::controller(ShopController::class)->group(function () {
 
+    Route::get('/shop', 'shopPage')->name('shop.page');
+    Route::post('/shop/filter', 'shopFilter')->name('shop.filter');
+});
 
 
 Route::group(['prefix' => 'user', 'middleware' => 'auth:web'], function () {

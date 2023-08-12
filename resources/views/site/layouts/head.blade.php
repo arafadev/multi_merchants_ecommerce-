@@ -6,7 +6,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>@yield('title', 'User Login')</title>
+    <title>@yield('title', 'Graduation Project')</title>
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="title" content="{{ $seo->meta_title }}" />
     <meta name="author" content="{{ $seo->meta_author }}" />

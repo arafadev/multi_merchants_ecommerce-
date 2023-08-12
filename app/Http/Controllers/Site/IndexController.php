@@ -63,13 +63,13 @@ class IndexController extends Controller
         return view('site.vendor.all_vendor', ['vendors' => $vendors]);
     } // End Method
 
-    public function CatWiseProduct(Request $request, $id, $slug)
-    {
-        $products = Product::where('status', 1)->where('category_id', $id)->orderBy('id', 'DESC')->get();
-        $categories = Category::orderBy('category_name', 'ASC')->get();
+    // public function CatWiseProduct(Request $request, $id, $slug)
+    // {
+    //     $products = Product::where('status', 1)->where('category_id', $id)->orderBy('id', 'DESC')->get();
+    //     $categories = Category::orderBy('category_name', 'ASC')->get();
 
-        return view('frontend.product.category_view', compact('products', 'categories'));
-    } // End Method
+    //     return view('frontend.product.category_view', compact('products', 'categories'));
+    // } // End Method
 
 
     public function catWithProducts(Request $request, $id, $slug)
@@ -78,8 +78,7 @@ class IndexController extends Controller
         $categories = Category::orderBy('name', 'asc')->limit(5)->get();
         $category = Category::findOrFail($id);
         $newProduct = Product::orderBy('id', 'DESC')->limit(3)->get();
-        $breadcat = Category::where('id', $id)->first();
-
+        $breadcat = Category::findOrFail($id);
         return view('site.products.category_view', compact('products', 'categories', 'category', 'newProduct', 'breadcat'));
     }
 

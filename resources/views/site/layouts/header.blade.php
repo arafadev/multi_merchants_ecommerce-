@@ -302,6 +302,8 @@
                                     </li>
                                 @endforeach
                                 <li><a href="{{ route('home.blog') }}">Blog
+                                <li><a href="{{ route('shop.page') }}">Shop
+
                                 </li>
                                 </a>
                                 <li class="position-static">

@@ -1,15 +1,19 @@
 @extends('site.master')
-@section('title', $breadcat->name)
+@section('title', 'Shop Page')
+@section('css')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" type="text/css"
+        media="all" />
+@endsection
 @section('main')
     <div class="page-header mt-30 mb-50">
         <div class="container">
             <div class="archive-header">
                 <div class="row align-items-center">
                     <div class="col-xl-3">
-                        <h5 class="mb-15">{{ $breadcat->name }}</h5>
+                        <h5 class="mb-15">Shop Page</h5>
                         <div class="breadcrumb">
-                            <a href="index.html" rel="nofollow"><i class="fi-rs-home mr-5"></i>Home</a>
-                            <span></span> {{ $breadcat->name }}
+                            <a href="index.html" rel="nofollow"><i class="fi-rs-home mr-5"></i>Shop Page</a>
+                            <span></span> Shop Page
                         </div>
                     </div>
 
@@ -158,7 +162,7 @@
                             </div>
                         </div>
                     @empty
-                        <h5 class="text-danger"> No Product Found For This Category </h5>
+                        <h5 class="text-danger"> No Product Found </h5>
                     @endforelse
 
 
@@ -186,33 +190,80 @@
 
             </div>
             <div class="col-lg-1-5 primary-sidebar sticky-sidebar">
-                <div class="sidebar-widget widget-category-2 mb-30">
-                    <h5 class="section-title style-1 mb-30">Category</h5>
-                    <ul>
 
-                        @foreach ($categories as $category)
-                            @php
-
-                                $products = App\Models\Product::where('category_id', $category->id)->get();
-
-                            @endphp
-
-
-                            <li>
-                                <a href="shop-grid-right.html"> <img src=" {{ asset($category->image) }} "
-                                        alt="" />{{ $category->category_name }}</a><span
-                                    class="count">{{ count($products) }}</span>
-                            </li>
-                        @endforeach
-                    </ul>
-                </div>
                 <!-- Fillter By Price -->
+                <div class="sidebar-widget price_range range mb-30">
+                    <form method="post" action="{{ route('shop.filter') }}">
+                        @csrf
+                        <h5 class="section-title style-1 mb-30">Fill by price</h5>
+                        <div class="price-filter">
+                            <div class="price-filter-inner">
+                                <div id="slider-range" class="price-filter-range" data-min="0" data-max="2000"></div>
+                                <input type="hidden" id="price_range" name="price_range" value="">
+                                <input type="text" id="amount" value="$0 - $2000" readonly="">
+                                <br>
+                                <button type="submit" class="btn btn-sm btn-default"><i
+                                        class="fi-rs-filter mr-5"></i>Fillter</button>
+                            </div>
+                        </div>
+                        <div class="list-group">
+                            <div class="list-group-item mb-10 mt-10">
+                                @if (!empty($_GET['category']))
+                                    @php
+                                        $filterCat = explode(',', $_GET['category']);
+                                    @endphp
+                                @endif
+                                <label class="fw-900">Category</label>
+                                @foreach ($categories as $category)
+                                    <div class="custome-checkbox">
+                                        <input class="form-check-input" type="checkbox" name="category[]"
+                                            id="exampleCheckbox{{ $category->id }}" value="{{ $category->slug }}"
+                                            @if (!empty($filterCat) && in_array($category->slug, $filterCat)) checked @endif
+                                            onchange="this.form.submit()" />
+                                        <label class="form-check-label"
+                                            for="exampleCheckbox{{ $category->id }}"><span>{{ $category->name }}
+                                                ({{ count($category->products) }})
+                                            </span></label>
+                                        <br />
+
+                                    </div>
+                                @endforeach
+
+                                @if (!empty($_GET['brand']))
+                                    @php
+                                        $filterBrand = explode(',', $_GET['brand']);
+                                    @endphp
+                                @endif
+
+                                <label class="fw-900 mt-15">Brand</label>
+                                @foreach ($brands as $brand)
+                                    <div class="custome-checkbox">
+                                        <input class="form-check-input" type="checkbox" name="brand[]"
+                                            id="exampleBrand{{ $brand->id }}" value="{{ $brand->slug }}"
+                                            @if (!empty($filterBrand) && in_array($brand->slug, $filterBrand)) checked @endif
+                                            onchange="this.form.submit()" />
+                                        <label class="form-check-label"
+                                            for="exampleBrand{{ $brand->id }}"><span>{{ $brand->name }}
+                                                {{-- ({{ count($brand->products) }}) --}}
+                                            </span></label>
+                                        <br />
+                                    </div>
+                                @endforeach
+
+                            </div>
+                        </div>
+
+
+
+                </div>
+                </form>
+
 
                 <!-- Product sidebar Widget -->
                 <div class="sidebar-widget product-sidebar mb-30 p-30 bg-grey border-radius-10">
                     <h5 class="section-title style-1 mb-30">New products</h5>
 
-                    @foreach ($newProduct as $product)
+                    @foreach ($newProducts as $product)
                         <div class="single-post clearfix">
                             <div class="image">
                                 <img src="{{ asset($product->product_thumbnail) }}" alt="#" />
@@ -238,4 +289,32 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('js')
+
+    <script>
+        $(document).ready(function() {
+            if ($('#slider-range').length > 0) {
+                const max_price = parseInt($('#slider-range').data('max'));
+                const min_price = parseInt($('#slider-range').data('min'));
+                let price_range = min_price + "-" + max_price;
+                let price = price_range.split('-');
+
+                $("#slider-range").slider({
+                    range: true,
+                    min: min_price,
+                    max: max_price,
+                    values: price,
+
+                    slide: function(event, ui) {
+
+                        $("#amount").val('$' + ui.values[0] + "-" + "$" + ui.values[1]);
+                        $("#price_range").val(ui.values[0] + "-" + ui.values[1]);
+                    }
+                });
+
+            }
+        });
+    </script>
 @endsection

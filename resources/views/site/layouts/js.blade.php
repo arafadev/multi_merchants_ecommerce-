@@ -21,7 +21,9 @@
  <!-- Template  JS -->
  <script src="{{ asset('frontend/assets/js/main.js?v=5.3') }}"></script>
  <script src="{{ asset('frontend/assets/js/shop.js?v=5.3') }}"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript"></script>
  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
  <script src="{{ asset('backend/assets/js/code.js') }}"></script>
  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
  <script>
@@ -776,5 +778,5 @@
      // Coupon Remove End
  </script>
  <!--  ////////////// End Apply Coupon ////////////// -->
- 
+
  @yield('js')

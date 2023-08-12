@@ -1,8 +1,6 @@
 @php
     $categories = App\Models\Category::orderBy('name', 'ASC')->get();
 @endphp
-
-
 <section class="popular-categories section-padding">
     <div class="container wow animate__animated animate__fadeIn">
         <div class="section-title">
@@ -19,11 +17,11 @@
                 @foreach ($categories as $category)
                     <div class="card-2 bg-9 wow animate__animated animate__fadeInUp" data-wow-delay=".1s">
                         <figure class="img-hover-scale overflow-hidden">
-                            <a href="{{ url('product/category/' . $category->id . '/' . $category->category_slug) }}"><img
+                            <a href="{{ url('product/category/' . $category->id . '/' . $category->slug) }}"><img
                                     src="{{ asset($category->image) }}" alt="" /></a>
                         </figure>
                         <h6><a
-                                href="{{ url('product/category/' . $category->id . '/' . $category->category_slug) }}">{{ $category->category_name }}</a>
+                                href="{{ url('product/category/' . $category->id . '/' . $category->slug) }}">{{ $category->name     }}</a>
                         </h6>
                         @php
                             $products = App\Models\Product::where('category_id', $category->id)->get();
