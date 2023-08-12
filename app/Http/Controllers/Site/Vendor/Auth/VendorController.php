@@ -29,6 +29,7 @@ class VendorController extends Controller
             'message' => 'Vendor Registered Successfully',
             'alert-type' => 'success'
         );
+        
         return redirect()->route('vendor.login')->with($notification);
     }
 }

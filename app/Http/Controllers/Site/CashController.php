@@ -10,6 +10,7 @@ use App\Models\OrderItem;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Notifications\OrderComplete;
+use App\Notifications\OrderCompleteNotification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Gloudemans\Shoppingcart\Facades\Cart;
@@ -76,6 +77,7 @@ class CashController extends Controller
             'message' => 'Your Order Place Successfully',
             'alert-type' => 'success'
         );
+        Notification::send(Admin::get(), new OrderCompleteNotification($request->name));
         return redirect()->route('user.profile')->with($notification);
     }
 }
