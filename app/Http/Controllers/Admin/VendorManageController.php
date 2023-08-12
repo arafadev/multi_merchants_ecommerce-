@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Vendor;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\VendorApproveNotification;
 
 class VendorManageController extends Controller
 {
@@ -15,7 +17,7 @@ class VendorManageController extends Controller
         return view('admin.vendor_manage.inactive', ['inActive' => Vendor::where('status', 'inactive')->latest()->get()]);
     }
 
-    
+
     public function inactiveVendorDetails($id)
     {
         return view('admin.vendor_manage.inactive_details', [
@@ -23,14 +25,15 @@ class VendorManageController extends Controller
         ]);
     }
 
-    public function adminActiveVendor($id)
+    public function adminActiveVendor(Request $request)
     {
-        Vendor::findOrFail($id)->update(['status' =>  'active']);
+        Vendor::findOrFail($request->id)->update(['status' =>  'active']);
         $notification = array(
             'message' => 'Vendor Active Successfully',
             'alert-type' => 'success'
         );
 
+        Notification::send(Vendor::get(), new VendorApproveNotification($request));
         return redirect()->route('vendor.inactive')->with($notification);
     }
 
