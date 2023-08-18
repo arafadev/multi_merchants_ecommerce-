@@ -1,5 +1,9 @@
 @php
     $setting = App\Models\SiteSetting::find(1);
+    $popularCategories = App\Models\Category::withCount('products')
+        ->orderBy('products_count', 'DESC')
+        ->limit(7)
+        ->get();
 @endphp
 
 <footer class="main">
@@ -13,7 +17,8 @@
                                 Stay home & get your daily <br />
                                 needs from our shop
                             </h2>
-                            <p class="mb-45">Start You'r Daily Shopping with <span class="text-brand">Nest Mart</span>
+                            <p class="mb-45">Start You'r Daily Shopping with <a href="{{ route('shop.page') }}"
+                                    class="text-brand">Graduation Project </a>
                             </p>
                             <form class="form-subcriber d-flex">
                                 <input type="email" placeholder="Your emaill address" />
@@ -168,13 +173,11 @@
                 <div class="footer-link-widget col wow animate__animated animate__fadeInUp" data-wow-delay=".4s">
                     <h4 class="widget-title">Popular</h4>
                     <ul class="footer-list mb-sm-5 mb-md-0">
-                        <li><a href="#">Milk & Flavoured Milk</a></li>
-                        <li><a href="#">Butter and Margarine</a></li>
-                        <li><a href="#">Eggs Substitutes</a></li>
-                        <li><a href="#">Marmalades</a></li>
-                        <li><a href="#">Sour Cream and Dips</a></li>
-                        <li><a href="#">Tea & Kombucha</a></li>
-                        <li><a href="#">Cheese</a></li>
+                        @foreach ($popularCategories as $category)
+                            <li><a
+                                    href="{{ url('product/category/' . $category->id . '/' . $category->slug) }}">{{ $category->name }}</a>
+                            </li>
+                        @endforeach
                     </ul>
                 </div>
 

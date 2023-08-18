@@ -57,7 +57,7 @@
                                     @php
                                         $amount = $product->selling_price - $product->discount_price;
                                         $discount = ($amount / $product->selling_price) * 100;
-                                        
+
                                     @endphp
 
 
@@ -108,10 +108,10 @@
                                     <div>
                                         @if ($product->vendor_id == null)
                                             <span class="font-small text-muted">By <a
-                                                    href="vendor-details-1.html">Owner</a></span>
+                                                    href="#">Owner</a></span>
                                         @else
                                             <span class="font-small text-muted">By <a
-                                                    href="vendor-details-1.html">{{ $product['vendor']['name'] }}</a></span>
+                                                    href="{{ url('vendor/details/'. $product->vendor->id) }}">{{ $product['vendor']['name'] }}</a></span>
                                         @endif
 
 
@@ -190,7 +190,7 @@
                                         @php
                                             $amount = $product->selling_price - $product->discount_price;
                                             $discount = ($amount / $product->selling_price) * 100;
-                                            
+
                                         @endphp
 
 

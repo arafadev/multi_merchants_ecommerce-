@@ -5,6 +5,7 @@
     $secondCategories = $categories->slice(5, 5);
     $thirdCategories = $categories->slice(10, 8);
     $fourthCategories = $categories->slice(18);
+    $phone = App\Models\SiteSetting::first()->phone_one;
 @endphp
 
 <header class="header-area header-style-1 header-height-2">
@@ -18,9 +19,9 @@
                     <div class="header-info">
                         <ul>
 
-                            <li><a href="page-account.html">My Cart</a></li>
-                            <li><a href="shop-wishlist.html">Checkout</a></li>
-                            <li><a href="shop-order.html">Order Tracking</a></li>
+                            <li><a href="{{ route('mycart') }}">My Cart</a></li>
+                            <li><a href="{{ route('checkout') }}">Checkout</a></li>
+                            <li><a href="{{ route('user_track.order') }}">Order Tracking</a></li>
                         </ul>
                     </div>
                 </div>
@@ -61,7 +62,7 @@
                                 </ul>
                             </li>
 
-                            <li>Need help? Call Us: <strong class="text-brand"> + 1800 900</strong></li>
+                            <li>Need help? Call Us: <strong class="text-brand"> {{ $phone }}</strong></li>
 
                         </ul>
                     </div>
@@ -223,8 +224,8 @@
                                 <ul>
                                     @foreach ($firstCategories as $item)
                                         <li>
-                                            <a href="shop-grid-right.html"> <img src="{{ asset($item->image) }}"
-                                                    alt="" />
+                                            <a href="{{ url('product/category/' . $item->id . '/' . $item->slug) }}">
+                                                <img src="{{ asset($item->image) }}" alt="" />
                                                 {{ $item->name }} </a>
                                         </li>
                                     @endforeach
@@ -232,8 +233,8 @@
                                 <ul class="end">
                                     @foreach ($secondCategories as $item)
                                         <li>
-                                            <a href="shop-grid-right.html"> <img src="{{ asset($item->image) }}"
-                                                    alt="" />
+                                            <a href="{{ url('product/category/' . $item->id . '/' . $item->slug) }}">
+                                                <img src="{{ asset($item->image) }}" alt="" />
                                                 {{ $item->name }} </a>
                                         </li>
                                     @endforeach
@@ -245,7 +246,7 @@
                                     <ul>
                                         @foreach ($thirdCategories as $item)
                                             <li>
-                                                <a href="shop-grid-right.html"> <img src="{{ asset($item->image) }}"
+                                                <a href="{{ url('product/category/' . $item->id . '/' . $item->slug) }}"> <img src="{{ asset($item->image) }}"
                                                         alt="" />
                                                     {{ $item->name }} </a>
                                             </li>
@@ -254,7 +255,7 @@
                                     <ul class="end">
                                         @foreach ($secondCategories as $item)
                                             <li>
-                                                <a href="shop-grid-right.html"> <img src="{{ asset($item->image) }}"
+                                                <a href="{{ url('product/category/' . $item->id . '/' . $item->slug) }}"> <img src="{{ asset($item->image) }}"
                                                         alt="" />
                                                     {{ $item->name }} </a>
                                             </li>
@@ -274,9 +275,7 @@
                                     <a class="active" href="{{ url('/') }}">Home </a>
 
                                 </li>
-                                <li>
-                                    <a href="page-about.html">About</a>
-                                </li>
+
 
                                 @php
                                     $categories = App\Models\Category::orderBy('name', 'ASC')
@@ -285,7 +284,8 @@
                                 @endphp
                                 @foreach ($categories as $category)
                                     <li>
-                                        <a href="{{ url('admin/login') }}">{{ $category->name }}
+                                        <a
+                                            href="{{ url('product/category/' . $category->id . '/' . $category->slug) }}">{{ $category->name }}
                                             @if (!$category->subcategories->isEmpty())
                                                 <i class="fi-rs-angle-down"></i>
                                             @endif
@@ -294,7 +294,7 @@
                                             <ul class="sub-menu">
                                                 @foreach ($category->subcategories as $subcategory)
                                                     <li><a
-                                                            href="{{ url('admin/login') }}">{{ $subcategory->name }}</a>
+                                                            href="{{ url('product/subcategory/' . $subcategory->id . '/' . $subcategory->slug) }}">{{ $subcategory->name }}</a>
                                                     </li>
                                                 @endforeach
                                             </ul>

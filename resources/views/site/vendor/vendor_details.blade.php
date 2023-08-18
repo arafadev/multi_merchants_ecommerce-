@@ -1,5 +1,7 @@
 @extends('site.master')
-@section('title', 'Vendor Details')
+@section('title')
+    {{ $vendor->name }} Details
+@endsection
 @section('main')
     <div class="page-header breadcrumb-wrap">
         <div class="container">

@@ -200,7 +200,7 @@
 
                             <li>
                                 <a href="shop-grid-right.html"> <img src=" {{ asset($category->image) }} "
-                                        alt="" />{{ $category->category_name }}</a><span
+                                        alt="" />{{ $category->name }}</a><span
                                     class="count">{{ count($products) }}</span>
                             </li>
                         @endforeach

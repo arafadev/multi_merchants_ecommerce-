@@ -24,6 +24,7 @@ Route::group(['prefix' => '/'], function () {
     Route::post('login', [UserLoginController::class, 'login'])->name('user.login');
     Route::get('register', [UserRegisterController::class, 'getRegister'])->name('user.register.form');
     Route::post('register', [UserRegisterController::class, 'register'])->name('user.register');
+ 
 
     // Route::get('register', [UserRegisterController::class, 'shop'])->name('user.register');
 
@@ -31,7 +32,7 @@ Route::group(['prefix' => '/'], function () {
     //  Become Vendor Routes
     Route::get('become/vendor', [VendorController::class, 'becomeVendor'])->name('become.vendor');
     Route::post('become/vendor', [VendorController::class, 'becomeVendorRegister'])->name('become_vendor.register');
-    Route::post('all/vendor', [VendorController::class, 'allVendor'])->name('vendor.all');
+    // Route::get('all/vendor', [VendorController::class, 'allVendor'])->name('vendor.all');
 
     // Categories with products
     Route::get('/product/category/{id}/{slug}', [IndexController::class, 'catWithProducts']);
