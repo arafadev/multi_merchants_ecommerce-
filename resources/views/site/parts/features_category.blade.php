@@ -21,7 +21,7 @@
                                     src="{{ asset($category->image) }}" alt="" /></a>
                         </figure>
                         <h6><a
-                                href="{{ url('product/category/' . $category->id . '/' . $category->slug) }}">{{ $category->name     }}</a>
+                                href="{{ url('product/category/' . $category->id . '/' . $category->slug) }}">{{ substr($category->name, 0, 9) . (strlen($category->name) > 9 ? '...' : '') }}</a>
                         </h6>
                         @php
                             $products = App\Models\Product::where('category_id', $category->id)->get();

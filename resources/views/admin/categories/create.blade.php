@@ -120,8 +120,9 @@
                         toastr.success(data.message, 'Success');
                     },
                     error: function(xhr, status, error) {
-                        if (xhr.responseJSON.hasOwnProperty('errors')) {
-                            var errors = xhr.responseJSON.errors;
+                        var response = xhr.responseJSON;
+                        if (response.hasOwnProperty('errors')) {
+                            var errors = response.errors;
                             $.each(errors, function(field, messages) {
                                 var input = $('input[name=' + field + ']');
                                 input.addClass('is-invalid');
@@ -142,7 +143,7 @@
                                 });
                             });
                         } else {
-                            toastr.error('An error occurred while store category');
+                            toastr.error(response.message, 'Error');
                         }
                     }
                 });

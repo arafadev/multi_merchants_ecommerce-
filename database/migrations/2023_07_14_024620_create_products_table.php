@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('brand_id')->constrained('brands')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('brand_id')->nullable()->constrained('brands')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('category_id')->constrained('categories')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('subcategory_id')->nullable()->constrained('sub_categories')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('vendor_id')->nullable()->constrained('vendors')->onUpdate('cascade')->onDelete('cascade');

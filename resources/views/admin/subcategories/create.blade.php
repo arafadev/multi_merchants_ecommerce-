@@ -1,4 +1,5 @@
 @extends('admin.master')
+@section('title', 'Create SubCategories')
 @section('content')
     <div class="page-content">
         <!--breadcrumb-->
