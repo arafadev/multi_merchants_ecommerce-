@@ -20,7 +20,7 @@ class StripeController extends Controller
         if (Session::has('coupon')) {
             $total_amount = Session::get('coupon')['total_amount'];
         } else {
-            $total_amount = round(Cart::total());
+            $total_amount = Cart::total();
         }
         \Stripe\Stripe::setApiKey('sk_test_51LKUjUFtjzmL2N4fegOTWP39Or6q6j5IJ6mGw97YKZYeYR2w49oEUgmPKpqTqeTxebpQK7DNGt5vd2GeWj3tKd8J00BZZQBanA');
 
@@ -29,7 +29,7 @@ class StripeController extends Controller
         $token = $_POST['stripeToken'];
 
         $charge = \Stripe\Charge::create([
-            'amount' => $total_amount * 100,
+            'amount' => $total_amount,
             'currency' => 'usd',
             'description' => 'From Graduation Project Store',
             'source' => $token,

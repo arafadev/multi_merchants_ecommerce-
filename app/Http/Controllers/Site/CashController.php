@@ -23,7 +23,7 @@ class CashController extends Controller
         if (Session::has('coupon')) {
             $total_amount = Session::get('coupon')['total_amount'];
         } else {
-            $total_amount = round(Cart::total());
+            $total_amount = Cart::total();
         }
         $order_id = Order::insertGetId([
             'user_id' => Auth::id(),
@@ -53,7 +53,6 @@ class CashController extends Controller
 
         ]);
         $carts = Cart::content();
-
         foreach ($carts as $cart) {
             $orderItem = [
                 'order_id' => $order_id,

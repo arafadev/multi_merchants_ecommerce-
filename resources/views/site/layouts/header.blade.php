@@ -515,7 +515,7 @@
                                 <li><a href="page-about.html">About Us</a></li>
                                 <li><a href="page-contact.html">Contact</a></li>
                                 <li><a href="page-account.html">My Account</a></li>
-                                <li><a href="page-login.html">Login</a></li>
+                                <li><a href="{{ route('user.login.form') }}">Login</a></li>
                                 <li><a href="page-register.html">Register</a></li>
                                 <li><a href="page-forgot-password.html">Forgot password</a></li>
                                 <li><a href="page-reset-password.html">Reset password</a></li>
@@ -543,7 +543,7 @@
                     <a href="page-contact.html"><i class="fi-rs-marker"></i> Our location </a>
                 </div>
                 <div class="single-mobile-header-info">
-                    <a href="page-login.html"><i class="fi-rs-user"></i>Log In / Sign Up </a>
+                    <a href="route('user.login.form')"><i class="fi-rs-user"></i>Log In / Sign Up </a>
                 </div>
                 <div class="single-mobile-header-info">
                     <a href="#"><i class="fi-rs-headphones"></i>(+01) - 2345 - 6789 </a>

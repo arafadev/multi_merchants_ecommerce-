@@ -2,27 +2,16 @@
     @section('title', 'Home')
     @section('main')
         @include('site.parts.slider')
-
         <!--End hero slider-->
         @include('site.parts.features_category')
 
         <!--End category slider-->
         @include('site.parts.banner')
         <!--End banners-->
-
-
         @include('site.parts.new_product')
-
         <!--Products Tabs-->
-
-
-
         @include('site.parts.features_product')
-
-
         <!--End Best Sales-->
-
-
 
         @if ($skip_product_0 == [''])
             <!-- Fashion Category -->
@@ -115,7 +104,8 @@
                                                         @endif
                                                     </div>
                                                     <span class="font-small ml-5 text-muted">
-                                                        ({{ count($reviewcount) }})</span>
+                                                        ({{ count($reviewcount) }})
+                                                    </span>
                                                 </div>
                                                 <div>
                                                     @if ($product->vendor_id == null)
@@ -618,11 +608,7 @@
             </div>
         </section>
         <!--End 4 columns-->
-
-
-
         <!--Vendor List -->
-
         @include('site.parts.vendor_list')
 
         <!--End Vendor List -->

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('division_id')->constrained('ship_divisions');
             $table->foreignId('district_id')->constrained('ship_districts');
-            $table->foreignId('state_id')->constrained('ship_states');
+            $table->foreignId('state_id')->nullable()->constrained('ship_states');
             $table->string('name');
             $table->string('email');
             $table->string('phone');
