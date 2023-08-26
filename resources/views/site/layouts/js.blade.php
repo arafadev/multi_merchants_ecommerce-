@@ -82,7 +82,7 @@
              success: function(data) {
                  miniCart();
                  $('#closeModal').click();
-                 console.log(data)
+                 //  console.log(data)
                  //  // Start Message
                  const Toast = Swal.mixin({
                      toast: true,
@@ -605,7 +605,6 @@
                  cart();
                  miniCart();
                  couponCalculation();
-
              }
          });
      }
